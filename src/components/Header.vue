@@ -1,8 +1,5 @@
 <template>
   <v-app-bar app color="primary" dark>
-    <router-link class="a" to="/">Home</router-link>
-    <router-link class="a" to="/register">Register</router-link>
-
     <div class="d-flex align-center">
       <v-img
         alt="Vuetify Logo"
@@ -25,6 +22,15 @@
 
     <v-spacer></v-spacer>
 
+    <v-btn text
+      ><router-link to="/"><span class="mr-2">Home</span></router-link></v-btn
+    >
+    <v-btn text
+      ><router-link to="/register"
+        ><span class="mr-2">Register</span></router-link
+      ></v-btn
+    >
+
     <v-btn
       href="https://github.com/vuetifyjs/vuetify/releases/latest"
       target="_blank"
@@ -42,11 +48,17 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
+.v-application a {
+  color: Black;
+}
 nav li:hover,
 nav li.router-link-active,
 nav li.router-link-exact-active {
   background-color: indianred;
   cursor: pointer;
+}
+a.router-link-exact-active.router-link-active {
+  color: white;
 }
 </style>
