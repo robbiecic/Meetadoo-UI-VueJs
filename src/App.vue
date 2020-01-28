@@ -1,32 +1,39 @@
 <template>
-  <v-app>
-    <v-content>
-      <Header />
-      <HelloWorld />
-      <UserRego />
-      <Footer />
-    </v-content>
-  </v-app>
+  <div id="app">
+    <Header />
+    <router-view />
+  </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
-import Footer from "./Footer.vue";
-import Header from "./Header.vue";
-import UserRego from "./user_registration.vue";
-
+import Header from "./components/Header";
 export default {
-  name: "App",
-
+  name: "app",
   components: {
-    HelloWorld,
-    Footer,
-    Header,
-    UserRego
-  },
-
-  data: () => ({
-    //
-  })
+    Header
+  }
 };
 </script>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.4;
+}
+.btn {
+  display: inline-block;
+  border: none;
+  background: #555;
+  color: #fff;
+  padding: 7px 20px;
+  cursor: pointer;
+}
+.btn:hover {
+  background: #666;
+}
+</style>

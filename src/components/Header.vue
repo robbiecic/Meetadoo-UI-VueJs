@@ -1,5 +1,8 @@
 <template>
   <v-app-bar app color="primary" dark>
+    <router-link class="a" to="/">Home</router-link>
+    <router-link class="a" to="/register">Register</router-link>
+
     <div class="d-flex align-center">
       <v-img
         alt="Vuetify Logo"
@@ -32,3 +35,18 @@
     </v-btn>
   </v-app-bar>
 </template>
+
+<script>
+export default {
+  name: "Header"
+};
+</script>
+
+<style scope>
+nav li:hover,
+nav li.router-link-active,
+nav li.router-link-exact-active {
+  background-color: indianred;
+  cursor: pointer;
+}
+</style>
