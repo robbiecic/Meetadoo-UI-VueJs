@@ -1,10 +1,11 @@
 <template>
-  <v-form id="user-rego">
+  <v-flex id="user-rego">
     <input v-model="message" placeholder="edit me" />
     <p>Message is: {{ message }}</p>
     <v-btn v-on:click="submit">Clear</v-btn>
-  </v-form>
+  </v-flex>
 </template>
+
 <script>
 import axios from "axios";
 
