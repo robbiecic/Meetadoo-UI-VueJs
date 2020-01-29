@@ -35,12 +35,10 @@
 import axios from "axios";
 
 var testData = {
-  data: {
-    email: "robert.cicero@test.com",
-    firstname: "Robert",
-    surname: "Cicero",
-    password: "password"
-  }
+  email: "robert.cicero@test.com",
+  firstname: "Robert",
+  surname: "Cicero",
+  password: "password"
 };
 export default {
   name: "UserRego",
@@ -74,9 +72,8 @@ export default {
     submit: function() {
       axios
         .post(
-          "/CreateUser",
-          { params: { action: "CreateUser" } },
-          { data: { data: testData } },
+          "https://i6vtmh1eq3.execute-api.ap-southeast-2.amazonaws.com/Development?action=CreateUser",
+          { data: testData },
           {
             headers: {
               "Content-Type": "application/json"
