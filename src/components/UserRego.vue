@@ -11,6 +11,22 @@
       </v-row>
       <v-row>
         <v-text-field
+          v-model="firstname"
+          :rules="nameRules"
+          label="First Name"
+          required
+        ></v-text-field>
+      </v-row>
+      <v-row>
+        <v-text-field
+          v-model="surname"
+          :rules="nameRules"
+          label="Surname"
+          required
+        ></v-text-field>
+      </v-row>
+      <v-row>
+        <v-text-field
           v-model="password"
           :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
           :rules="[rules.required, rules.min]"
@@ -22,9 +38,6 @@
           @click:append="show1 = !show1"
         ></v-text-field>
       </v-row>
-      <v-row>
-        <p>Email is: {{ email }}</p>
-      </v-row>
       <v-btn class="mr-4" @click="submit">submit</v-btn>
       <v-btn @click="clear">clear</v-btn>
     </v-container>
@@ -34,12 +47,6 @@
 <script>
 import axios from "axios";
 
-var testData = {
-  email: "robert.cicero@test.com",
-  firstname: "Robert",
-  surname: "Cicero",
-  password: "password"
-};
 export default {
   name: "UserRego",
   data() {
@@ -47,11 +54,8 @@ export default {
       email: "",
       valid: false,
       firstname: "",
-      lastname: "",
+      surname: "",
       show1: false,
-      show2: true,
-      show3: false,
-      show4: false,
       password: "",
       nameRules: [
         v => !!v || "Name is required",
@@ -70,10 +74,16 @@ export default {
   },
   methods: {
     submit: function() {
+      let postBody = {
+        email: this.email,
+        password: this.password,
+        firstname: this.firstname,
+        surname: this.surname
+      };
       axios
         .post(
           "https://i6vtmh1eq3.execute-api.ap-southeast-2.amazonaws.com/Development?action=CreateUser",
-          { data: testData },
+          { data: postBody },
           {
             headers: {
               "Content-Type": "application/json"
