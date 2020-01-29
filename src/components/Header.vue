@@ -37,11 +37,11 @@
       <span class="mr-2">Latest Release</span>
       <v-icon>mdi-open-in-new</v-icon>
     </v-btn>
-    <template v-slot:extension>
+    <template v-slot:extension v-if="$route.path == '/register'">
       <v-tabs align-with-title>
         <v-tab>Tab 1</v-tab>
         <v-tab>Tab 2</v-tab>
-        <v-tab>Tab 3</v-tab>
+        <v-tab>{{$route.path}}</v-tab>
       </v-tabs>
     </template>
   </v-app-bar>
