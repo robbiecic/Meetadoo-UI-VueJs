@@ -22,23 +22,28 @@
 
     <v-spacer></v-spacer>
 
-    <v-btn text
-      ><router-link to="/"><span class="mr-2">Home</span></router-link></v-btn
-    >
-    <v-btn text
-      ><router-link to="/register"
-        ><span class="mr-2">Register</span></router-link
-      ></v-btn
-    >
+    <v-btn text>
+      <router-link to="/">
+        <span class="mr-2">Home</span>
+      </router-link>
+    </v-btn>
+    <v-btn text>
+      <router-link to="/register">
+        <span class="mr-2">Register</span>
+      </router-link>
+    </v-btn>
 
-    <v-btn
-      href="https://github.com/vuetifyjs/vuetify/releases/latest"
-      target="_blank"
-      text
-    >
+    <v-btn href="https://github.com/vuetifyjs/vuetify/releases/latest" target="_blank" text>
       <span class="mr-2">Latest Release</span>
       <v-icon>mdi-open-in-new</v-icon>
     </v-btn>
+    <template v-slot:extension>
+      <v-tabs align-with-title>
+        <v-tab>Tab 1</v-tab>
+        <v-tab>Tab 2</v-tab>
+        <v-tab>Tab 3</v-tab>
+      </v-tabs>
+    </template>
   </v-app-bar>
 </template>
 
