@@ -66,8 +66,9 @@ export default {
     };
   },
   methods: {
-    submit: function(event) {
-      event.preventDefault();
+    submit: function() {
+      axios.defaults.baseURL =
+        "https://i6vtmh1eq3.execute-api.ap-southeast-2.amazonaws.com/Development";
       let postBody = {
         email: this.email,
         password: this.password,
@@ -76,13 +77,11 @@ export default {
       };
       axios
         .post(
-          "http://localhost:8080/?action=CreateUser",
-          //"https://i6vtmh1eq3.execute-api.ap-southeast-2.amazonaws.com/Development?action=CreateUser",
+          "?action=CreateUser",
           { data: postBody },
           {
             headers: {
               "Content-Type": "application/json",
-              Accept: "application/json",
               "Access-Control-Allow-Origin": "*"
             }
           }
@@ -96,7 +95,7 @@ export default {
           this.clear();
         })
         .catch(function(error) {
-          console.log(error);
+          console.log(error.response);
         });
     },
     clear() {
