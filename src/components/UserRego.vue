@@ -2,28 +2,13 @@
   <v-form v-model="valid">
     <v-container>
       <v-row>
-        <v-text-field
-          v-model="email"
-          :rules="emailRules"
-          label="E-mail"
-          required
-        ></v-text-field>
+        <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
       </v-row>
       <v-row>
-        <v-text-field
-          v-model="firstname"
-          :rules="nameRules"
-          label="First Name"
-          required
-        ></v-text-field>
+        <v-text-field v-model="firstname" :rules="nameRules" label="First Name" required></v-text-field>
       </v-row>
       <v-row>
-        <v-text-field
-          v-model="surname"
-          :rules="nameRules"
-          label="Surname"
-          required
-        ></v-text-field>
+        <v-text-field v-model="surname" :rules="nameRules" label="Surname" required></v-text-field>
       </v-row>
       <v-row>
         <v-text-field
@@ -40,6 +25,12 @@
       </v-row>
       <v-btn class="mr-4" @click="submit">submit</v-btn>
       <v-btn @click="clear">clear</v-btn>
+      <v-row>
+        <v-alert
+          type="success"
+          v-if="successAlert == true"
+        >You are now registered {{this.firstname}}</v-alert>
+      </v-row>
     </v-container>
   </v-form>
 </template>
@@ -58,6 +49,7 @@ export default {
       show1: false,
       password: "",
       isLoggedOn: false,
+      successAlert: false,
       nameRules: [
         v => !!v || "Name is required",
         v => v.length <= 10 || "Name must be less than 10 characters"
@@ -74,7 +66,8 @@ export default {
     };
   },
   methods: {
-    submit: function() {
+    submit: function(event) {
+      event.preventDefault();
       let postBody = {
         email: this.email,
         password: this.password,
@@ -83,17 +76,24 @@ export default {
       };
       axios
         .post(
-          "https://i6vtmh1eq3.execute-api.ap-southeast-2.amazonaws.com/Development?action=CreateUser",
+          "http://localhost:8080/?action=CreateUser",
+          //"https://i6vtmh1eq3.execute-api.ap-southeast-2.amazonaws.com/Development?action=CreateUser",
           { data: postBody },
           {
             headers: {
-              "Content-Type": "application/json"
+              "Content-Type": "application/json",
+              Accept: "application/json",
+              "Access-Control-Allow-Origin": "*"
             }
           }
         )
         .then(function(response) {
+          console.log("here");
+          this.successAlert = true;
           this.isLoggedOn = true;
+          //localStorage.jwt = response.jwt;
           console.log(response);
+          this.clear();
         })
         .catch(function(error) {
           console.log(error);
