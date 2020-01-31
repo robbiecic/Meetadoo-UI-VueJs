@@ -2,28 +2,13 @@
   <v-form v-model="valid">
     <v-container>
       <v-row>
-        <v-text-field
-          v-model="email"
-          :rules="emailRules"
-          label="E-mail"
-          required
-        ></v-text-field>
+        <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
       </v-row>
       <v-row>
-        <v-text-field
-          v-model="firstname"
-          :rules="nameRules"
-          label="First Name"
-          required
-        ></v-text-field>
+        <v-text-field v-model="firstname" :rules="nameRules" label="First Name" required></v-text-field>
       </v-row>
       <v-row>
-        <v-text-field
-          v-model="surname"
-          :rules="nameRules"
-          label="Surname"
-          required
-        ></v-text-field>
+        <v-text-field v-model="surname" :rules="nameRules" label="Surname" required></v-text-field>
       </v-row>
       <v-row>
         <v-text-field
@@ -41,9 +26,10 @@
       <v-btn class="mr-4" @click="submit">submit</v-btn>
       <v-btn @click="clear">clear</v-btn>
       <v-row>
-        <v-alert type="success" v-if="successAlert == true"
-          >You are now registered {{ this.firstname }}</v-alert
-        >
+        <v-alert
+          type="success"
+          v-if="successAlert == true"
+        >You are now registered {{ this.firstname }}</v-alert>
       </v-row>
     </v-container>
   </v-form>
@@ -82,8 +68,6 @@ export default {
   methods: {
     submit: function(event) {
       event.preventDefault();
-      axios.defaults.baseURL =
-        "https://i6vtmh1eq3.execute-api.ap-southeast-2.amazonaws.com/Development/";
       let postBody = {
         email: this.email,
         password: this.password,
@@ -93,11 +77,10 @@ export default {
       axios
         .post(
           "/?action=CreateUser",
-          { data: postBody },
+          { data: JSON.stringify(postBody) },
           {
             headers: {
-              "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*"
+              "content-type": "application/json"
             }
           }
         )
