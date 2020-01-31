@@ -33,12 +33,20 @@
           <span class="mr-2">Register</span>
         </router-link>
       </v-btn>
-
-      <v-btn href="https://github.com/vuetifyjs/vuetify/releases/latest" target="_blank" text>
+      <v-btn text>
+        <router-link to="/login">
+          <span class="mr-2">Login</span>
+        </router-link>
+      </v-btn>
+      <v-btn
+        href="https://github.com/vuetifyjs/vuetify/releases/latest"
+        target="_blank"
+        text
+      >
         <span class="mr-2">Latest Release</span>
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
-      <template v-slot:extension v-if="$route.path == '/register'">
+      <template v-slot:extension v-if="$route.path == '/dashboard'">
         <v-tabs align-with-title>
           <v-tab>Tab 1</v-tab>
           <v-tab>Tab 2</v-tab>
