@@ -1,6 +1,9 @@
 <template>
   <v-form v-model="valid">
     <v-container>
+      <v-alert type="error" v-if="failAlert == true"
+        >Email and/or password is not valid</v-alert
+      >
       <v-row>
         <v-text-field v-model="email" label="E-mail" required></v-text-field>
       </v-row>
@@ -15,26 +18,20 @@
           @click:append="show1 = !show1"
         ></v-text-field>
       </v-row>
-      <v-btn class="mr-4" @click="submit">submit</v-btn>
-      <v-btn @click="clear">clear</v-btn>
-      <div class="text-center" v-if="showLoader == true">
-        <v-progress-circular
-          :indeterminate="indeterminate"
-          :rotate="rotate"
-          :size="size"
-          :value="value"
-          :width="width"
-          color="light-blue"
-        ></v-progress-circular>
+      <div class="text-center">
+        <v-btn class="mr-4" @click="submit">submit</v-btn>
+        <v-btn @click="clear">clear</v-btn>
+        <div class="text-center" v-if="showLoader == true">
+          <v-progress-circular
+            :indeterminate="indeterminate"
+            :rotate="rotate"
+            :size="size"
+            :value="value"
+            :width="width"
+            color="light-blue"
+          ></v-progress-circular>
+        </div>
       </div>
-      <v-row>
-        <v-alert type="success" v-if="successAlert == true"
-          >You are now registered {{ this.firstname }}</v-alert
-        >
-        <v-alert type="fail" v-if="failAlert == true"
-          >Email and/or password is not valid</v-alert
-        >
-      </v-row>
     </v-container>
   </v-form>
 </template>
@@ -57,14 +54,12 @@ export default {
       show1: false,
       password: "",
       isLoggedOn: false,
-      successAlert: false,
       failAlert: false
     };
   },
   methods: {
     submit: function(event) {
       event.preventDefault();
-      this.successAlert = false;
       this.failAlert = false;
 
       let postBody = {
@@ -84,10 +79,9 @@ export default {
           }
         )
         .then(response => {
-          this.successAlert = true;
           this.isLoggedOn = true;
-          localStorage.jwt = response.data.jwt;
-          console.log(response);
+          var responseData = response.data.replace(/'/g, '"');
+          localStorage.jwt = JSON.parse(responseData).token;
           this.clear();
           this.showLoader = false;
           this.$router.push("dashboard");
