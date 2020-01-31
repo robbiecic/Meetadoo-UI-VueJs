@@ -25,11 +25,22 @@
       </v-row>
       <v-btn class="mr-4" @click="submit">submit</v-btn>
       <v-btn @click="clear">clear</v-btn>
+      <div class="text-center" v-if="showLoader == true">
+        <v-progress-circular
+          :indeterminate="indeterminate"
+          :rotate="rotate"
+          :size="size"
+          :value="value"
+          :width="width"
+          color="light-blue"
+        ></v-progress-circular>
+      </div>
       <v-row>
         <v-alert
           type="success"
           v-if="successAlert == true"
         >You are now registered {{ this.firstname }}</v-alert>
+        <v-alert type="fail" v-if="failAlert == true">A user with this email address already exists</v-alert>
       </v-row>
     </v-container>
   </v-form>
@@ -42,6 +53,12 @@ export default {
   name: "UserRego",
   data() {
     return {
+      showLoader: false,
+      indeterminate: true,
+      rotate: 0,
+      size: 32,
+      value: 0,
+      width: 4,
       email: "",
       valid: false,
       firstname: "",
@@ -50,6 +67,7 @@ export default {
       password: "",
       isLoggedOn: false,
       successAlert: false,
+      failAlert: false,
       nameRules: [
         v => !!v || "Name is required",
         v => v.length <= 10 || "Name must be less than 10 characters"
@@ -75,6 +93,7 @@ export default {
         firstname: this.firstname,
         surname: this.surname
       };
+      this.showLoader = true;
       axios
         .post(
           "http://localhost:8080/Development/?action=CreateUser",
@@ -86,22 +105,31 @@ export default {
             }
           }
         )
-        .then(function(response) {
-          console.log("here");
+        .then(response => {
           this.successAlert = true;
           this.isLoggedOn = true;
-          localStorage.jwt = response.jwt;
+          localStorage.jwt = response.data.jwt;
           console.log(response);
           this.clear();
+          this.showLoader = false;
         })
-        .catch(function(error) {
-          console.log(error);
+        .catch(() => {
+          this.failAlert = true;
+          this.clear();
+          this.showLoader = false;
         });
     },
     clear() {
-      this.name = "";
       this.email = "";
+      this.firstname = "";
+      this.surname = "";
+      this.password = "";
     }
   }
 };
 </script>
+<style scoped>
+.v-progress-circular {
+  margin: 1rem;
+}
+</style>
