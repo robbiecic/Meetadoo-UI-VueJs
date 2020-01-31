@@ -68,6 +68,7 @@ export default {
   methods: {
     submit: function(event) {
       event.preventDefault();
+
       let postBody = {
         email: this.email,
         password: this.password,
@@ -76,11 +77,12 @@ export default {
       };
       axios
         .post(
-          "/?action=CreateUser",
-          { data: JSON.stringify(postBody) },
+          "http://localhost:8080/Development/?action=CreateUser",
+          { data: postBody },
           {
             headers: {
-              "content-type": "application/json"
+              "content-type": "application/json",
+              "Access-Control-Allow-Origin": "*"
             }
           }
         )
@@ -88,7 +90,7 @@ export default {
           console.log("here");
           this.successAlert = true;
           this.isLoggedOn = true;
-          //localStorage.jwt = response.jwt;
+          localStorage.jwt = response.jwt;
           console.log(response);
           this.clear();
         })
