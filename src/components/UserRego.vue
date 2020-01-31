@@ -1,6 +1,12 @@
 <template>
   <v-form v-model="valid">
     <v-container>
+      <v-alert type="success" v-if="successAlert == true"
+        >You are now registered {{ this.firstname }}</v-alert
+      >
+      <v-alert type="fail" v-if="failAlert == true"
+        >A user with this email address already exists</v-alert
+      >
       <v-row>
         <v-text-field
           v-model="email"
@@ -50,14 +56,6 @@
           color="light-blue"
         ></v-progress-circular>
       </div>
-      <v-row>
-        <v-alert type="success" v-if="successAlert == true"
-          >You are now registered {{ this.firstname }}</v-alert
-        >
-        <v-alert type="fail" v-if="failAlert == true"
-          >A user with this email address already exists</v-alert
-        >
-      </v-row>
     </v-container>
   </v-form>
 </template>
