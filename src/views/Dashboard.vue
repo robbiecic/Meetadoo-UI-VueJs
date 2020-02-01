@@ -1,17 +1,18 @@
 <template>
   <v-app>
     <v-content>
-      MY DASHBOARD
+      <h1>MY Profile</h1>
+      <Profile />
     </v-content>
   </v-app>
 </template>
 
 <script>
-//import HelloWorld from "../components/HelloWorld";
+import Profile from "../components/Profile";
 export default {
   name: "Dashboard",
 
-  components: {},
+  components: { Profile },
 
   data: () => ({
     //
