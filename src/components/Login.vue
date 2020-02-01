@@ -61,7 +61,7 @@ export default {
     submit: function(event) {
       event.preventDefault();
       this.failAlert = false;
-
+      axios.defaults.withCredentials = true;
       let postBody = {
         email: this.email,
         password: this.password

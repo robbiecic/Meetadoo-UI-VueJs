@@ -1,64 +1,66 @@
 <template>
   <v-form v-model="valid">
     <v-container>
+      <div class="text-center" v-if="showLoader == true">
+        <v-progress-circular
+          :indeterminate="indeterminate"
+          :rotate="rotate"
+          :size="size"
+          :value="value"
+          :width="width"
+          color="light-blue"
+        ></v-progress-circular>
+      </div>
+      <br />
       {{ firstname }}
     </v-container>
   </v-form>
 </template>
 
 <script>
-//import axios from "axios";
+import axios from "axios";
 
 export default {
   name: "Profile",
   data() {
     return {
-      firstname: ""
+      firstname: "",
+      showLoader: false,
+      indeterminate: true,
+      rotate: 0,
+      size: 32,
+      value: 0,
+      width: 4
     };
   },
   methods: {
-    getProfile: function() {
-      console.log("here");
-      // event.preventDefault();
+    getProfile: function(email_address) {
+      event.preventDefault();
       // this.successAlert = false;
       // this.failAlert = false;
-      //
-      // let postBody = {
-      //   email: this.email,
-      //   password: this.password,
-      //   firstname: this.firstname,
-      //   surname: this.surname
-      // };
-      // this.showLoader = true;
-      // axios
-      //   .post(
-      //     "http://localhost:8080/Development/?action=CreateUser",
-      //     { data: postBody },
-      //     {
-      //       headers: {
-      //         "content-type": "application/json",
-      //         "Access-Control-Allow-Origin": "*"
-      //       }
-      //     }
-      //   )
-      //   .then(response => {
-      //     this.successAlert = true;
-      //     this.isLoggedOn = true;
-      //     localStorage.jwt = response.data.jwt;
-      //     console.log(response);
-      //     this.clear();
-      //     this.showLoader = false;
-      //     this.$router.push("dashboard");
-      //   })
-      //   .catch(() => {
-      //     this.failAlert = true;
-      //     this.clear();
-      //     this.showLoader = false;
-      //   });
+      axios.defaults.withCredentials = true;
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      this.showLoader = true;
+
+      console.log(email_address);
+      var requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow"
+      };
+
+      fetch(
+        "https://i6vtmh1eq3.execute-api.ap-southeast-2.amazonaws.com/Development?action=getUser&email=test5@test.com",
+        requestOptions
+      )
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log("error", error));
     }
   },
   created: function() {
-    this.getProfile();
+    this.getProfile("test5@test.com");
   }
 };
 </script>
