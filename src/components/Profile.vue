@@ -13,6 +13,8 @@
       </div>
       <br />
       {{ firstname }}
+      {{ surname }}
+      {{ email }}
     </v-container>
     <v-container v-if="failAlert == true">
       <v-alert type="error"
@@ -30,6 +32,8 @@ export default {
   data() {
     return {
       firstname: "",
+      surname: "",
+      email: "",
       showLoader: false,
       indeterminate: true,
       rotate: 0,
@@ -41,8 +45,8 @@ export default {
   },
   methods: {
     getProfile: function() {
-      axios.defaults.withCredentials = true;
       this.showLoader = true;
+      axios.defaults.withCredentials = true;
       this.failAlert = false;
       axios
         .get("http://localhost:8080/Development/?action=getUser", {
@@ -52,6 +56,8 @@ export default {
           let data = response.data;
           let data_json = JSON.parse(data.replace(/'/g, '"'));
           this.firstname = data_json.firstname;
+          this.surname = data_json.surname;
+          this.email = data_json.email;
           this.showLoader = false;
         })
         .catch(e => {
@@ -62,7 +68,7 @@ export default {
     }
   },
   created: function() {
-    //Each time this page is refreshed or component is loaded, get profile using the Cookie the user may havE
+    //Each time this page is refreshed or component is loaded, get the user's profile using the Cookie the user may have received from server after logging in successfully
     this.getProfile();
   }
 };
