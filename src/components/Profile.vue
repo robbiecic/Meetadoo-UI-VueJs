@@ -1,17 +1,22 @@
 <template>
   <v-form>
-    <v-container v-if="failAlert == false">
-      <h1>MY Profile</h1>
-      <div class="text-center" v-if="showLoader == true">
-        <v-progress-circular
-          :indeterminate="indeterminate"
-          :rotate="rotate"
-          :size="size"
-          :value="value"
-          :width="width"
-          color="light-blue"
-        ></v-progress-circular>
-      </div>
+    <v-container class="text-center" v-if="showLoader == true">
+      <v-progress-circular
+        :indeterminate="indeterminate"
+        :rotate="rotate"
+        :size="size"
+        :value="value"
+        :width="width"
+        color="light-blue"
+      ></v-progress-circular>
+    </v-container>
+    <v-container v-if="failAlert == true">
+      <v-alert type="error"
+        >You are not authorised to perform this action</v-alert
+      >
+    </v-container>
+    <v-container v-if="failAlert == false && showLoader == false">
+      <h1>My Profile</h1>
       <br />
       <v-text-field
         v-model="email"
@@ -22,7 +27,6 @@
         :single-line="singleLine"
         :filled="filled"
         :persistent-hint="persistentHint"
-        :loading="loading"
         :flat="flat"
         :counter="counterEn ? counter : false"
         :dense="dense"
@@ -39,9 +43,11 @@
         :single-line="singleLine"
         :filled="filled"
         :persistent-hint="persistentHint"
-        :loading="loading"
+        :loading="loadingFirstname"
         :flat="flat"
         :dense="dense"
+        :disabled="disableFields == 1"
+        @click:append="toggleSave('firstname')"
       ></v-text-field>
       <v-text-field
         v-model="surname"
@@ -54,15 +60,13 @@
         :single-line="singleLine"
         :filled="filled"
         :persistent-hint="persistentHint"
-        :loading="loading"
+        :loading="loadingSurname"
         :flat="flat"
         :dense="dense"
+        :disabled="disableFields == 1"
+        @click:append="toggleSave('surname')"
       ></v-text-field>
-    </v-container>
-    <v-container v-if="failAlert == true">
-      <v-alert type="error"
-        >You are not authorised to perform this action</v-alert
-      >
+      <v-btn @click="cancel">Cancel</v-btn>
     </v-container>
   </v-form>
 </template>
@@ -94,12 +98,14 @@ export default {
       singleLine: false,
       filled: false,
       clearable: true,
-      loading: true,
+      loadingFirstname: false,
+      loadingSurname: false,
       flat: false,
       counterEn: false,
       counter: 0,
       dense: false,
-      icon: "mdi-content-save"
+      icon: "mdi-content-save",
+      disableFields: 0
     };
   },
   methods: {
@@ -124,6 +130,25 @@ export default {
           this.failAlert = true;
           this.showLoader = false;
         });
+    },
+    toggleSave: function(loadingBar) {
+      // Toggle logging symbol for item which is updated
+      if (loadingBar == "firstname") this.loadingFirstname = true;
+      if (loadingBar == "surname") this.loadingSurname = true;
+      // Move all fields to disabled
+      this.disableFields = 1;
+      // Form body to send in API request
+      let body = {
+        email: this.email,
+        firstname: this.firstname,
+        surname: this.surname
+      };
+      console.log(body);
+    },
+    cancel: function() {
+      this.loadingFirstname = false;
+      this.loadingSurname = false;
+      this.disableFields = 0;
     }
   },
   created: function() {
