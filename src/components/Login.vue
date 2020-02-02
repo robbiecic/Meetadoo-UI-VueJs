@@ -84,7 +84,7 @@ export default {
           localStorage.jwt = JSON.parse(responseData).token;
           this.clear();
           this.showLoader = false;
-          this.$router.push("dashboard");
+          this.$router.push({ name: "Dashboard" });
         })
         .catch(() => {
           this.failAlert = true;

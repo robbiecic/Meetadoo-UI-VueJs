@@ -1,6 +1,6 @@
 <template>
-  <v-form v-model="valid">
-    <v-container>
+  <v-form>
+    <v-container v-if="failAlert == false">
       <div class="text-center" v-if="showLoader == true">
         <v-progress-circular
           :indeterminate="indeterminate"
@@ -13,6 +13,11 @@
       </div>
       <br />
       {{ firstname }}
+    </v-container>
+    <v-container v-if="failAlert == true">
+      <v-alert type="error"
+        >You are not authorised to perform this action</v-alert
+      >
     </v-container>
   </v-form>
 </template>
@@ -30,40 +35,35 @@ export default {
       rotate: 0,
       size: 32,
       value: 0,
-      width: 4
+      width: 4,
+      failAlert: false
     };
   },
   methods: {
-    getProfile: function(email_address) {
-      event.preventDefault();
-      // this.successAlert = false;
-      // this.failAlert = false;
+    getProfile: function() {
       axios.defaults.withCredentials = true;
       this.showLoader = true;
-
+      this.failAlert = false;
       axios
-        .get(
-          "http://localhost:8080/Development/?action=getUser&email=" +
-            email_address,
-          {
-            headers: {
-              "Access-Control-Allow-Origin": "*", // <-- Add your specific origin here
-              "Access-Control-Allow-Credentials": true
-            }
-          },
-          { withCredentials: true }
-        )
+        .get("http://localhost:8080/Development/?action=getUser", {
+          withCredentials: true
+        })
         .then(response => {
-          console.log(response);
+          let data = response.data;
+          let data_json = JSON.parse(data.replace(/'/g, '"'));
+          this.firstname = data_json.firstname;
           this.showLoader = false;
         })
         .catch(e => {
           console.log(e);
+          this.failAlert = true;
+          this.showLoader = false;
         });
     }
   },
   created: function() {
-    this.getProfile("test5@test.com");
+    //Each time this page is refreshed or component is loaded, get profile using the Cookie the user may havE
+    this.getProfile();
   }
 };
 </script>
