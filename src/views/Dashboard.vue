@@ -1,7 +1,6 @@
 <template>
   <v-app>
     <v-content>
-      <h1>MY Profile</h1>
       <Profile v-bind:user="user" />
     </v-content>
   </v-app>

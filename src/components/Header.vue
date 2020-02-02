@@ -38,6 +38,11 @@
           <span class="mr-2">Login</span>
         </router-link>
       </v-btn>
+      <v-btn text v-if="isLoggedOn == true">
+        <router-link to="/dashboard">
+          <span class="mr-2">Dashboard</span>
+        </router-link>
+      </v-btn>
       <v-btn
         href="https://github.com/vuetifyjs/vuetify/releases/latest"
         target="_blank"
@@ -48,9 +53,9 @@
       </v-btn>
       <template v-slot:extension v-if="$route.path == '/dashboard'">
         <v-tabs align-with-title>
-          <v-tab>Tab 1</v-tab>
-          <v-tab>Tab 2</v-tab>
-          <v-tab>Tab 3</v-tab>
+          <v-tab>Minutes</v-tab>
+          <v-tab>Actions</v-tab>
+          <v-tab>Profile</v-tab>
         </v-tabs>
       </template>
     </v-app-bar>

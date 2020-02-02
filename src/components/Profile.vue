@@ -1,6 +1,7 @@
 <template>
   <v-form>
     <v-container v-if="failAlert == false">
+      <h1>MY Profile</h1>
       <div class="text-center" v-if="showLoader == true">
         <v-progress-circular
           :indeterminate="indeterminate"

@@ -128,6 +128,7 @@ export default {
           console.log(response);
           this.clear();
           this.showLoader = false;
+          this.$store.commit("setUser");
           this.$router.push("dashboard");
         })
         .catch(() => {
