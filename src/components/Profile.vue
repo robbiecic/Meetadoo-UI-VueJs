@@ -39,24 +39,27 @@ export default {
       // this.successAlert = false;
       // this.failAlert = false;
       axios.defaults.withCredentials = true;
-      var myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
       this.showLoader = true;
 
-      console.log(email_address);
-      var requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow"
-      };
-
-      fetch(
-        "https://i6vtmh1eq3.execute-api.ap-southeast-2.amazonaws.com/Development?action=getUser&email=test5@test.com",
-        requestOptions
-      )
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log("error", error));
+      axios
+        .get(
+          "http://localhost:8080/Development/?action=getUser&email=" +
+            email_address,
+          {
+            headers: {
+              "Access-Control-Allow-Origin": "*", // <-- Add your specific origin here
+              "Access-Control-Allow-Credentials": true
+            }
+          },
+          { withCredentials: true }
+        )
+        .then(response => {
+          console.log(response);
+          this.showLoader = false;
+        })
+        .catch(e => {
+          console.log(e);
+        });
     }
   },
   created: function() {
