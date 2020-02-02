@@ -26,7 +26,6 @@
         :rounded="rounded"
         :single-line="singleLine"
         :filled="filled"
-        :persistent-hint="persistentHint"
         :flat="flat"
         :counter="counterEn ? counter : false"
         :dense="dense"
@@ -42,7 +41,6 @@
         :solo="solo"
         :single-line="singleLine"
         :filled="filled"
-        :persistent-hint="persistentHint"
         :loading="loadingFirstname"
         :flat="flat"
         :dense="dense"
@@ -59,7 +57,6 @@
         :solo="solo"
         :single-line="singleLine"
         :filled="filled"
-        :persistent-hint="persistentHint"
         :loading="loadingSurname"
         :flat="flat"
         :dense="dense"
@@ -132,6 +129,7 @@ export default {
         });
     },
     toggleSave: function(loadingBar) {
+      // What happens if save takes too long?
       // Toggle logging symbol for item which is updated
       if (loadingBar == "firstname") this.loadingFirstname = true;
       if (loadingBar == "surname") this.loadingSurname = true;
