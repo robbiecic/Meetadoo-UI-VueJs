@@ -16,8 +16,13 @@
       >
     </v-container>
     <v-container v-if="failAlert == false && showLoader == false">
+      <br />
       <h1>My Profile</h1>
       <br />
+      <v-alert type="error" v-if="updateFail == true"
+        >Something went wrong updating your data. Please try again
+        later.</v-alert
+      >
       <v-text-field
         v-model="email"
         :label="'Email'"
@@ -102,7 +107,8 @@ export default {
       counter: 0,
       dense: false,
       icon: "mdi-content-save",
-      disableFields: 0
+      disableFields: 0,
+      updateFail: false
     };
   },
   methods: {
@@ -135,13 +141,32 @@ export default {
       if (loadingBar == "surname") this.loadingSurname = true;
       // Move all fields to disabled
       this.disableFields = 1;
+      this.updateFail = false;
       // Form body to send in API request
       let body = {
         email: this.email,
         firstname: this.firstname,
         surname: this.surname
       };
-      console.log(body);
+      axios
+        .post(
+          "http://localhost:8080/Development/?action=UpdateUser",
+          { data: body },
+          {
+            headers: {
+              "content-type": "application/json",
+              "Access-Control-Allow-Origin": "*"
+            }
+          }
+        )
+        .then(() => {
+          //If update user is successful, get latest data
+          this.getProfile();
+        })
+        .catch(() => {
+          this.updateFail = true;
+          this.cancel();
+        });
     },
     cancel: function() {
       this.loadingFirstname = false;
