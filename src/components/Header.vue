@@ -33,7 +33,7 @@
           <span class="mr-2">Register</span>
         </router-link>
       </v-btn>
-      <v-btn text>
+      <v-btn text v-if="isLoggedOn == false">
         <router-link to="/login">
           <span class="mr-2">Login</span>
         </router-link>
@@ -58,8 +58,15 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
-  name: "Header"
+  name: "Header",
+  computed: {
+    ...mapState({
+      isLoggedOn: "isLoggedOn"
+    })
+  }
 };
 </script>
 

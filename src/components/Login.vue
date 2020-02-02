@@ -84,6 +84,7 @@ export default {
           localStorage.jwt = JSON.parse(responseData).token;
           this.clear();
           this.showLoader = false;
+          this.$store.commit("setUser");
           this.$router.push({ name: "Dashboard" });
         })
         .catch(() => {
