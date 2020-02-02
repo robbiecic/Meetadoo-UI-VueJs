@@ -13,9 +13,51 @@
         ></v-progress-circular>
       </div>
       <br />
-      {{ firstname }}
-      {{ surname }}
-      {{ email }}
+      <v-text-field
+        v-model="email"
+        :label="'Email'"
+        :shaped="shaped"
+        :outlined="outlined"
+        :rounded="rounded"
+        :single-line="singleLine"
+        :filled="filled"
+        :persistent-hint="persistentHint"
+        :loading="loading"
+        :flat="flat"
+        :counter="counterEn ? counter : false"
+        :dense="dense"
+        disabled
+      ></v-text-field>
+      <v-text-field
+        v-model="firstname"
+        :append-icon="icon"
+        :label="'Fist Name'"
+        :shaped="shaped"
+        :outlined="outlined"
+        :rounded="rounded"
+        :solo="solo"
+        :single-line="singleLine"
+        :filled="filled"
+        :persistent-hint="persistentHint"
+        :loading="loading"
+        :flat="flat"
+        :dense="dense"
+      ></v-text-field>
+      <v-text-field
+        v-model="surname"
+        :append-icon="icon"
+        :label="'Surname'"
+        :shaped="shaped"
+        :outlined="outlined"
+        :rounded="rounded"
+        :solo="solo"
+        :single-line="singleLine"
+        :filled="filled"
+        :persistent-hint="persistentHint"
+        :loading="loading"
+        :flat="flat"
+        :dense="dense"
+      ></v-text-field>
     </v-container>
     <v-container v-if="failAlert == true">
       <v-alert type="error"
@@ -41,7 +83,23 @@ export default {
       size: 32,
       value: 0,
       width: 4,
-      failAlert: false
+      failAlert: false,
+      model: "I'm a text field",
+      label: "Email Address",
+      placeholder: "",
+      shaped: false,
+      outlined: true,
+      rounded: true,
+      solo: false,
+      singleLine: false,
+      filled: false,
+      clearable: true,
+      loading: true,
+      flat: false,
+      counterEn: false,
+      counter: 0,
+      dense: false,
+      icon: "mdi-content-save"
     };
   },
   methods: {

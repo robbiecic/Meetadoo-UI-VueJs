@@ -53,9 +53,9 @@
       </v-btn>
       <template v-slot:extension v-if="$route.path == '/dashboard'">
         <v-tabs align-with-title>
+          <v-tab><router-link to="/dashboard">Profile</router-link></v-tab>
           <v-tab>Minutes</v-tab>
           <v-tab>Actions</v-tab>
-          <v-tab>Profile</v-tab>
         </v-tabs>
       </template>
     </v-app-bar>
@@ -87,5 +87,8 @@ nav li.router-link-exact-active {
 }
 a.router-link-exact-active.router-link-active {
   color: white;
+}
+a {
+  text-decoration: none;
 }
 </style>
