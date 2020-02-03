@@ -51,10 +51,17 @@
         <span class="mr-2">Latest Release</span>
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
-      <template v-slot:extension v-if="$route.path == '/dashboard'">
+      <template
+        v-slot:extension
+        v-if="
+          $route.path == '/dashboard' || $route.path == '/dashboard/minutes'
+        "
+      >
         <v-tabs align-with-title>
           <v-tab><router-link to="/dashboard">Profile</router-link></v-tab>
-          <v-tab>Minutes</v-tab>
+          <v-tab
+            ><router-link to="/dashboard/minutes">Minutes</router-link></v-tab
+          >
           <v-tab>Actions</v-tab>
         </v-tabs>
       </template>
@@ -67,6 +74,11 @@ import { mapState } from "vuex";
 
 export default {
   name: "Header",
+  data() {
+    return {
+      showPaths: false
+    };
+  },
   computed: {
     ...mapState({
       isLoggedOn: "isLoggedOn"
