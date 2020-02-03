@@ -1,7 +1,6 @@
 <template>
   <v-app>
     <v-content>
-      <h1>Minutes View</h1>
       <MinutesList />
     </v-content>
   </v-app>
