@@ -23,6 +23,9 @@
         >Something went wrong updating your data. Please try again
         later.</v-alert
       >
+      <v-alert type="success" v-if="updateSuccess == true" dismissible
+        >You have successfully updated your profile.</v-alert
+      >
       <v-text-field
         v-model="email"
         :label="'Email'"
@@ -68,7 +71,6 @@
         :disabled="disableFields == 1"
         @click:append="toggleSave('surname')"
       ></v-text-field>
-      <v-btn @click="cancel">Cancel</v-btn>
     </v-container>
   </v-form>
 </template>
@@ -108,11 +110,12 @@ export default {
       dense: false,
       icon: "mdi-content-save",
       disableFields: 0,
-      updateFail: false
+      updateFail: false,
+      updateSuccess: false
     };
   },
   methods: {
-    getProfile: function() {
+    getProfile: function(updateCheck) {
       this.showLoader = true;
       axios.defaults.withCredentials = true;
       this.failAlert = false;
@@ -127,6 +130,8 @@ export default {
           this.surname = data_json.surname;
           this.email = data_json.email;
           this.showLoader = false;
+          this.cancel();
+          if (updateCheck == "update_succes") this.updateSuccess = true;
         })
         .catch(e => {
           console.log(e);
@@ -161,7 +166,7 @@ export default {
         )
         .then(() => {
           //If update user is successful, get latest data
-          this.getProfile();
+          this.getProfile("update_succes");
         })
         .catch(() => {
           this.updateFail = true;
@@ -172,6 +177,7 @@ export default {
       this.loadingFirstname = false;
       this.loadingSurname = false;
       this.disableFields = 0;
+      this.updateSuccess = false;
     }
   },
   created: function() {
