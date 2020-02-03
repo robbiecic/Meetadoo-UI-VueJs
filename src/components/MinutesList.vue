@@ -1,19 +1,19 @@
 <template>
-  <v-form v-model="valid">
+  <v-form>
     <v-container>
       <v-row no-gutters>
         <v-col justify="center">
           <MinuteSummary
-            v-for="(todo) in minuteItems"
+            v-for="todo in minuteItems"
             v-bind:key="todo.id"
             v-bind:title="todo.title"
             v-bind:creator="todo.creator"
             v-bind:meetingDate="todo.meetingDate"
-            v-on:click="clickedMinute(1)"
+            v-on:click.native="clickedMinute(todo)"
           />
         </v-col>
         <v-col justify="center">
-          <MinuteDetail />
+          <MinuteDetail v-bind:minuteDetail="minuteDetail" />
         </v-col>
       </v-row>
     </v-container>
@@ -55,7 +55,7 @@ export default {
           meetingDate: "2020-06-15"
         }
       ],
-      minuteDetailID: ""
+      minuteDetail: {}
     };
   },
   components: {
@@ -63,9 +63,8 @@ export default {
     MinuteDetail
   },
   methods: {
-    clickedMinute: function(id) {
-      this.minuteDetailID = id;
-      console.log("ere");
+    clickedMinute: function(todo) {
+      this.minuteDetail = todo;
     }
   },
   created: function() {}

@@ -1,9 +1,16 @@
 <template>
-  <v-form v-model="valid">
+  <v-form>
     <v-container>
-      <v-card class="pa-2" height="100%" loading>
+      <v-card
+        class="pa-2"
+        height="100%"
+        v-if="componentVisible == true"
+        loading
+      >
         <br />
         <br />MEETING DETAIL NEEDS TO GO
+        <br />
+        {{ minuteDetail.title }}
       </v-card>
     </v-container>
   </v-form>
@@ -15,9 +22,20 @@
 export default {
   name: "MinuteDetail",
   data() {
-    return {};
+    return {
+      componentVisible: false
+    };
   },
-  props: ["title", "creator", "meetingDate"],
-  methods: {}
+  props: ["minuteDetail"],
+  watch: {
+    minuteDetail: function() {
+      this.componentVisible = true;
+    }
+  },
+  methods: {},
+  created: function() {
+    console.log("here");
+    //if (this.minuteDetail.title) this.componentVisible = true;
+  }
 };
 </script>
