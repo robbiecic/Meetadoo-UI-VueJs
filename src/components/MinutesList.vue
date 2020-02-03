@@ -9,6 +9,7 @@
             v-bind:title="todo.title"
             v-bind:creator="todo.creator"
             v-bind:meetingDate="todo.meetingDate"
+            v-on:click="clickedMinute(1)"
           />
         </v-col>
         <v-col justify="center">
@@ -64,6 +65,7 @@ export default {
   methods: {
     clickedMinute: function(id) {
       this.minuteDetailID = id;
+      console.log("ere");
     }
   },
   created: function() {}
