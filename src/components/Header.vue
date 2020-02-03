@@ -57,7 +57,7 @@
           $route.path == '/dashboard' || $route.path == '/dashboard/minutes'
         "
       >
-        <v-tabs align-with-title>
+        <v-tabs align-with-title light>
           <v-tab><router-link to="/dashboard">Profile</router-link></v-tab>
           <v-tab
             ><router-link to="/dashboard/minutes">Minutes</router-link></v-tab
