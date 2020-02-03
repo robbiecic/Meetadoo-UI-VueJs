@@ -1,6 +1,7 @@
 import Vue from "vue";
 import App from "./App.vue";
 import Vuex from "vuex";
+import createPersistedState from "vuex-persistedstate";
 import vuetify from "./plugins/vuetify";
 import router from "./router";
 
@@ -16,7 +17,8 @@ const store = new Vuex.Store({
     setUser(state) {
       state.isLoggedOn = true;
     }
-  }
+  },
+  plugins: [createPersistedState()]
 });
 
 new Vue({
