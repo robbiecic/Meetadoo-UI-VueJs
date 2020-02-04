@@ -32,7 +32,7 @@ new Vue({
   beforeMount() {
     //When vue app is loaded or refreshed, we want to check if there is active HTTP cookie
     //Can only do this by making an API call to the see if a cookie exists with a valid JWT token
-    console.log("Mounting app");
+    //This a step to how we can remain stateless and not storing a session
     axios
       .get("http://localhost:8080/Development/?action=isAuthenticated", {
         withCredentials: true

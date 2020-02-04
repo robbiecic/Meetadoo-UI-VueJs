@@ -1,12 +1,7 @@
 <template>
   <v-form>
     <v-container>
-      <v-card
-        class="pa-2"
-        height="100%"
-        v-if="componentVisible == true"
-        loading
-      >
+      <v-card class="pa-2" height="100%" loading>
         <br />
         <br />MEETING DETAIL NEEDS TO GO
         <br />
@@ -32,10 +27,6 @@ export default {
       this.componentVisible = true;
     }
   },
-  methods: {},
-  created: function() {
-    console.log("here");
-    //if (this.minuteDetail.title) this.componentVisible = true;
-  }
+  methods: {}
 };
 </script>

@@ -1,8 +1,8 @@
 <template>
   <v-form>
-    <v-container>
-      <v-row no-gutters>
-        <v-col justify="center">
+    <v-container w fluid ma-0 pa-0 fill-height>
+      <v-row>
+        <v-col justify="center" md="2">
           <MinuteSummary
             v-for="todo in minuteItems"
             v-bind:key="todo.id"
@@ -12,8 +12,11 @@
             v-on:click.native="clickedMinute(todo)"
           />
         </v-col>
-        <v-col justify="center">
+        <v-col justify="center" md="7">
           <MinuteDetail v-bind:minuteDetail="minuteDetail" />
+        </v-col>
+        <v-col justify="right" md="2">
+          <v-btn>Add</v-btn>
         </v-col>
       </v-row>
     </v-container>
@@ -67,6 +70,9 @@ export default {
       this.minuteDetail = todo;
     }
   },
-  created: function() {}
+  created: function() {
+    this.minuteDetail = this.minuteItems[0];
+    console.log(this.minuteDetail);
+  }
 };
 </script>
