@@ -38,9 +38,11 @@ new Vue({
         withCredentials: true
       })
       .then(() => {
+        //Set user as logged in
         this.$store.commit("setUser");
       })
       .catch(() => {
+        //Set user as logged out
         this.$store.commit("unSetUser");
       });
   },

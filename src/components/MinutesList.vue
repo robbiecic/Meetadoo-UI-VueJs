@@ -12,10 +12,10 @@
             v-on:click.native="clickedMinute(todo)"
           />
         </v-col>
-        <v-col justify="center" md="7">
+        <v-col justify="center" md="8">
           <MinuteDetail v-bind:minuteDetail="minuteDetail" />
         </v-col>
-        <v-col justify="right" md="2">
+        <v-col justify="right" md="1">
           <v-btn>Add</v-btn>
         </v-col>
       </v-row>
@@ -35,19 +35,19 @@ export default {
       minuteItems: [
         {
           id: 1,
-          title: "Meeting 1",
+          title: "NoteIt POC Workshop",
           creator: "John Smith",
           meetingDate: "2019-12-01"
         },
         {
           id: 2,
-          title: "Meeting 2",
+          title: "Catch up with John",
           creator: "John Smith",
           meetingDate: "2020-01-15"
         },
         {
           id: 3,
-          title: "Meeting 3",
+          title: "Pick up kids",
           creator: "Jane Doe",
           meetingDate: "2020-01-01"
         },
