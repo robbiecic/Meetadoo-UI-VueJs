@@ -5,12 +5,26 @@
       class="px-3 pt-3 pb-3"
       v-if="loading == true"
     >
-      <v-skeleton-loader class="mx-auto" max-width="500" max-height="800" type="card"></v-skeleton-loader>
+      <v-skeleton-loader
+        class="mx-auto"
+        max-width="500"
+        max-height="800"
+        type="card"
+      ></v-skeleton-loader>
     </v-sheet>
     <v-container v-if="failAlert == true && loading == false">
-      <v-alert type="error">You are not authorised to perform this action</v-alert>
+      <v-alert type="error"
+        >You are not authorised to perform this action</v-alert
+      >
     </v-container>
-    <v-container w fluid ma-0 pa-0 fill-height v-if="failAlert == false && loading == false">
+    <v-container
+      w
+      fluid
+      ma-0
+      pa-0
+      fill-height
+      v-if="failAlert == false && loading == false"
+    >
       <v-row>
         <v-col justify="center" md="2">
           <MinuteSummary
@@ -94,13 +108,7 @@ export default {
       })
       .then(response => {
         let data = response.data;
-        //let data_json = eval("(" + data + ")");
-        let data_json = data
-          .replace(/[\\"']/g, "\\$&")
-          .replace(/\u0000/g, "\\0");
-        data(data_json);
-        //let data_json = JSON.parse(data.replace(/'/g, '"'));
-        console.log("data_json", data_json);
+        this.minuteList = data.minutes_created;
         //this.minuteList = data["minutes_created"];
         //console.log(this.minuteList);
         this.loading = false;
