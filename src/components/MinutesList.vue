@@ -1,10 +1,20 @@
 <template>
   <v-form>
-    <v-container w fluid ma-0 pa-0 fill-height>
+    <v-sheet
+      :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
+      class="px-3 pt-3 pb-3"
+      v-if="loading == true"
+    >
+      <v-skeleton-loader class="mx-auto" max-width="500" max-height="800" type="card"></v-skeleton-loader>
+    </v-sheet>
+    <v-container v-if="failAlert == true && loading == false">
+      <v-alert type="error">You are not authorised to perform this action</v-alert>
+    </v-container>
+    <v-container w fluid ma-0 pa-0 fill-height v-if="failAlert == false && loading == false">
       <v-row>
         <v-col justify="center" md="2">
           <MinuteSummary
-            v-for="todo in minuteItems"
+            v-for="todo in minuteList"
             v-bind:key="todo.id"
             v-bind:title="todo.title"
             v-bind:creator="todo.creator"
@@ -24,14 +34,16 @@
 </template>
 
 <script>
-//import axios from "axios";
+import axios from "axios";
 import MinuteSummary from "./MinuteSummary";
 import MinuteDetail from "./MinuteDetail";
 
 export default {
   name: "MinutesList",
+  inject: ["theme"],
   data() {
     return {
+      minuteList: [],
       minuteItems: [
         {
           id: 1,
@@ -58,7 +70,9 @@ export default {
           meetingDate: "2020-06-15"
         }
       ],
-      minuteDetail: {}
+      minuteDetail: {},
+      failAlert: false,
+      loading: true
     };
   },
   components: {
@@ -71,8 +85,32 @@ export default {
     }
   },
   created: function() {
-    this.minuteDetail = this.minuteItems[0];
-    console.log(this.minuteDetail);
+    // this.minuteDetail = this.minuteItems[0];
+    // console.log(this.minuteDetail);
+    //On create want to load my minutes
+    axios
+      .get("http://localhost:8080/Development/minutes/?action=GetMyMinutes", {
+        withCredentials: true
+      })
+      .then(response => {
+        let data = response.data;
+        //let data_json = eval("(" + data + ")");
+        let data_json = data
+          .replace(/[\\"']/g, "\\$&")
+          .replace(/\u0000/g, "\\0");
+        data(data_json);
+        //let data_json = JSON.parse(data.replace(/'/g, '"'));
+        console.log("data_json", data_json);
+        //this.minuteList = data["minutes_created"];
+        //console.log(this.minuteList);
+        this.loading = false;
+        this.failAlert = false;
+      })
+      .catch(e => {
+        console.log(e);
+        this.failAlert = true;
+        this.loading = false;
+      });
   }
 };
 </script>
