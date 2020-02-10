@@ -16,19 +16,29 @@
         ></v-text-field>
       </v-row>
       <v-row>
-        <v-col
-          ><v-date-picker
-            v-model="minuteDetail.creation_date"
-            :landscape="landscape"
-            :reactive="reactive"
-            :full-width="false"
-            :show-current="showCurrent"
-            :type="month ? 'month' : 'date'"
-            :multiple="multiple"
-            :readonly="readonly"
-            :disabled="disabled"
-            :events="enableEvents ? functionEvents : null"
-          ></v-date-picker>
+        <v-col>
+          <v-menu
+            v-model="menu2"
+            :close-on-content-click="false"
+            :nudge-right="40"
+            transition="scale-transition"
+            offset-y
+            min-width="290px"
+          >
+            <template v-slot:activator="{ on }">
+              <v-text-field
+                v-model="minuteDetail.creation_date"
+                label="Picker without buttons"
+                prepend-icon="mdi-event"
+                readonly
+                v-on="on"
+              ></v-text-field>
+            </template>
+            <v-date-picker
+              v-model="minuteDetail.creation_date"
+              @input="menu2 = false"
+            ></v-date-picker>
+          </v-menu>
         </v-col>
         <v-col>
           <v-time-picker
@@ -52,9 +62,52 @@
           counter
           v-model="minuteDetail.description"
           label="Description"
-          :rules="rules"
-          :value="value"
+          :shaped="shaped"
+          :outlined="outlined"
+          :rounded="rounded"
         ></v-textarea>
+      </v-row>
+      <v-row>
+        <v-autocomplete
+          v-model="minuteDetail.guests"
+          :disabled="isUpdating"
+          :items="people"
+          filled
+          chips
+          color="blue-grey lighten-2"
+          label="Select"
+          item-text="name"
+          item-value="name"
+          multiple
+        >
+          <template v-slot:selection="data">
+            <v-chip
+              v-bind="data.attrs"
+              :input-value="data.selected"
+              close
+              @click="data.select"
+              @click:close="remove(data.item)"
+            >
+              <v-avatar left>
+                <v-img :src="data.item.avatar"></v-img>
+              </v-avatar>
+              {{ data.item.name }}
+            </v-chip>
+          </template>
+          <template v-slot:item="data">
+            <template v-if="typeof data.item !== 'object'">
+              <v-list-item-content v-text="data.item"></v-list-item-content>
+            </template>
+            <template v-else>
+              <v-list-item-avatar>
+                <img :src="data.item.avatar" />
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <v-list-item-title v-html="data.item.name"></v-list-item-title>
+              </v-list-item-content>
+            </template>
+          </template>
+        </v-autocomplete>
       </v-row>
     </v-container>
   </v-form>
@@ -66,7 +119,27 @@
 export default {
   name: "MinuteDetail",
   data() {
+    const srcs = {
+      1: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
+      2: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
+      3: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
+      4: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
+      5: "https://cdn.vuetifyjs.com/images/lists/5.jpg"
+    };
     return {
+      friends: ["Sandra Adams", "Britta Holt"],
+      isUpdating: false,
+      autoUpdate: true,
+      menu: false,
+      modal: false,
+      menu2: false,
+      people: [
+        { header: "Group 1" },
+        { name: "test6@test.com", group: "Group 1", avatar: srcs[1] },
+        { name: "Ali Connors", group: "Group 1", avatar: srcs[2] },
+        { name: "Trevor Hansen", group: "Group 1", avatar: srcs[3] },
+        { name: "Tucker Smith", group: "Group 1", avatar: srcs[2] }
+      ],
       componentVisible: false,
       shaped: false,
       outlined: true,
@@ -82,6 +155,7 @@ export default {
       counter: 0,
       dense: false,
       icon: "mdi-content-save",
+      iconEvent: "mdi-event",
       showLoader: false,
       indeterminate: true,
       rotate: 0,
@@ -94,8 +168,18 @@ export default {
   watch: {
     minuteDetail: function() {
       this.componentVisible = true;
+    },
+    isUpdating(val) {
+      if (val) {
+        setTimeout(() => (this.isUpdating = false), 3000);
+      }
     }
   },
-  methods: {}
+  methods: {
+    remove(item) {
+      const index = this.friends.indexOf(item.name);
+      if (index >= 0) this.friends.splice(index, 1);
+    }
+  }
 };
 </script>
