@@ -50,17 +50,11 @@ export default {
     return {
       isUpdating: false,
       people: [
-        { name: "test6@test.com", group: "Group 1", avatar: "TS" },
-        { name: "Ali Connors", group: "Group 1", avatar: "AC" },
-        { name: "Trevor Hansen", group: "Group 1", avatar: "TH" },
-        { name: "Tucker Smith", group: "Group 1", avatar: "TS" }
+        { name: "test6@test.com", avatar: "TS" },
+        { name: "Ali Connors", avatar: "AC" },
+        { name: "Trevor Hansen", avatar: "TH" },
+        { name: "Tucker Smith", avatar: "TS" }
       ],
-      componentVisible: false,
-      shaped: false,
-      outlined: true,
-      rounded: true,
-      solo: false,
-      singleLine: false,
       filled: false
     };
   },
