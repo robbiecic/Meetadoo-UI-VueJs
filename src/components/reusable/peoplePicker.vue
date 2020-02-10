@@ -19,8 +19,8 @@
         @click="data.select"
         @click:close="remove(data.item)"
       >
-        <v-avatar left>
-          <v-img :src="data.item.avatar"></v-img>
+        <v-avatar left color="teal" size="15">
+          <span class="white--text">{{ data.item.avatar }}</span>
         </v-avatar>
         {{ data.item.name }}
       </v-chip>
@@ -30,8 +30,8 @@
         <v-list-item-content v-text="data.item"></v-list-item-content>
       </template>
       <template v-else>
-        <v-list-item-avatar>
-          <img :src="data.item.avatar" />
+        <v-list-item-avatar color="indigo" size="36">
+          <span class="white--text headline">{{ data.item.avatar }}</span>
         </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title v-html="data.item.name"></v-list-item-title>
@@ -47,22 +47,13 @@ export default {
   name: "PeoplePicker",
   props: ["guests"],
   data() {
-    const srcs = {
-      1: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-      2: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
-      3: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-      4: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
-      5: "https://cdn.vuetifyjs.com/images/lists/5.jpg"
-    };
     return {
-      friends: ["Sandra Adams", "Britta Holt"],
       isUpdating: false,
       people: [
-        { header: "Group 1" },
-        { name: "test6@test.com", group: "Group 1", avatar: srcs[1] },
-        { name: "Ali Connors", group: "Group 1", avatar: srcs[2] },
-        { name: "Trevor Hansen", group: "Group 1", avatar: srcs[3] },
-        { name: "Tucker Smith", group: "Group 1", avatar: srcs[2] }
+        { name: "test6@test.com", group: "Group 1", avatar: "TS" },
+        { name: "Ali Connors", group: "Group 1", avatar: "AC" },
+        { name: "Trevor Hansen", group: "Group 1", avatar: "TH" },
+        { name: "Tucker Smith", group: "Group 1", avatar: "TS" }
       ],
       componentVisible: false,
       shaped: false,
@@ -82,8 +73,9 @@ export default {
   },
   methods: {
     remove(item) {
-      const index = this.friends.indexOf(item.name);
-      if (index >= 0) this.friends.splice(index, 1);
+      const index = this.guests.indexOf(item.name);
+      console.log("index", index);
+      if (index >= 0) this.guests.splice(index, 1);
     }
   }
 };
