@@ -28,7 +28,7 @@
             <template v-slot:activator="{ on }">
               <v-text-field
                 v-model="minuteDetail.creation_date"
-                label="Picker without buttons"
+                label="Event Date"
                 prepend-icon="mdi-event"
                 readonly
                 v-on="on"
@@ -68,46 +68,7 @@
         ></v-textarea>
       </v-row>
       <v-row>
-        <v-autocomplete
-          v-model="minuteDetail.guests"
-          :disabled="isUpdating"
-          :items="people"
-          filled
-          chips
-          color="blue-grey lighten-2"
-          label="Select"
-          item-text="name"
-          item-value="name"
-          multiple
-        >
-          <template v-slot:selection="data">
-            <v-chip
-              v-bind="data.attrs"
-              :input-value="data.selected"
-              close
-              @click="data.select"
-              @click:close="remove(data.item)"
-            >
-              <v-avatar left>
-                <v-img :src="data.item.avatar"></v-img>
-              </v-avatar>
-              {{ data.item.name }}
-            </v-chip>
-          </template>
-          <template v-slot:item="data">
-            <template v-if="typeof data.item !== 'object'">
-              <v-list-item-content v-text="data.item"></v-list-item-content>
-            </template>
-            <template v-else>
-              <v-list-item-avatar>
-                <img :src="data.item.avatar" />
-              </v-list-item-avatar>
-              <v-list-item-content>
-                <v-list-item-title v-html="data.item.name"></v-list-item-title>
-              </v-list-item-content>
-            </template>
-          </template>
-        </v-autocomplete>
+        <PeoplePicker v-bind:guests="minuteDetail.guests" />
       </v-row>
     </v-container>
   </v-form>
@@ -115,9 +76,10 @@
 
 <script>
 //import axios from "axios";
-
+import PeoplePicker from "./reusable/peoplePicker";
 export default {
   name: "MinuteDetail",
+  components: { PeoplePicker },
   data() {
     const srcs = {
       1: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
@@ -168,18 +130,8 @@ export default {
   watch: {
     minuteDetail: function() {
       this.componentVisible = true;
-    },
-    isUpdating(val) {
-      if (val) {
-        setTimeout(() => (this.isUpdating = false), 3000);
-      }
     }
   },
-  methods: {
-    remove(item) {
-      const index = this.friends.indexOf(item.name);
-      if (index >= 0) this.friends.splice(index, 1);
-    }
-  }
+  methods: {}
 };
 </script>
