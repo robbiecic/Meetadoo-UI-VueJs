@@ -41,7 +41,7 @@
 ></template>
 
 <script>
-//import axios from "axios";
+import axios from "axios";
 
 export default {
   name: "PeoplePicker",
@@ -71,6 +71,18 @@ export default {
       console.log("index", index);
       if (index >= 0) this.guests.splice(index, 1);
     }
+  },
+  created: function() {
+    axios
+      .get("http://localhost:8080/Development/?action=getUserList", {
+        withCredentials: true
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(e => {
+        console.log(e);
+      });
   }
 };
 </script>
