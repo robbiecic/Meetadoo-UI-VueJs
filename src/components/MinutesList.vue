@@ -32,15 +32,15 @@
             v-bind:key="todo.id"
             v-bind:title="todo.title"
             v-bind:creator="todo.creator"
-            v-bind:meetingDate="todo.meetingDate"
+            v-bind:meetingDate="todo.creation_date"
             v-on:click.native="clickedMinute(todo)"
           />
         </v-col>
-        <v-col justify="center" md="8">
-          <MinuteDetail v-bind:minuteDetail="minuteDetail" />
-        </v-col>
         <v-col justify="right" md="1">
           <v-btn>Add</v-btn>
+        </v-col>
+        <v-col justify="center" md="8">
+          <MinuteDetail v-bind:minuteDetail="minuteDetail" />
         </v-col>
       </v-row>
     </v-container>
@@ -109,7 +109,6 @@ export default {
       .then(response => {
         let data = response.data;
         this.minuteList = data.minutes_created;
-        //this.minuteList = data["minutes_created"];
         //console.log(this.minuteList);
         this.loading = false;
         this.failAlert = false;
