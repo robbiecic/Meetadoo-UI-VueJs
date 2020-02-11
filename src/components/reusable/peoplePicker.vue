@@ -50,12 +50,7 @@ export default {
   data() {
     return {
       isUpdating: false,
-      people: [
-        { name: "test6@test.com", avatar: "TS" },
-        { name: "Ali Connors", avatar: "AC" },
-        { name: "Trevor Hansen", avatar: "TH" },
-        { name: "Tucker Smith", avatar: "TS" }
-      ],
+      people: [],
       filled: false
     };
   },
@@ -64,6 +59,9 @@ export default {
       if (val) {
         setTimeout(() => (this.isUpdating = false), 3000);
       }
+    },
+    guests: function(newVal, oldVal) {
+      console.log(newVal, oldVal);
     }
   },
   methods: {
@@ -74,14 +72,17 @@ export default {
     }
   },
   created: function() {
+    this.isUpdating = true;
     axios
       .get("http://localhost:8080/Development/?action=getUserList")
       .then(response => {
-        console.log(response.data);
-        this.people = response.data;
+        let return_array = eval(response.data);
+        this.people = return_array;
+        this.isUpdating = false;
       })
       .catch(error => {
         console.log(error);
+        this.isUpdating = false;
       });
   }
 };
