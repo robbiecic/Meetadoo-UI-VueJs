@@ -1,8 +1,8 @@
 <template>
   <v-combobox
     v-model="guests"
-    :items="name_list"
-    label="I use a scoped slot"
+    :items="email_list"
+    label="Add someone"
     multiple
     chips
   >
@@ -19,7 +19,7 @@
           left
           v-text="data.item.slice(0, 1).toUpperCase()"
         ></v-avatar>
-        {{ people.email_address }}
+        {{ item }}
       </v-chip>
     </template>
   </v-combobox>
