@@ -1,7 +1,7 @@
 <template>
   <v-combobox
     v-model="guests"
-    :items="people"
+    :items="name_list"
     label="I use a scoped slot"
     multiple
     chips
@@ -36,6 +36,7 @@ export default {
       isUpdating: false,
       people: [],
       email_list: [],
+      name_list: [],
       filled: false,
       disabled: false
     };
@@ -63,15 +64,12 @@ export default {
     axios
       .get("http://localhost:8080/Development/?action=getUserList")
       .then(response => {
-        //API needs to return 1 array of just email address which will be used in drop down
-        //API needs to return 1 array of names for dropdown
-        //API needs to return 1 array with the name to email address relationship
-
         //Avatar will show the name , hidden field for email address as the key
         //Onclick of the user name we can derive the email address
-        let return_array = eval(response.data);
-        this.people = return_array;
-        console.log(this.people);
+        const json_data = JSON.parse(response.data.replace(/'/g, '"'));
+        this.email_list = json_data.email_only;
+        this.name_list = json_data.name_only;
+        this.people = json_data.linked_list;
         this.isUpdating = false;
       })
       .catch(error => {
