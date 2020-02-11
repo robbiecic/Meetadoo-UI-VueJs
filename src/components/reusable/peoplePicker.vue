@@ -37,11 +37,12 @@
           <v-list-item-title v-html="data.item.name"></v-list-item-title>
         </v-list-item-content>
       </template>
-    </template> </v-autocomplete
-></template>
+    </template>
+  </v-autocomplete>
+</template>
 
 <script>
-//import axios from "axios";
+import axios from "axios";
 
 export default {
   name: "PeoplePicker",
@@ -71,6 +72,17 @@ export default {
       console.log("index", index);
       if (index >= 0) this.guests.splice(index, 1);
     }
+  },
+  created: function() {
+    axios
+      .get("http://localhost:8080/Development/?action=getUserList")
+      .then(response => {
+        console.log(response.data);
+        this.people = response.data;
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 };
 </script>
