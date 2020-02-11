@@ -34,28 +34,15 @@
                 v-on="on"
               ></v-text-field>
             </template>
-            <v-date-picker
-              v-model="minuteDetail.creation_date"
-              @input="menu2 = false"
-            ></v-date-picker>
+            <v-date-picker v-model="minuteDetail.creation_date" @input="menu2 = false"></v-date-picker>
           </v-menu>
         </v-col>
         <v-col>
-          <v-time-picker
-            v-model="minuteDetail.time_start"
-            type="month"
-            width="290"
-            class="ml-4"
-          ></v-time-picker
-        ></v-col>
+          <v-time-picker v-model="minuteDetail.time_start" type="month" width="290" class="ml-4"></v-time-picker>
+        </v-col>
         <v-col>
-          <v-time-picker
-            v-model="minuteDetail.time_end"
-            type="month"
-            width="290"
-            class="ml-4"
-          ></v-time-picker
-        ></v-col>
+          <v-time-picker v-model="minuteDetail.time_end" type="month" width="290" class="ml-4"></v-time-picker>
+        </v-col>
       </v-row>
       <v-row>
         <v-textarea
@@ -81,13 +68,6 @@ export default {
   name: "MinuteDetail",
   components: { PeoplePicker },
   data() {
-    const srcs = {
-      1: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-      2: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
-      3: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-      4: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
-      5: "https://cdn.vuetifyjs.com/images/lists/5.jpg"
-    };
     return {
       friends: ["Sandra Adams", "Britta Holt"],
       isUpdating: false,
@@ -95,13 +75,6 @@ export default {
       menu: false,
       modal: false,
       menu2: false,
-      people: [
-        { header: "Group 1" },
-        { name: "test6@test.com", group: "Group 1", avatar: srcs[1] },
-        { name: "Ali Connors", group: "Group 1", avatar: srcs[2] },
-        { name: "Trevor Hansen", group: "Group 1", avatar: srcs[3] },
-        { name: "Tucker Smith", group: "Group 1", avatar: srcs[2] }
-      ],
       componentVisible: false,
       shaped: false,
       outlined: true,

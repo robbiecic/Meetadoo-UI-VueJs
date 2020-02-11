@@ -1,44 +1,18 @@
 <template>
-  <v-autocomplete
-    v-model="guests"
-    :disabled="isUpdating"
-    :items="people"
-    filled
-    chips
-    color="blue-grey lighten-2"
-    label="Select"
-    item-text="name"
-    item-value="name"
-    multiple
-  >
+  <v-combobox v-model="guests" :items="people" label="I use a scoped slot" multiple chips>
     <template v-slot:selection="data">
       <v-chip
-        v-bind="data.attrs"
+        :key="JSON.stringify(data.item)"
+        v-bind="data.attr"
         :input-value="data.selected"
-        close
-        @click="data.select"
-        @click:close="remove(data.item)"
+        :disabled="data.disabled"
+        @click:close="data.parent.selectItem(data.item)"
       >
-        <v-avatar left color="teal" size="15">
-          <span class="white--text">{{ data.item.avatar }}</span>
-        </v-avatar>
-        {{ data.item.name }}
+        <v-avatar class="accent white--text" left v-text="data.item.slice(0, 1).toUpperCase()"></v-avatar>
+        {{ people.email_address}}
       </v-chip>
     </template>
-    <template v-slot:item="data">
-      <template v-if="typeof data.item !== 'object'">
-        <v-list-item-content v-text="data.item"></v-list-item-content>
-      </template>
-      <template v-else>
-        <v-list-item-avatar color="indigo" size="36">
-          <span class="white--text headline">{{ data.item.avatar }}</span>
-        </v-list-item-avatar>
-        <v-list-item-content>
-          <v-list-item-title v-html="data.item.name"></v-list-item-title>
-        </v-list-item-content>
-      </template>
-    </template>
-  </v-autocomplete>
+  </v-combobox>
 </template>
 
 <script>
@@ -51,7 +25,9 @@ export default {
     return {
       isUpdating: false,
       people: [],
-      filled: false
+      email_list: [],
+      filled: false,
+      disabled: false
     };
   },
   watch: {
@@ -62,6 +38,7 @@ export default {
     },
     guests: function(newVal, oldVal) {
       console.log(newVal, oldVal);
+      //If this changes I need to pull through the names corresponding to the email addresses...
     }
   },
   methods: {
@@ -76,8 +53,15 @@ export default {
     axios
       .get("http://localhost:8080/Development/?action=getUserList")
       .then(response => {
+        //API needs to return 1 array of just email address which will be used in drop down
+        //API needs to return 1 array of names for dropdown
+        //API needs to return 1 array with the name to email address relationship
+
+        //Avatar will show the name , hidden field for email address as the key
+        //Onclick of the user name we can derive the email address
         let return_array = eval(response.data);
         this.people = return_array;
+        console.log(this.people);
         this.isUpdating = false;
       })
       .catch(error => {
