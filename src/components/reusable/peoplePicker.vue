@@ -72,10 +72,10 @@ export default {
       //console.log("this.people", this.people);
       //Need to loop through people to find the name for the email address
       var i = 0;
-      var index = this.people.findIndex(p => p.email == data.item);
-      console.log("index", index);
+      //var index = this.people.findIndex(p => p.email == data.item);
+      //console.log("index", index);
       for (i = 0; i < this.people.length; i++) {
-        //console.log(this.people[i]);
+        //console.log("this.people[i].email", this.people[i].email); //this works
         //Need to look at email key and return the name.
       }
       return data.item.slice(0, 1).toUpperCase();
