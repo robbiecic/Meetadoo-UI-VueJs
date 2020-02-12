@@ -1,15 +1,18 @@
 <template>
-  <v-combobox v-model="guests" :items="email_list" label="Add someone" multiple chips>
+  <v-combobox v-model="guestsLocal" :items="email_list" label="Add someone" multiple chips>
     <template v-slot:selection="data">
       <v-chip
-        :key="JSON.stringify(data.item)"
+        :key="JSON.stringify(data.email)"
         v-bind="data.attr"
         :input-value="data.selected"
         :disabled="data.disabled"
         @click:close="data.parent.selectItem(data.item)"
+        close
       >
-        <v-avatar class="accent white--text" left v-text="getAvatar(data)"></v-avatar>
-        {{ item }}
+        <v-avatar left>
+          <v-icon>mdi-account-circle</v-icon>
+        </v-avatar>
+        {{getAvatar(data)}}
       </v-chip>
     </template>
   </v-combobox>
@@ -28,27 +31,9 @@ export default {
       email_list: [],
       name_list: [],
       filled: false,
-      disabled: false
+      disabled: false,
+      guestsLocal: []
     };
-  },
-  computed: {
-    // people: function() {
-    //   axios
-    //     .get("http://localhost:8080/Development/?action=getUserList")
-    //     .then(response => {
-    //       //Avatar will show the name , hidden field for email address as the key
-    //       //Onclick of the user name we can derive the email address
-    //       const json_data = JSON.parse(response.data.replace(/'/g, '"'));
-    //       this.email_list = json_data.email_only;
-    //       this.name_list = json_data.name_only;
-    //       this.people = json_data.linked_list;
-    //       this.isUpdating = false;
-    //     })
-    //     .catch(error => {
-    //       console.log(error);
-    //       this.isUpdating = false;
-    //     });
-    // }
   },
   watch: {
     isUpdating(val) {
@@ -56,8 +41,8 @@ export default {
         setTimeout(() => (this.isUpdating = false), 3000);
       }
     },
-    guests: function() {
-      //console.log(newVal, oldVal);
+    guests: function(newVal) {
+      this.guestsLocal = newVal;
     }
   },
   methods: {
@@ -67,21 +52,17 @@ export default {
       if (index >= 0) this.guests.splice(index, 1);
     },
     getAvatar(data) {
-      //Here we need to turn the email address in data.item to a name
-      console.log("data.item", data.item);
-      //console.log("this.people", this.people);
-      //Need to loop through people to find the name for the email address
-      var i = 0;
-      //var index = this.people.findIndex(p => p.email == data.item);
-      //console.log("index", index);
-      for (i = 0; i < this.people.length; i++) {
-        //console.log("this.people[i].email", this.people[i].email); //this works
-        //Need to look at email key and return the name.
+      //Here we need to turn the email address in data.item to a name. If look up fails, simply return the email address
+      let index = this.people.findIndex(p => p.email == data.item);
+      if (index > -1) {
+        return this.people[index].name;
+      } else {
+        return data.item;
       }
-      return data.item.slice(0, 1).toUpperCase();
     }
   },
   created: function() {
+    this.guestsLocal = this.guests;
     this.isUpdating = true;
     axios
       .get("http://localhost:8080/Development/?action=getUserList")
