@@ -13,17 +13,23 @@
     <v-container w fluid ma-0 pa-0 fill-height v-if="failAlert == false && loading == false">
       <v-row>
         <v-col justify="center" md="2">
-          <MinuteSummary
-            v-for="todo in minuteList"
-            v-bind:key="todo.id"
-            v-bind:title="todo.title"
-            v-bind:creator="todo.creator"
-            v-bind:meetingDate="todo.creation_date"
-            v-on:click.native="clickedMinute(todo)"
-          />
-        </v-col>
-        <v-col justify="right" md="1">
-          <v-btn>Add</v-btn>
+          <v-container id="scroll-target" style="max-height: 70%" class="overflow-y-auto">
+            <v-row
+              v-scroll:#scroll-target="onScroll"
+              align="center"
+              justify="center"
+              style="height: 1000px"
+            >
+              <MinuteSummary
+                v-for="todo in minuteList"
+                v-bind:key="todo.id"
+                v-bind:title="todo.title"
+                v-bind:creator="todo.creator"
+                v-bind:meetingDate="todo.creation_date"
+                v-on:click.native="clickedMinute(todo)"
+              />
+            </v-row>
+          </v-container>
         </v-col>
         <v-col justify="center" md="8">
           <MinuteDetail v-bind:minuteDetail="minuteDetail" />
