@@ -5,26 +5,12 @@
       class="px-3 pt-3 pb-3"
       v-if="loading == true"
     >
-      <v-skeleton-loader
-        class="mx-auto"
-        max-width="500"
-        max-height="800"
-        type="card"
-      ></v-skeleton-loader>
+      <v-skeleton-loader class="mx-auto" max-width="500" max-height="800" type="card"></v-skeleton-loader>
     </v-sheet>
     <v-container v-if="failAlert == true && loading == false">
-      <v-alert type="error"
-        >You are not authorised to perform this action</v-alert
-      >
+      <v-alert type="error">You are not authorised to perform this action</v-alert>
     </v-container>
-    <v-container
-      w
-      fluid
-      ma-0
-      pa-0
-      fill-height
-      v-if="failAlert == false && loading == false"
-    >
+    <v-container w fluid ma-0 pa-0 fill-height v-if="failAlert == false && loading == false">
       <v-row>
         <v-col justify="center" md="2">
           <MinuteSummary
@@ -103,7 +89,7 @@ export default {
     // console.log(this.minuteDetail);
     //On create want to load my minutes
     axios
-      .get("http://localhost:8080/Development/minutes/?action=GetMyMinutes", {
+      .get("https://localhost:8080/Development/minutes/?action=GetMyMinutes", {
         withCredentials: true
       })
       .then(response => {

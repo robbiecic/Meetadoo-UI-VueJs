@@ -11,21 +11,21 @@
       ></v-progress-circular>
     </v-container>
     <v-container v-if="failAlert == true">
-      <v-alert type="error"
-        >You are not authorised to perform this action</v-alert
-      >
+      <v-alert type="error">You are not authorised to perform this action</v-alert>
     </v-container>
     <v-container v-if="failAlert == false && showLoader == false">
       <br />
       <h1>My Profile</h1>
       <br />
-      <v-alert type="error" v-if="updateFail == true"
-        >Something went wrong updating your data. Please try again
-        later.</v-alert
-      >
-      <v-alert type="success" v-if="updateSuccess == true" dismissible
-        >You have successfully updated your profile.</v-alert
-      >
+      <v-alert type="error" v-if="updateFail == true">
+        Something went wrong updating your data. Please try again
+        later.
+      </v-alert>
+      <v-alert
+        type="success"
+        v-if="updateSuccess == true"
+        dismissible
+      >You have successfully updated your profile.</v-alert>
       <v-text-field
         v-model="email"
         :label="'Email'"
@@ -120,7 +120,7 @@ export default {
       axios.defaults.withCredentials = true;
       this.failAlert = false;
       axios
-        .get("http://localhost:8080/Development/?action=getUser", {
+        .get("https://localhost:8080/Development/?action=getUser", {
           withCredentials: true
         })
         .then(response => {
@@ -155,7 +155,7 @@ export default {
       };
       axios
         .post(
-          "http://localhost:8080/Development/?action=UpdateUser",
+          "https://localhost:8080/Development/?action=UpdateUser",
           { data: body },
           {
             headers: {
