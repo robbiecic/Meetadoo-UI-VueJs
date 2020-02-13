@@ -7,11 +7,14 @@
           <h1>Meeting detail</h1>
         </v-col>
         <v-col class="text-right">
-          <v-btn class="ma-2" tile outlined color="warning" @click="clear">
+          <v-btn class="ma-2" tile outlined color="error" @click="clear">
             <v-icon left>mdi-pencil</v-icon>Clear
           </v-btn>
-          <v-btn class="ma-2" tile outlined color="green" @click="add">
+          <v-btn class="ma-2" tile outlined color="green" @click="add" v-if="update == false">
             <v-icon left>mdi-pencil</v-icon>Add
+          </v-btn>
+          <v-btn class="ma-2" tile outlined color="warning" @click="add" v-if="update == true">
+            <v-icon left>mdi-pencil</v-icon>Update
           </v-btn>
         </v-col>
       </v-row>
@@ -131,7 +134,7 @@
         ></v-textarea>
       </v-row>
       <v-row>
-        <PeoplePicker v-bind:guests="minuteDetail.guests" />
+        <PeoplePicker v-bind:guests="minuteDetail.guests" ref="child" />
       </v-row>
     </v-container>
   </v-form>
@@ -148,12 +151,12 @@ export default {
       friends: ["Sandra Adams", "Britta Holt"],
       isUpdating: false,
       autoUpdate: true,
+      guests: [],
       menu: false,
       modal: false,
       menu2: false,
       menu3: false,
       menu4: false,
-      componentVisible: false,
       shaped: false,
       outlined: true,
       rounded: true,
@@ -174,19 +177,30 @@ export default {
       rotate: 0,
       size: 32,
       value: 0,
-      width: 4
+      width: 4,
+      update: false
     };
   },
   props: ["minuteDetail"],
   watch: {
     minuteDetail: function() {
-      this.componentVisible = true;
+      this.update = true;
     }
   },
   methods: {
     add: function() {
-      console.log("Minute Detail", this.minuteDetail);
-      console.log("Guests", this.people);
+      let body = {};
+      body.title = this.minuteDetail.title;
+      body.creation_date = this.minuteDetail.creation_date;
+      body.creator = "Need to get user email";
+      body.time_start = this.minuteDetail.time_start;
+      body.time_end = this.minuteDetail.time_end;
+      body.guests = this.$refs.child.guestsLocal;
+      body.repeat_event = false;
+      body.description = this.minuteDetail.description;
+
+      console.log("body", body);
+
       // this.showLoader = true;
       // axios
       //   .post(
@@ -216,6 +230,7 @@ export default {
     },
     clear: function() {
       //Clear whatever is in form
+      this.update = false;
       this.minuteDetail = {};
     }
   }
