@@ -7,6 +7,15 @@
           <h1>Meeting detail</h1>
         </v-col>
         <v-col class="text-right">
+          <v-progress-circular
+            :indeterminate="indeterminate"
+            :rotate="rotate"
+            :size="size"
+            :value="value"
+            :width="width"
+            color="light-blue"
+            v-if="showLoader == true"
+          ></v-progress-circular>
           <v-btn
             class="ma-2"
             tile
@@ -214,14 +223,14 @@ export default {
       icon: "mdi-content-save",
       iconEvent: "mdi-event",
       showLoader: false,
+      update: false,
+      minuteDetailLocal: {},
+      disableFields: false,
       indeterminate: true,
       rotate: 0,
       size: 32,
       value: 0,
-      width: 4,
-      update: false,
-      minuteDetailLocal: {},
-      disableFields: false
+      width: 4
     };
   },
   props: ["minuteDetail"],
@@ -230,11 +239,13 @@ export default {
       this.update = true;
       this.minuteDetailLocal = newVal;
       this.disableFields = false;
+      this.showLoader = false;
     }
   },
   methods: {
     add: function() {
       this.disableFields = true;
+      this.showLoader = true;
       let body = {};
       body.title = this.minuteDetailLocal.title;
       body.creation_date = this.minuteDetailLocal.creation_date;
