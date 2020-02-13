@@ -1,5 +1,12 @@
 <template>
-  <v-combobox v-model="guestsLocal" :items="email_list" label="Add someone" multiple chips>
+  <v-combobox
+    v-model="guestsLocal"
+    :items="email_list"
+    label="Add someone"
+    multiple
+    chips
+    :disabled="disabledFields==true"
+  >
     <template v-slot:selection="data">
       <v-chip
         :key="JSON.stringify(data.email)"
@@ -23,7 +30,7 @@ import axios from "axios";
 
 export default {
   name: "PeoplePicker",
-  props: ["guests"],
+  props: ["guests", "disabledFields"],
   data() {
     return {
       isUpdating: false,

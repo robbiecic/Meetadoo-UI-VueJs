@@ -14,12 +14,7 @@
       <v-row>
         <v-col justify="center" md="2">
           <v-container id="scroll-target" style="max-height: 70%" class="overflow-y-auto">
-            <v-row
-              v-scroll:#scroll-target="onScroll"
-              align="center"
-              justify="center"
-              style="height: 1000px"
-            >
+            <v-row align="center" justify="center" style="height: 1000px">
               <MinuteSummary
                 v-for="todo in minuteList"
                 v-bind:key="todo.id"

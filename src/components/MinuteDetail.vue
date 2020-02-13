@@ -7,13 +7,36 @@
           <h1>Meeting detail</h1>
         </v-col>
         <v-col class="text-right">
-          <v-btn class="ma-2" tile outlined color="error" @click="clear">
+          <v-btn
+            class="ma-2"
+            tile
+            outlined
+            color="error"
+            @click="clear"
+            :disabled="disableFields == true"
+          >
             <v-icon left>mdi-pencil</v-icon>Clear
           </v-btn>
-          <v-btn class="ma-2" tile outlined color="green" @click="add" v-if="update == false">
+          <v-btn
+            class="ma-2"
+            tile
+            outlined
+            color="green"
+            @click="add"
+            v-if="update == false"
+            :disabled="disableFields == true"
+          >
             <v-icon left>mdi-pencil</v-icon>Add
           </v-btn>
-          <v-btn class="ma-2" tile outlined color="warning" @click="add" v-if="update == true">
+          <v-btn
+            class="ma-2"
+            tile
+            outlined
+            color="warning"
+            @click="add"
+            v-if="update == true"
+            :disabled="disableFields == true"
+          >
             <v-icon left>mdi-pencil</v-icon>Update
           </v-btn>
         </v-col>
@@ -30,6 +53,7 @@
           :flat="flat"
           :counter="counterEn ? counter : false"
           :dense="dense"
+          :disabled="disableFields == true"
         ></v-text-field>
       </v-row>
       <v-row>
@@ -42,6 +66,7 @@
             transition="scale-transition"
             offset-y
             min-width="290px"
+            :disabled="disableFields == true"
           >
             <template v-slot:activator="{ on }">
               <v-text-field
@@ -53,9 +78,14 @@
                 :rounded="rounded"
                 readonly
                 v-on="on"
+                :disabled="disableFields == true"
               ></v-text-field>
             </template>
-            <v-date-picker v-model="minuteDetailLocal.creation_date" @input="menu2 = false"></v-date-picker>
+            <v-date-picker
+              v-model="minuteDetailLocal.creation_date"
+              @input="menu2 = false"
+              :disabled="disableFields == true"
+            ></v-date-picker>
           </v-menu>
         </v-col>
         <!-- Start the time_start of meeting -->
@@ -70,6 +100,7 @@
             offset-y
             max-width="290px"
             min-width="290px"
+            :disabled="disableFields == true"
           >
             <template v-slot:activator="{ on }">
               <v-text-field
@@ -80,6 +111,7 @@
                 :shaped="shaped"
                 :outlined="outlined"
                 :rounded="rounded"
+                :disabled="disableFields == true"
               ></v-text-field>
             </template>
             <v-time-picker
@@ -87,6 +119,7 @@
               v-model="minuteDetailLocal.time_start"
               full-width
               @click:minute="$refs.menu.save(minuteDetailLocal.time_start)"
+              :disabled="disableFields == true"
             ></v-time-picker>
           </v-menu>
         </v-col>
@@ -102,6 +135,7 @@
             offset-y
             max-width="290px"
             min-width="290px"
+            :disabled="disableFields == true"
           >
             <template v-slot:activator="{ on }">
               <v-text-field
@@ -112,6 +146,7 @@
                 :shaped="shaped"
                 :outlined="outlined"
                 :rounded="rounded"
+                :disabled="disableFields == true"
               ></v-text-field>
             </template>
             <v-time-picker
@@ -119,6 +154,7 @@
               v-model="minuteDetailLocal.time_end"
               full-width
               @click:minute="$refs.menu.save(minuteDetailLocal.time_end)"
+              :disabled="disableFields == true"
             ></v-time-picker>
           </v-menu>
         </v-col>
@@ -131,10 +167,15 @@
           :shaped="shaped"
           :outlined="outlined"
           :rounded="rounded"
+          :disabled="disableFields == true"
         ></v-textarea>
       </v-row>
       <v-row>
-        <PeoplePicker v-bind:guests="minuteDetailLocal.guests" ref="child" />
+        <PeoplePicker
+          v-bind:guests="minuteDetailLocal.guests"
+          ref="child"
+          v-bind:disabledFields="disableFields"
+        />
       </v-row>
     </v-container>
   </v-form>
@@ -179,7 +220,8 @@ export default {
       value: 0,
       width: 4,
       update: false,
-      minuteDetailLocal: {}
+      minuteDetailLocal: {},
+      disableFields: false
     };
   },
   props: ["minuteDetail"],
@@ -187,14 +229,17 @@ export default {
     minuteDetail: function(newVal) {
       this.update = true;
       this.minuteDetailLocal = newVal;
+      this.disableFields = false;
     }
   },
   methods: {
     add: function() {
+      this.disableFields = true;
       let body = {};
       body.title = this.minuteDetailLocal.title;
       body.creation_date = this.minuteDetailLocal.creation_date;
-      body.creator = "Need to get user email";
+      body.creator =
+        "In API request maybe it can get the creator address from the jwt?";
       body.time_start = this.minuteDetailLocal.time_start;
       body.time_end = this.minuteDetailLocal.time_end;
       body.guests = this.$refs.child.guestsLocal;
@@ -206,7 +251,7 @@ export default {
       // this.showLoader = true;
       // axios
       //   .post(
-      //     "https://localhost:8080/Development/?action=Login",
+      //     "https://localhost:8080/Development/minutes/?action=CreateMinute",
       //     { data: postBody },
       //     {
       //       headers: {
@@ -233,6 +278,7 @@ export default {
     clear: function() {
       //Clear whatever is in form
       this.update = false;
+      this.disableFields = false;
       this.minuteDetailLocal = {};
     }
   }
