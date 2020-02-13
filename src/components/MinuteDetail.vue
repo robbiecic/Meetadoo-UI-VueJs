@@ -191,7 +191,7 @@
 </template>
 
 <script>
-//import axios from "axios";
+import axios from "axios";
 import PeoplePicker from "./reusable/peoplePicker";
 export default {
   name: "MinuteDetail",
@@ -249,8 +249,7 @@ export default {
       let body = {};
       body.title = this.minuteDetailLocal.title;
       body.creation_date = this.minuteDetailLocal.creation_date;
-      body.creator =
-        "In API request maybe it can get the creator address from the jwt?";
+      body.creator = "test5@test.com";
       body.time_start = this.minuteDetailLocal.time_start;
       body.time_end = this.minuteDetailLocal.time_end;
       body.guests = this.$refs.child.guestsLocal;
@@ -259,32 +258,27 @@ export default {
 
       console.log("body", body);
 
-      // this.showLoader = true;
-      // axios
-      //   .post(
-      //     "https://localhost:8080/Development/minutes/?action=CreateMinute",
-      //     { data: postBody },
-      //     {
-      //       headers: {
-      //         "content-type": "application/json",
-      //         "Access-Control-Allow-Origin": "*"
-      //       }
-      //     }
-      //   )
-      //   .then(response => {
-      //     this.isLoggedOn = true;
-      //     var responseData = response.data.replace(/'/g, '"');
-      //     localStorage.jwt = JSON.parse(responseData).token;
-      //     this.clear();
-      //     this.showLoader = false;
-      //     this.$store.commit("setUser");
-      //     this.$router.push({ name: "Dashboard" });
-      //   })
-      //   .catch(() => {
-      //     this.failAlert = true;
-      //     this.clear();
-      //     this.showLoader = false;
-      //   });
+      axios
+        .post(
+          "https://localhost:8080/Development/minutes/?action=CreateMinute",
+          { data: body },
+          {
+            headers: {
+              "content-type": "application/json",
+              "Access-Control-Allow-Origin": "*"
+            }
+          }
+        )
+        .then(response => {
+          this.showLoader = false;
+          this.disableFields = false;
+          console.log("completed with response", response);
+        })
+        .catch(err => {
+          this.showLoader = false;
+          this.disableFields = false;
+          console.log("Errored with response", err);
+        });
     },
     clear: function() {
       //Clear whatever is in form
