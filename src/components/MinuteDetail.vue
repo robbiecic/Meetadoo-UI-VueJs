@@ -20,7 +20,7 @@
       </v-row>
       <v-row>
         <v-text-field
-          v-model="minuteDetail.title"
+          v-model="minuteDetailLocal.title"
           :label="'Meeting Title'"
           :shaped="shaped"
           :outlined="outlined"
@@ -45,7 +45,7 @@
           >
             <template v-slot:activator="{ on }">
               <v-text-field
-                v-model="minuteDetail.creation_date"
+                v-model="minuteDetailLocal.creation_date"
                 label="Event Date"
                 prepend-icon="mdi-event"
                 :shaped="shaped"
@@ -55,7 +55,7 @@
                 v-on="on"
               ></v-text-field>
             </template>
-            <v-date-picker v-model="minuteDetail.creation_date" @input="menu2 = false"></v-date-picker>
+            <v-date-picker v-model="minuteDetailLocal.creation_date" @input="menu2 = false"></v-date-picker>
           </v-menu>
         </v-col>
         <!-- Start the time_start of meeting -->
@@ -65,7 +65,7 @@
             v-model="menu3"
             :close-on-content-click="false"
             :nudge-right="40"
-            :return-value.sync="time"
+            :return-value.sync="minuteDetailLocal.time_start"
             transition="scale-transition"
             offset-y
             max-width="290px"
@@ -73,7 +73,7 @@
           >
             <template v-slot:activator="{ on }">
               <v-text-field
-                v-model="minuteDetail.time_start"
+                v-model="minuteDetailLocal.time_start"
                 label="Start Time"
                 readonly
                 v-on="on"
@@ -84,9 +84,9 @@
             </template>
             <v-time-picker
               v-if="menu3"
-              v-model="minuteDetail.time_start"
+              v-model="minuteDetailLocal.time_start"
               full-width
-              @click:minute="$refs.menu.save(time)"
+              @click:minute="$refs.menu.save(minuteDetailLocal.time_start)"
             ></v-time-picker>
           </v-menu>
         </v-col>
@@ -97,7 +97,7 @@
             v-model="menu4"
             :close-on-content-click="false"
             :nudge-right="40"
-            :return-value.sync="time"
+            :return-value.sync="minuteDetailLocal.time_end"
             transition="scale-transition"
             offset-y
             max-width="290px"
@@ -105,7 +105,7 @@
           >
             <template v-slot:activator="{ on }">
               <v-text-field
-                v-model="minuteDetail.time_end"
+                v-model="minuteDetailLocal.time_end"
                 label="Start Time"
                 readonly
                 v-on="on"
@@ -116,9 +116,9 @@
             </template>
             <v-time-picker
               v-if="menu4"
-              v-model="minuteDetail.time_end"
+              v-model="minuteDetailLocal.time_end"
               full-width
-              @click:minute="$refs.menu.save(time)"
+              @click:minute="$refs.menu.save(minuteDetailLocal.time_end)"
             ></v-time-picker>
           </v-menu>
         </v-col>
@@ -126,7 +126,7 @@
       <v-row>
         <v-textarea
           counter
-          v-model="minuteDetail.description"
+          v-model="minuteDetailLocal.description"
           label="Description"
           :shaped="shaped"
           :outlined="outlined"
@@ -134,7 +134,7 @@
         ></v-textarea>
       </v-row>
       <v-row>
-        <PeoplePicker v-bind:guests="minuteDetail.guests" ref="child" />
+        <PeoplePicker v-bind:guests="minuteDetailLocal.guests" ref="child" />
       </v-row>
     </v-container>
   </v-form>
@@ -178,26 +178,28 @@ export default {
       size: 32,
       value: 0,
       width: 4,
-      update: false
+      update: false,
+      minuteDetailLocal: {}
     };
   },
   props: ["minuteDetail"],
   watch: {
-    minuteDetail: function() {
+    minuteDetail: function(newVal) {
       this.update = true;
+      this.minuteDetailLocal = newVal;
     }
   },
   methods: {
     add: function() {
       let body = {};
-      body.title = this.minuteDetail.title;
-      body.creation_date = this.minuteDetail.creation_date;
+      body.title = this.minuteDetailLocal.title;
+      body.creation_date = this.minuteDetailLocal.creation_date;
       body.creator = "Need to get user email";
-      body.time_start = this.minuteDetail.time_start;
-      body.time_end = this.minuteDetail.time_end;
+      body.time_start = this.minuteDetailLocal.time_start;
+      body.time_end = this.minuteDetailLocal.time_end;
       body.guests = this.$refs.child.guestsLocal;
       body.repeat_event = false;
-      body.description = this.minuteDetail.description;
+      body.description = this.minuteDetailLocal.description;
 
       console.log("body", body);
 
@@ -231,7 +233,7 @@ export default {
     clear: function() {
       //Clear whatever is in form
       this.update = false;
-      this.minuteDetail = {};
+      this.minuteDetailLocal = {};
     }
   }
 };
