@@ -12,19 +12,45 @@
     </v-container>
     <v-container w fluid ma-0 pa-0 fill-height v-if="failAlert == false && loading == false">
       <v-row>
-        <v-col justify="center" md="2">
-          <v-container id="scroll-target" style="max-height: 70%" class="overflow-y-auto">
-            <v-row align="center" justify="center" style="height: 1000px">
-              <MinuteSummary
-                v-for="todo in minuteList"
-                v-bind:key="todo.id"
-                v-bind:title="todo.title"
-                v-bind:creator="todo.creator"
-                v-bind:meetingDate="todo.creation_date"
-                v-on:click.native="clickedMinute(todo)"
-              />
-            </v-row>
-          </v-container>
+        <v-col>
+          <v-card max-width="600" class="mx-auto">
+            <v-toolbar color="light-blue" dark>
+              <v-app-bar-nav-icon></v-app-bar-nav-icon>
+
+              <v-toolbar-title>My Meetings</v-toolbar-title>
+
+              <v-spacer></v-spacer>
+
+              <v-btn icon>
+                <v-icon>mdi-magnify</v-icon>
+              </v-btn>
+            </v-toolbar>
+
+            <v-list>
+              <v-list-item
+                v-for="item in minuteList"
+                :key="item.title"
+                @click="clickedMinute(item)"
+              >
+                <v-list-item-avatar>
+                  <v-icon :class="[item.iconClass]" v-text="item.icon"></v-icon>
+                </v-list-item-avatar>
+
+                <v-list-item-content>
+                  <v-list-item-title v-text="item.title"></v-list-item-title>
+                  <v-list-item-subtitle v-text="item.creation_date"></v-list-item-subtitle>
+                </v-list-item-content>
+
+                <v-list-item-action>
+                  <v-btn icon>
+                    <v-icon color="grey lighten-1">mdi-information</v-icon>
+                  </v-btn>
+                </v-list-item-action>
+              </v-list-item>
+
+              <v-divider inset></v-divider>
+            </v-list>
+          </v-card>
         </v-col>
         <v-col justify="center" md="8">
           <MinuteDetail v-bind:minuteDetail="minuteDetail" />
@@ -36,7 +62,7 @@
 
 <script>
 import axios from "axios";
-import MinuteSummary from "./MinuteSummary";
+// import MinuteSummary from "./MinuteSummary";
 import MinuteDetail from "./MinuteDetail";
 
 export default {
@@ -45,39 +71,12 @@ export default {
   data() {
     return {
       minuteList: [],
-      minuteItems: [
-        {
-          id: 1,
-          title: "NoteIt POC Workshop",
-          creator: "John Smith",
-          meetingDate: "2019-12-01"
-        },
-        {
-          id: 2,
-          title: "Catch up with John",
-          creator: "John Smith",
-          meetingDate: "2020-01-15"
-        },
-        {
-          id: 3,
-          title: "Pick up kids",
-          creator: "Jane Doe",
-          meetingDate: "2020-01-01"
-        },
-        {
-          id: 4,
-          title: "Meeting 4",
-          creator: "John Smith",
-          meetingDate: "2020-06-15"
-        }
-      ],
       minuteDetail: {},
       failAlert: false,
       loading: true
     };
   },
   components: {
-    MinuteSummary,
     MinuteDetail
   },
   methods: {
@@ -96,7 +95,6 @@ export default {
       .then(response => {
         let data = response.data;
         this.minuteList = data.minutes_created;
-        //console.log(this.minuteList);
         this.loading = false;
         this.failAlert = false;
       })

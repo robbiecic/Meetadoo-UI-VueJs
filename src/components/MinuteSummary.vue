@@ -1,26 +1,38 @@
 <template>
-  <v-form>
-    <v-container>
-      <v-card
-        class="mx-auto"
-        max-width="344"
-        outlined
-        shaped
-        style="cursor: pointer"
-        hover
-      >
-        <v-list-item three-line>
-          <v-list-item-content>
-            <div class="overline mb-4">{{ meetingDate }}</div>
-            <v-list-item-title class="headline mb-1">{{
-              title
-            }}</v-list-item-title>
-            <v-list-item-subtitle>{{ creator }}</v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-      </v-card>
-    </v-container>
-  </v-form>
+  <v-card max-width="600" class="mx-auto">
+    <v-toolbar color="light-blue" dark>
+      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+
+      <v-toolbar-title>My Meetings</v-toolbar-title>
+
+      <v-spacer></v-spacer>
+
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+    </v-toolbar>
+
+    <v-list>
+      <v-list-item v-for="item in minuteList" :key="item.title" @click="clickedMinute(item)">
+        <v-list-item-avatar>
+          <v-icon :class="[item.iconClass]" v-text="item.icon"></v-icon>
+        </v-list-item-avatar>
+
+        <v-list-item-content>
+          <v-list-item-title v-text="item.title"></v-list-item-title>
+          <v-list-item-subtitle v-text="item.creation_date"></v-list-item-subtitle>
+        </v-list-item-content>
+
+        <v-list-item-action>
+          <v-btn icon>
+            <v-icon color="grey lighten-1">mdi-information</v-icon>
+          </v-btn>
+        </v-list-item-action>
+      </v-list-item>
+
+      <v-divider inset></v-divider>
+    </v-list>
+  </v-card>
 </template>
 
 <script>
