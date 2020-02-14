@@ -53,7 +53,7 @@
           </v-card>
         </v-col>
         <v-col justify="center" md="8">
-          <MinuteDetail v-bind:minuteDetail="minuteDetail" />
+          <MinuteDetail v-bind:minuteDetail="minuteDetail" v-on:MinuteUpdateSuccess="reloadPage" />
         </v-col>
       </v-row>
     </v-container>
@@ -82,27 +82,34 @@ export default {
   methods: {
     clickedMinute: function(todo) {
       this.minuteDetail = todo;
+    },
+    reloadPage: function() {
+      this.getMinutes();
+    },
+    getMinutes: function() {
+      axios
+        .get(
+          "https://localhost:8080/Development/minutes/?action=GetMyMinutes",
+          {
+            withCredentials: true
+          }
+        )
+        .then(response => {
+          let data = response.data;
+          this.minuteList = data.minutes_created;
+          this.loading = false;
+          this.failAlert = false;
+        })
+        .catch(e => {
+          console.log(e);
+          this.failAlert = true;
+          this.loading = false;
+        });
     }
   },
   created: function() {
-    // this.minuteDetail = this.minuteItems[0];
-    // console.log(this.minuteDetail);
     //On create want to load my minutes
-    axios
-      .get("https://localhost:8080/Development/minutes/?action=GetMyMinutes", {
-        withCredentials: true
-      })
-      .then(response => {
-        let data = response.data;
-        this.minuteList = data.minutes_created;
-        this.loading = false;
-        this.failAlert = false;
-      })
-      .catch(e => {
-        console.log(e);
-        this.failAlert = true;
-        this.loading = false;
-      });
+    this.getMinutes();
   }
 };
 </script>
