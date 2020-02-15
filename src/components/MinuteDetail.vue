@@ -186,6 +186,9 @@
           v-bind:disabledFields="disableFields"
         />
       </v-row>
+      <v-row>
+        <Actions />
+      </v-row>
     </v-container>
   </v-form>
 </template>
@@ -193,9 +196,11 @@
 <script>
 import axios from "axios";
 import PeoplePicker from "./reusable/peoplePicker";
+import Actions from "./actions";
+
 export default {
   name: "MinuteDetail",
-  components: { PeoplePicker },
+  components: { PeoplePicker, Actions },
   data() {
     return {
       friends: ["Sandra Adams", "Britta Holt"],
