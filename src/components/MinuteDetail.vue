@@ -100,7 +100,7 @@
         <!-- Start the time_start of meeting -->
         <v-col>
           <v-menu
-            ref="menu"
+            ref="menu3"
             v-model="menu3"
             :close-on-content-click="false"
             :nudge-right="40"
@@ -127,7 +127,7 @@
               v-if="menu3"
               v-model="minuteDetailLocal.time_start"
               full-width
-              @click:minute="$refs.menu.save(minuteDetailLocal.time_start)"
+              @click:minute="$refs.menu3.save(minuteDetailLocal.time_start)"
               :disabled="disableFields == true"
             ></v-time-picker>
           </v-menu>
@@ -135,7 +135,7 @@
         <!-- Start the time_end of meeting -->
         <v-col>
           <v-menu
-            ref="menu"
+            ref="menu4"
             v-model="menu4"
             :close-on-content-click="false"
             :nudge-right="40"
@@ -162,7 +162,7 @@
               v-if="menu4"
               v-model="minuteDetailLocal.time_end"
               full-width
-              @click:minute="$refs.menu.save(minuteDetailLocal.time_end)"
+              @click:minute="$refs.menu4.save(minuteDetailLocal.time_end)"
               :disabled="disableFields == true"
             ></v-time-picker>
           </v-menu>
