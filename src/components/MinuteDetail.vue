@@ -1,194 +1,203 @@
 <template>
   <v-form>
     <v-container>
-      <!-- Row for header and button -->
-      <v-row>
-        <v-col>
-          <h1>Meeting detail</h1>
-        </v-col>
-        <v-col class="text-right">
-          <v-progress-circular
-            :indeterminate="indeterminate"
-            :rotate="rotate"
-            :size="size"
-            :value="value"
-            :width="width"
-            color="light-blue"
-            v-if="showLoader == true"
-          ></v-progress-circular>
-          <v-btn
-            class="ma-2"
-            tile
-            outlined
-            color="error"
-            @click="clear"
-            :disabled="disableFields == true"
-          >
-            <v-icon left>mdi-pencil</v-icon>Clear
-          </v-btn>
-          <v-btn
-            class="ma-2"
-            tile
-            outlined
-            color="green"
-            @click="add"
-            v-if="update == false"
-            :disabled="disableFields == true"
-          >
-            <v-icon left>mdi-pencil</v-icon>Add
-          </v-btn>
-          <v-btn
-            class="ma-2"
-            tile
-            outlined
-            color="warning"
-            @click="add"
-            v-if="update == true"
-            :disabled="disableFields == true"
-          >
-            <v-icon left>mdi-pencil</v-icon>Update
-          </v-btn>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-text-field
-          v-model="minuteDetailLocal.title"
-          :label="'Meeting Title'"
-          :shaped="shaped"
-          :outlined="outlined"
-          :rounded="rounded"
-          :single-line="singleLine"
-          :filled="filled"
-          :flat="flat"
-          :counter="counterEn ? counter : false"
-          :dense="dense"
-          :disabled="disableFields == true"
-        ></v-text-field>
-      </v-row>
-      <v-row>
-        <!-- Start the date of meeting -->
-        <v-col>
-          <v-menu
-            v-model="menu2"
-            :close-on-content-click="false"
-            :nudge-right="40"
-            transition="scale-transition"
-            offset-y
-            min-width="290px"
-            :disabled="disableFields == true"
-          >
-            <template v-slot:activator="{ on }">
-              <v-text-field
-                v-model="minuteDetailLocal.creation_date"
-                label="Event Date"
-                prepend-icon="mdi-event"
-                :shaped="shaped"
-                :outlined="outlined"
-                :rounded="rounded"
-                readonly
-                v-on="on"
+      <v-tabs>
+        <v-tabs-slider></v-tabs-slider>
+        <v-tab> Meeting Details </v-tab>
+        <v-tab-item>
+          <v-row>
+            <v-col>
+              <h1>Meeting detail</h1>
+            </v-col>
+            <v-col class="text-right">
+              <v-progress-circular
+                :indeterminate="indeterminate"
+                :rotate="rotate"
+                :size="size"
+                :value="value"
+                :width="width"
+                color="light-blue"
+                v-if="showLoader == true"
+              ></v-progress-circular>
+              <v-btn
+                class="ma-2"
+                tile
+                outlined
+                color="error"
+                @click="clear"
                 :disabled="disableFields == true"
-              ></v-text-field>
-            </template>
-            <v-date-picker
-              v-model="minuteDetailLocal.creation_date"
-              @input="menu2 = false"
-              :disabled="disableFields == true"
-            ></v-date-picker>
-          </v-menu>
-        </v-col>
-        <!-- Start the time_start of meeting -->
-        <v-col>
-          <v-menu
-            ref="menu3"
-            v-model="menu3"
-            :close-on-content-click="false"
-            :nudge-right="40"
-            :return-value.sync="minuteDetailLocal.time_start"
-            transition="scale-transition"
-            offset-y
-            max-width="290px"
-            min-width="290px"
-            :disabled="disableFields == true"
-          >
-            <template v-slot:activator="{ on }">
-              <v-text-field
-                v-model="minuteDetailLocal.time_start"
-                label="Start Time"
-                readonly
-                v-on="on"
-                :shaped="shaped"
-                :outlined="outlined"
-                :rounded="rounded"
+              >
+                <v-icon left>mdi-pencil</v-icon>Clear
+              </v-btn>
+              <v-btn
+                class="ma-2"
+                tile
+                outlined
+                color="green"
+                @click="add"
+                v-if="update == false"
                 :disabled="disableFields == true"
-              ></v-text-field>
-            </template>
-            <v-time-picker
-              v-if="menu3"
-              v-model="minuteDetailLocal.time_start"
-              full-width
-              @click:minute="$refs.menu3.save(minuteDetailLocal.time_start)"
-              :disabled="disableFields == true"
-            ></v-time-picker>
-          </v-menu>
-        </v-col>
-        <!-- Start the time_end of meeting -->
-        <v-col>
-          <v-menu
-            ref="menu4"
-            v-model="menu4"
-            :close-on-content-click="false"
-            :nudge-right="40"
-            :return-value.sync="minuteDetailLocal.time_end"
-            transition="scale-transition"
-            offset-y
-            max-width="290px"
-            min-width="290px"
-            :disabled="disableFields == true"
-          >
-            <template v-slot:activator="{ on }">
-              <v-text-field
-                v-model="minuteDetailLocal.time_end"
-                label="Start Time"
-                readonly
-                v-on="on"
-                :shaped="shaped"
-                :outlined="outlined"
-                :rounded="rounded"
+              >
+                <v-icon left>mdi-pencil</v-icon>Add
+              </v-btn>
+              <v-btn
+                class="ma-2"
+                tile
+                outlined
+                color="warning"
+                @click="add"
+                v-if="update == true"
                 :disabled="disableFields == true"
-              ></v-text-field>
-            </template>
-            <v-time-picker
-              v-if="menu4"
-              v-model="minuteDetailLocal.time_end"
-              full-width
-              @click:minute="$refs.menu4.save(minuteDetailLocal.time_end)"
+              >
+                <v-icon left>mdi-pencil</v-icon>Update
+              </v-btn>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-text-field
+              v-model="minuteDetailLocal.title"
+              :label="'Meeting Title'"
+              :shaped="shaped"
+              :outlined="outlined"
+              :rounded="rounded"
+              :single-line="singleLine"
+              :filled="filled"
+              :flat="flat"
+              :counter="counterEn ? counter : false"
+              :dense="dense"
               :disabled="disableFields == true"
-            ></v-time-picker>
-          </v-menu>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-textarea
-          counter
-          v-model="minuteDetailLocal.description"
-          label="Description"
-          :shaped="shaped"
-          :outlined="outlined"
-          :rounded="rounded"
-          :disabled="disableFields == true"
-        ></v-textarea>
-      </v-row>
-      <v-row>
-        <PeoplePicker
-          v-bind:guests="minuteDetailLocal.guests"
-          ref="child"
-          v-bind:disabledFields="disableFields"
-        />
-      </v-row>
-      <v-row>
-        <Actions />
-      </v-row>
+            ></v-text-field>
+          </v-row>
+          <v-row>
+            <!-- Start the date of meeting -->
+            <v-col>
+              <v-menu
+                v-model="menu2"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                transition="scale-transition"
+                offset-y
+                min-width="290px"
+                :disabled="disableFields == true"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="minuteDetailLocal.creation_date"
+                    label="Event Date"
+                    prepend-icon="mdi-event"
+                    :shaped="shaped"
+                    :outlined="outlined"
+                    :rounded="rounded"
+                    readonly
+                    v-on="on"
+                    :disabled="disableFields == true"
+                  ></v-text-field>
+                </template>
+                <v-date-picker
+                  v-model="minuteDetailLocal.creation_date"
+                  @input="menu2 = false"
+                  :disabled="disableFields == true"
+                ></v-date-picker>
+              </v-menu>
+            </v-col>
+            <!-- Start the time_start of meeting -->
+            <v-col>
+              <v-menu
+                ref="menu3"
+                v-model="menu3"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                :return-value.sync="minuteDetailLocal.time_start"
+                transition="scale-transition"
+                offset-y
+                max-width="290px"
+                min-width="290px"
+                :disabled="disableFields == true"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="minuteDetailLocal.time_start"
+                    label="Start Time"
+                    readonly
+                    v-on="on"
+                    :shaped="shaped"
+                    :outlined="outlined"
+                    :rounded="rounded"
+                    :disabled="disableFields == true"
+                  ></v-text-field>
+                </template>
+                <v-time-picker
+                  v-if="menu3"
+                  v-model="minuteDetailLocal.time_start"
+                  full-width
+                  @click:minute="$refs.menu3.save(minuteDetailLocal.time_start)"
+                  :disabled="disableFields == true"
+                ></v-time-picker>
+              </v-menu>
+            </v-col>
+            <!-- Start the time_end of meeting -->
+            <v-col>
+              <v-menu
+                ref="menu4"
+                v-model="menu4"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                :return-value.sync="minuteDetailLocal.time_end"
+                transition="scale-transition"
+                offset-y
+                max-width="290px"
+                min-width="290px"
+                :disabled="disableFields == true"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="minuteDetailLocal.time_end"
+                    label="Start Time"
+                    readonly
+                    v-on="on"
+                    :shaped="shaped"
+                    :outlined="outlined"
+                    :rounded="rounded"
+                    :disabled="disableFields == true"
+                  ></v-text-field>
+                </template>
+                <v-time-picker
+                  v-if="menu4"
+                  v-model="minuteDetailLocal.time_end"
+                  full-width
+                  @click:minute="$refs.menu4.save(minuteDetailLocal.time_end)"
+                  :disabled="disableFields == true"
+                ></v-time-picker>
+              </v-menu>
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-textarea
+              counter
+              v-model="minuteDetailLocal.description"
+              label="Description"
+              :shaped="shaped"
+              :outlined="outlined"
+              :rounded="rounded"
+              :disabled="disableFields == true"
+            ></v-textarea>
+          </v-row>
+          <v-row>
+            <PeoplePicker
+              v-bind:guests="minuteDetailLocal.guests"
+              ref="child"
+              v-bind:disabledFields="disableFields"
+            />
+          </v-row>
+        </v-tab-item>
+        <v-tab> Minute Details </v-tab>
+        <v-tab-item>
+          <v-row>
+            <Actions />
+          </v-row>
+        </v-tab-item>
+      </v-tabs>
     </v-container>
   </v-form>
 </template>
@@ -203,6 +212,7 @@ export default {
   components: { PeoplePicker, Actions },
   data() {
     return {
+      panel: [0],
       friends: ["Sandra Adams", "Britta Holt"],
       isUpdating: false,
       autoUpdate: true,
@@ -245,6 +255,7 @@ export default {
       this.minuteDetailLocal = newVal;
       this.disableFields = false;
       this.showLoader = false;
+      this.panel = [0];
     }
   },
   methods: {
