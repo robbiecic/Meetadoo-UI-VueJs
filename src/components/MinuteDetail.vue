@@ -152,7 +152,7 @@
                 <template v-slot:activator="{ on }">
                   <v-text-field
                     v-model="minuteDetailLocal.time_end"
-                    label="Start Time"
+                    label="End Time"
                     readonly
                     v-on="on"
                     :shaped="shaped"
@@ -191,7 +191,13 @@
             />
           </v-row>
         </v-tab-item>
-        <v-tab> Minute Details </v-tab>
+        <v-tab> Minutes </v-tab>
+        <v-tab-item>
+          <v-row>
+            Add minutes component here
+          </v-row>
+        </v-tab-item>
+        <v-tab> Actions </v-tab>
         <v-tab-item>
           <v-row>
             <Actions />

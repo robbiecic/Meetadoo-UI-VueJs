@@ -61,7 +61,12 @@
                   <v-list-item-title v-text="item.description" />
                   <v-list-item-subtitle v-text="item.assignee" />
                 </v-list-item-content>
-                <v-btn outlined color="error" :disabled="disableFields == true">
+                <v-btn
+                  outlined
+                  color="error"
+                  :disabled="disableFields == true"
+                  @click="removeAction(item)"
+                >
                   <v-icon left>mdi-pencil</v-icon>Remove
                 </v-btn>
               </v-list-item>
@@ -106,17 +111,19 @@ export default {
   watch: {},
   methods: {
     addAction: function() {
-      console.log(this.actionDescription);
+      let current_id = this.actions.length;
       this.actions.push({
-        id: 3,
+        id: current_id + 1,
         checked: false,
         description: this.actionDescription,
-        assignee: "Me"
+        assignee: "Me" //Need to get this from the peoplePicker
       });
+      //Once action is added, clear the form
       this.clearActions();
     },
     clearActions: function() {
       this.actionDescription = "";
+      //Need to clear the peoplePicker too
     },
     toggle: function(actionItem) {
       let foundIndex = this.actions.findIndex(x => x.id === actionItem.id);
@@ -124,6 +131,12 @@ export default {
       if (newObject.checked === true) newObject.checked = false;
       if (newObject.checked === false) newObject.checked = true;
       this.actions[foundIndex] = newObject;
+    },
+    removeAction: function(item) {
+      let foundIndex = this.actions.findIndex(x => x.id === item.id);
+      if (foundIndex > -1) {
+        this.actions.splice(foundIndex, 1);
+      }
     }
   }
 };
