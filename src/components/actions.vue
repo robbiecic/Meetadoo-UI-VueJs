@@ -7,11 +7,11 @@
       </v-col>
       <v-col class="text-right">
         <v-progress-circular
-          :indeterminate="indeterminate"
-          :rotate="rotate"
-          :size="size"
-          :value="value"
-          :width="width"
+          :indeterminate="true"
+          :rotate="0"
+          :size="32"
+          :value="0"
+          :width="4"
           color="light-blue"
           v-if="showLoader == true"
         ></v-progress-circular>
@@ -37,6 +37,7 @@
           :outlined="true"
           :rounded="true"
           :single-line="true"
+          :disabled="showLoader == true"
         ></v-text-field>
       </v-col>
       <v-col md="3">
@@ -54,6 +55,7 @@
                   v-model="item.checked"
                   color="primary"
                   @change="toggle(item)"
+                  :disabled="showLoader == true"
                 ></v-checkbox>
               </v-list-item-action>
               <v-list-item>
@@ -79,11 +81,12 @@
 </template>
 
 <script>
-//import axios from "axios";
+import axios from "axios";
 import PeoplePicker from "./reusable/peoplePicker";
 export default {
   name: "Actions",
   components: { PeoplePicker },
+  props: ["meetingID"],
   data() {
     return {
       disableFields: false,
@@ -91,33 +94,68 @@ export default {
       settings: [],
       removeActive: false,
       actionDescription: "",
-      actions: [
-        {
-          id: 0,
-          checked: false,
-          description: "GO TOILET",
-          assignee: "robert.cicero@hotmail.com"
-        },
-        {
-          id: 1,
-          checked: false,
-          description: "GO TOILET AGAIN",
-          assignee: "robert.cicero@hotmail.com"
-        }
-      ],
       active: true
     };
   },
-  watch: {},
+  watch: {
+    meetingID: function() {
+      this.getActions();
+    }
+  },
+  created: function() {
+    this.getActions();
+  },
   methods: {
+    getActions: function() {
+      //When minute page loads, get the actions for the corresponding meeting
+      this.showLoader = true;
+      console.log("here", this.meetingID);
+      axios
+        .get(
+          "https://localhost:8080/Development/minutes/?action=GetActions&meetingID=" +
+            this.meetingID,
+          {
+            withCredentials: true
+          }
+        )
+        .then(response => {
+          this.actions = response.data.actions;
+          console.log("response", response);
+          this.showLoader = false;
+        })
+        .catch(e => {
+          console.log("error", e);
+          this.showLoader = false;
+        });
+    },
     addAction: function() {
-      let current_id = this.actions.length;
-      this.actions.push({
-        id: current_id + 1,
-        checked: false,
-        description: this.actionDescription,
-        assignee: "Me" //Need to get this from the peoplePicker
-      });
+      this.showLoader = true;
+      let body = {};
+      body.meeting_id = this.meetingID;
+      body.description = this.actionDescription;
+      body.assignee = "test5@test.com";
+      body.due_date = "2020-02-20";
+      body.checked = false;
+      axios
+        .post(
+          "https://localhost:8080/Development/minutes/?action=CreateAction",
+          { data: body },
+          {
+            headers: {
+              "content-type": "application/json",
+              "Access-Control-Allow-Origin": "*"
+            }
+          }
+        )
+        .then(response => {
+          this.showLoader = false;
+          console.log("completed with response", response);
+          this.getActions();
+        })
+        .catch(err => {
+          this.showLoader = false;
+          console.log("Errored with response", err);
+        });
       //Once action is added, clear the form
       this.clearActions();
     },
@@ -133,10 +171,29 @@ export default {
       this.actions[foundIndex] = newObject;
     },
     removeAction: function(item) {
-      let foundIndex = this.actions.findIndex(x => x.id === item.id);
-      if (foundIndex > -1) {
-        this.actions.splice(foundIndex, 1);
-      }
+      this.showLoader = true;
+      let body = {};
+      axios
+        .post(
+          "https://localhost:8080/Development/minutes/?action=RemoveAction&actionID=" +
+            item.id,
+          { data: body },
+          {
+            headers: {
+              "content-type": "application/json",
+              "Access-Control-Allow-Origin": "*"
+            }
+          }
+        )
+        .then(response => {
+          this.showLoader = false;
+          console.log("completed with response", response);
+          this.getActions();
+        })
+        .catch(err => {
+          this.showLoader = false;
+          console.log("Errored with response", err);
+        });
     }
   }
 };

@@ -5,12 +5,26 @@
       class="px-3 pt-3 pb-3"
       v-if="loading == true"
     >
-      <v-skeleton-loader class="mx-auto" max-width="500" max-height="800" type="card"></v-skeleton-loader>
+      <v-skeleton-loader
+        class="mx-auto"
+        max-width="500"
+        max-height="800"
+        type="card"
+      ></v-skeleton-loader>
     </v-sheet>
     <v-container v-if="failAlert == true && loading == false">
-      <v-alert type="error">You are not authorised to perform this action</v-alert>
+      <v-alert type="error"
+        >You are not authorised to perform this action</v-alert
+      >
     </v-container>
-    <v-container w fluid ma-0 pa-0 fill-height v-if="failAlert == false && loading == false">
+    <v-container
+      w
+      fluid
+      ma-0
+      pa-0
+      fill-height
+      v-if="failAlert == false && loading == false"
+    >
       <v-row>
         <v-col>
           <v-card max-width="600" class="mx-auto">
@@ -29,7 +43,7 @@
             <v-list>
               <v-list-item
                 v-for="item in minuteList"
-                :key="item.title"
+                :key="item.id"
                 @click="clickedMinute(item)"
               >
                 <v-list-item-avatar>
@@ -38,7 +52,9 @@
 
                 <v-list-item-content>
                   <v-list-item-title v-text="item.title"></v-list-item-title>
-                  <v-list-item-subtitle v-text="item.creation_date"></v-list-item-subtitle>
+                  <v-list-item-subtitle
+                    v-text="item.creation_date"
+                  ></v-list-item-subtitle>
                 </v-list-item-content>
 
                 <v-list-item-action>
@@ -53,7 +69,10 @@
           </v-card>
         </v-col>
         <v-col justify="center" md="8">
-          <MinuteDetail v-bind:minuteDetail="minuteDetail" v-on:MinuteUpdateSuccess="reloadPage" />
+          <MinuteDetail
+            v-bind:minuteDetail="minuteDetail"
+            v-on:MinuteUpdateSuccess="reloadPage"
+          />
         </v-col>
       </v-row>
     </v-container>

@@ -200,7 +200,7 @@
         <v-tab> Actions </v-tab>
         <v-tab-item>
           <v-row>
-            <Actions />
+            <Actions v-bind:meetingID="minuteDetailLocal.id" />
           </v-row>
         </v-tab-item>
         <v-tab> History </v-tab>
