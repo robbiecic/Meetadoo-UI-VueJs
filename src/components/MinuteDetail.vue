@@ -203,6 +203,12 @@
             <Actions />
           </v-row>
         </v-tab-item>
+        <v-tab> History </v-tab>
+        <v-tab-item>
+          <v-row>
+            ADD History here
+          </v-row>
+        </v-tab-item>
       </v-tabs>
     </v-container>
   </v-form>
