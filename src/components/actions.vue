@@ -94,7 +94,8 @@ export default {
       settings: [],
       removeActive: false,
       actionDescription: "",
-      active: true
+      active: true,
+      actions: []
     };
   },
   watch: {
@@ -176,7 +177,9 @@ export default {
       axios
         .post(
           "https://localhost:8080/Development/minutes/?action=RemoveAction&actionID=" +
-            item.id,
+            item.id +
+            "&meetingID=" +
+            this.meetingID,
           { data: body },
           {
             headers: {
