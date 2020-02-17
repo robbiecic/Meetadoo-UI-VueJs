@@ -202,9 +202,9 @@
           </v-row>
         </v-tab-item>
         <v-tab>History</v-tab>
-        <v-tab-item>
+        <v-tab-item v-if="activeTabs==3">
           <v-row>
-            <ActionHistory v-bind:meetingID="minuteDetailLocal.id" v-bind:tabSelected="activeTabs" />
+            <ActionHistory v-bind:meetingID="minuteDetailLocal.id" />
           </v-row>
         </v-tab-item>
       </v-tabs>
@@ -224,7 +224,7 @@ export default {
   data() {
     return {
       panel: [0],
-      activeTabs: 1,
+      activeTabs: 0,
       friends: ["Sandra Adams", "Britta Holt"],
       isUpdating: false,
       autoUpdate: true,

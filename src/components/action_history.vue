@@ -41,7 +41,7 @@ import axios from "axios";
 export default {
   name: "ActionHistory",
   components: {},
-  props: ["meetingID", "tabSelected"],
+  props: ["meetingID"],
   data() {
     return {
       disableFields: false,
@@ -63,10 +63,6 @@ export default {
   watch: {
     meetingID: function() {
       this.getHistory();
-    },
-    tabSelected: function(newVal) {
-      console.log("here");
-      if (newVal == 4) this.getHistory();
     }
   },
   mounted: function() {
