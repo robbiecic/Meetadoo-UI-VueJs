@@ -1,9 +1,9 @@
 <template>
   <v-form>
     <v-container>
-      <v-tabs>
+      <v-tabs v-model="activeTabs">
         <v-tabs-slider></v-tabs-slider>
-        <v-tab> Meeting Details </v-tab>
+        <v-tab>Meeting Details</v-tab>
         <v-tab-item>
           <v-row>
             <v-col>
@@ -191,22 +191,20 @@
             />
           </v-row>
         </v-tab-item>
-        <v-tab> Minutes </v-tab>
+        <v-tab>Minutes</v-tab>
         <v-tab-item>
-          <v-row>
-            Add minutes component here
-          </v-row>
+          <v-row>Add minutes component here</v-row>
         </v-tab-item>
-        <v-tab> Actions </v-tab>
+        <v-tab>Actions</v-tab>
         <v-tab-item>
           <v-row>
             <Actions v-bind:meetingID="minuteDetailLocal.id" />
           </v-row>
         </v-tab-item>
-        <v-tab> History </v-tab>
+        <v-tab>History</v-tab>
         <v-tab-item>
           <v-row>
-            ADD History here
+            <ActionHistory v-bind:meetingID="minuteDetailLocal.id" v-bind:tabSelected="activeTabs" />
           </v-row>
         </v-tab-item>
       </v-tabs>
@@ -218,13 +216,15 @@
 import axios from "axios";
 import PeoplePicker from "./reusable/peoplePicker";
 import Actions from "./actions";
+import ActionHistory from "./action_history";
 
 export default {
   name: "MinuteDetail",
-  components: { PeoplePicker, Actions },
+  components: { PeoplePicker, Actions, ActionHistory },
   data() {
     return {
       panel: [0],
+      activeTabs: 1,
       friends: ["Sandra Adams", "Britta Holt"],
       isUpdating: false,
       autoUpdate: true,
