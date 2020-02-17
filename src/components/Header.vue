@@ -26,7 +26,7 @@
       <v-btn text to="/">
         <span class="mr-2">Home</span>
       </v-btn>
-      <v-btn text to="/register">
+      <v-btn text v-if="isLoggedOn == false" to="/register">
         <span class="mr-2">Register</span>
       </v-btn>
       <v-btn text v-if="isLoggedOn == false" to="/login">
@@ -35,11 +35,10 @@
       <v-btn text v-if="isLoggedOn == true" to="/dashboard">
         <span class="mr-2">Dashboard</span>
       </v-btn>
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
+      <v-btn text v-if="isLoggedOn == true" to="/logout">
+        <span class="mr-2">Logout</span>
+      </v-btn>
+      <v-btn href="https://github.com/vuetifyjs/vuetify/releases/latest" target="_blank" text>
         <span class="mr-2">Latest Release</span>
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
@@ -50,9 +49,7 @@
         "
       >
         <v-tabs grow v-model="active_tab" dark background-color="blue darken-2">
-          <v-tab v-for="tab of tabs" :key="tab.id" :to="tab.link">
-            {{ tab.name }}
-          </v-tab>
+          <v-tab v-for="tab of tabs" :key="tab.id" :to="tab.link">{{ tab.name }}</v-tab>
         </v-tabs>
       </template>
     </v-app-bar>
