@@ -1,6 +1,15 @@
 <template>
   <v-app>
-    <v-content>Content here</v-content>
+    <v-content>
+      <v-progress-circular
+        :indeterminate="indeterminate"
+        :rotate="rotate"
+        :size="size"
+        :value="value"
+        :width="width"
+        color="light-blue"
+      ></v-progress-circular>
+    </v-content>
   </v-app>
 </template>
 
@@ -17,7 +26,9 @@ export default {
     axios
       .post(
         "https://localhost:8080/Development/?action=Logout",
-        { data: {} },
+        {
+          data: { email: "Not Required" }
+        },
         {
           headers: {
             "content-type": "application/json",
@@ -26,7 +37,7 @@ export default {
         }
       )
       .then(response => {
-        console.log(response);
+        this.successful = true;
       })
       .catch(e => {
         console.log(e);
