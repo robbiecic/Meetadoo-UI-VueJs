@@ -68,7 +68,7 @@ export default {
     getHistory: function() {
       //When minute page loads, get the actions for the corresponding meeting
       this.showLoader = true;
-      console.log("here", this.meetingID);
+      // console.log("here", this.meetingID);
       axios
         .get(
           "https://localhost:8080/Development/minutes/?action=GetHistory&meetingID=" +
@@ -80,11 +80,11 @@ export default {
         .then(response => {
           //this.actions = response.data.actions;
           this.actionHistory = response.data.actions;
-          console.log("response", response);
+          // console.log("response", response);
           this.showLoader = false;
         })
-        .catch(e => {
-          console.log("error", e);
+        .catch(() => {
+          // console.log("error", e);
           this.showLoader = false;
         });
     }
