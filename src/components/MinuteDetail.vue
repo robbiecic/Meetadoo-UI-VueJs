@@ -193,7 +193,9 @@
         </v-tab-item>
         <v-tab>Minutes</v-tab>
         <v-tab-item>
-          <v-row>Add minutes component here</v-row>
+          <v-row>
+            <MinutePage />
+          </v-row>
         </v-tab-item>
         <v-tab>Actions</v-tab>
         <v-tab-item>
@@ -217,10 +219,11 @@ import axios from "axios";
 import PeoplePicker from "./reusable/peoplePicker";
 import Actions from "./actions";
 import ActionHistory from "./action_history";
+import MinutePage from "./MinutePage";
 
 export default {
   name: "MinuteDetail",
-  components: { PeoplePicker, Actions, ActionHistory },
+  components: { PeoplePicker, Actions, ActionHistory, MinutePage },
   data() {
     return {
       panel: [0],
