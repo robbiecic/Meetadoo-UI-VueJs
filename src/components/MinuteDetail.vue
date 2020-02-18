@@ -277,7 +277,7 @@ export default {
       let body = {};
       body.title = this.minuteDetailLocal.title;
       body.creation_date = this.minuteDetailLocal.creation_date;
-      body.creator = "test5@test.com";
+      // body.creator = "test5@test.com"; //Will set the creator in the backend by pulling the email address from the jwt
       body.time_start = this.minuteDetailLocal.time_start;
       body.time_end = this.minuteDetailLocal.time_end;
       body.guests = this.$refs.child.guestsLocal;
