@@ -41,7 +41,7 @@
         ></v-text-field>
       </v-col>
       <v-col md="3">
-        <PeoplePicker />
+        <PeoplePicker ref="assignee" :initialValue="initialValue" />
       </v-col>
     </v-row>
     <!-- This row will for existing actions -->
@@ -61,7 +61,7 @@
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title v-text="item.description" />
-                  <v-list-item-subtitle v-text="item.assignee" />
+                  <v-list-item-subtitle v-text="item.assignee.toString()" />
                 </v-list-item-content>
                 <v-btn
                   outlined
@@ -95,7 +95,8 @@ export default {
       removeActive: false,
       actionDescription: "",
       active: true,
-      actions: []
+      actions: [],
+      initialValue: {}
     };
   },
   watch: {
@@ -110,7 +111,6 @@ export default {
     getActions: function() {
       //When minute page loads, get the actions for the corresponding meeting
       this.showLoader = true;
-      console.log("here", this.meetingID);
       axios
         .get(
           "https://localhost:8080/Development/minutes/?action=GetActions&meetingID=" +
@@ -121,11 +121,9 @@ export default {
         )
         .then(response => {
           this.actions = response.data.actions;
-          console.log("response", response);
           this.showLoader = false;
         })
-        .catch(e => {
-          console.log("error", e);
+        .catch(() => {
           this.showLoader = false;
         });
     },
@@ -134,7 +132,7 @@ export default {
       let body = {};
       body.meeting_id = this.meetingID;
       body.description = this.actionDescription;
-      body.assignee = "test5@test.com";
+      body.assignee = this.$refs.assignee.guestsLocal;
       body.due_date = "2020-02-20";
       body.checked = false;
       axios
@@ -148,20 +146,21 @@ export default {
             }
           }
         )
-        .then(response => {
+        .then(() => {
           this.showLoader = false;
-          console.log("completed with response", response);
           this.getActions();
+          //Once action is added, clear the form
+          this.clearActions();
         })
-        .catch(err => {
+        .catch(() => {
           this.showLoader = false;
-          console.log("Errored with response", err);
+          //Once action is added, clear the form
+          this.clearActions();
         });
-      //Once action is added, clear the form
-      this.clearActions();
     },
     clearActions: function() {
       this.actionDescription = "";
+      this.initialValue = {};
       //Need to clear the peoplePicker too
     },
     toggle: function(actionItem) {

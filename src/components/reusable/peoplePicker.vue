@@ -30,7 +30,7 @@ import axios from "axios";
 
 export default {
   name: "PeoplePicker",
-  props: ["guests", "disabledFields"],
+  props: ["guests", "disabledFields", "initialValue"],
   data() {
     return {
       isUpdating: false,
@@ -50,6 +50,9 @@ export default {
     },
     guests: function(newVal) {
       this.guestsLocal = newVal;
+    },
+    initialValue: function() {
+      this.guestsLocal = [];
     }
   },
   methods: {
