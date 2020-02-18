@@ -26,11 +26,7 @@
           :items="actionHistory"
           item-key="actionHistory.id"
           class="elevation-1"
-        >
-          <template v-slot:top>
-            <v-switch v-model="singleSelect" label="Single select" class="pa-3"></v-switch>
-          </template>
-        </v-data-table>
+        ></v-data-table>
       </v-col>
     </v-row>
   </v-container>
