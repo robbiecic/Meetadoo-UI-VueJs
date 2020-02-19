@@ -34,7 +34,7 @@
                 tile
                 outlined
                 color="green"
-                @click="add"
+                @click="add('add')"
                 v-if="update == false"
                 :disabled="disableFields == true"
               >
@@ -45,7 +45,7 @@
                 tile
                 outlined
                 color="warning"
-                @click="add"
+                @click="add('update')"
                 v-if="update == true"
                 :disabled="disableFields == true"
               >
@@ -274,10 +274,11 @@ export default {
     }
   },
   methods: {
-    add: function() {
+    add: function(add_or_update) {
       this.disableFields = true;
       this.showLoader = true;
       let body = {};
+      let url = "";
       body.title = this.minuteDetailLocal.title;
       body.creation_date = this.minuteDetailLocal.creation_date;
       // body.creator = "test5@test.com"; //Will set the creator in the backend by pulling the email address from the jwt
@@ -287,11 +288,19 @@ export default {
       body.repeat_event = false;
       body.description = this.minuteDetailLocal.description;
 
+      if (add_or_update == "update") {
+        body.id = this.minuteDetailLocal.id;
+        body.creator = this.minuteDetailLocal.creator;
+        url = "https://localhost:8080/Development/minutes/?action=UpdateMinute";
+      } else {
+        url = "https://localhost:8080/Development/minutes/?action=CreateMinute";
+      }
+
       console.log("body", body);
 
       axios
         .post(
-          "https://localhost:8080/Development/minutes/?action=CreateMinute",
+          url,
           { data: body },
           {
             headers: {
