@@ -28,21 +28,28 @@
       <v-row>
         <v-col>
           <v-card max-width="600" class="mx-auto">
-            <v-toolbar color="light-blue" dark>
+            <v-toolbar flat color="transparent">
               <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
               <v-toolbar-title>My Meetings</v-toolbar-title>
 
               <v-spacer></v-spacer>
 
-              <v-btn icon>
+              <v-btn icon @click="$refs.search.focus()">
                 <v-icon>mdi-magnify</v-icon>
               </v-btn>
             </v-toolbar>
-
+            <v-text-field
+              ref="search"
+              v-model="search"
+              full-width
+              hide-details
+              label="Search"
+              single-line
+            ></v-text-field>
             <v-list>
               <v-list-item
-                v-for="item in minuteList"
+                v-for="item in filteredMinutes"
                 :key="item.id"
                 @click="clickedMinute(item)"
               >
@@ -70,6 +77,7 @@
         </v-col>
         <v-col justify="center" md="8">
           <MinuteDetail
+            ref="search"
             v-bind:minuteDetail="minuteDetail"
             v-on:MinuteUpdateSuccess="reloadPage"
           />
@@ -92,11 +100,25 @@ export default {
       minuteList: [],
       minuteDetail: {},
       failAlert: false,
-      loading: true
+      loading: true,
+      search: ""
     };
   },
   components: {
     MinuteDetail
+  },
+  computed: {
+    filteredMinutes() {
+      const search = this.search.toLowerCase();
+
+      if (!search) return this.minuteList;
+
+      return this.minuteList.filter(item => {
+        const text = item.title.toLowerCase();
+
+        return text.indexOf(search) > -1;
+      });
+    }
   },
   methods: {
     clickedMinute: function(todo) {
