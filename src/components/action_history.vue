@@ -5,27 +5,18 @@
       <v-col>
         <h1>History</h1>
       </v-col>
-      <v-col class="text-right">
-        <v-progress-circular
-          :indeterminate="true"
-          :rotate="0"
-          :size="32"
-          :value="0"
-          :width="4"
-          color="light-blue"
-          v-if="showLoader == true"
-        ></v-progress-circular>
-      </v-col>
     </v-row>
     <!-- This row will be where you add a new actions -->
     <v-row>
       <v-col md="8">
+        <LoaderTable v-if="showLoader == true" />
         <v-data-table
           v-model="selected"
           :headers="headers"
           :items="actionHistory"
           item-key="actionHistory.id"
           class="elevation-1"
+          v-if="showLoader == false"
         ></v-data-table>
       </v-col>
     </v-row>
@@ -34,9 +25,10 @@
 
 <script>
 import axios from "axios";
+import LoaderTable from "./loaders/loader_table";
 export default {
   name: "ActionHistory",
-  components: {},
+  components: { LoaderTable },
   props: ["meetingID"],
   data() {
     return {

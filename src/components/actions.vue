@@ -30,19 +30,17 @@
     </v-row>
     <!-- This row will be where you add a new actions -->
     <v-row>
-      <v-col md="8">
-        <v-text-field
-          v-model="actionDescription"
-          :label="'Description'"
-          :outlined="true"
-          :rounded="true"
-          :single-line="true"
-          :disabled="showLoader == true"
-        ></v-text-field>
-      </v-col>
-      <v-col md="3">
-        <PeoplePicker ref="assignee" :initialValue="initialValue" />
-      </v-col>
+      <v-text-field
+        v-model="actionDescription"
+        :label="'Description'"
+        :outlined="true"
+        :rounded="true"
+        :single-line="true"
+        :disabled="showLoader == true"
+      ></v-text-field>
+    </v-row>
+    <v-row>
+      <PeoplePicker ref="assignee" :initialValue="initialValue" />
     </v-row>
     <!-- This row will for existing actions -->
     <v-row>

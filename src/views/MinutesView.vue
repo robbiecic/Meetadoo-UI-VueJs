@@ -1,15 +1,15 @@
 <template>
   <v-app>
-    <v-container>
+    <v-content>
       <v-row>
-        <v-col>
-          <MinutesList />
+        <v-col md="3">
+          <MinutesList @clicked_minute="onClickChild" />
         </v-col>
         <v-col>
-          <MinuteDetail />
+          <MinuteDetail v-bind:minuteDetail="clickedMeeting" />
         </v-col>
       </v-row>
-    </v-container>
+    </v-content>
   </v-app>
 </template>
 
@@ -21,8 +21,15 @@ export default {
 
   components: { MinutesList, MinuteDetail },
 
-  data: () => ({
-    //
-  })
+  data() {
+    return {
+      clickedMeeting: {}
+    };
+  },
+  methods: {
+    onClickChild: function(event) {
+      this.clickedMeeting = event;
+    }
+  }
 };
 </script>

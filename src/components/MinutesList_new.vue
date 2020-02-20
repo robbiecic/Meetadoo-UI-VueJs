@@ -1,12 +1,6 @@
 <template>
   <v-container>
-    <v-sheet
-      :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
-      class="px-3 pt-3 pb-3"
-      v-if="loading == true"
-    >
-      <LoaderMinuteList />
-    </v-sheet>
+    <LoaderMinuteList v-if="loading == true" />
     <v-container v-if="failAlert == true && loading == false">
       <v-alert type="error">You are not authorised to perform this action</v-alert>
     </v-container>
@@ -70,7 +64,6 @@ import LoaderMinuteList from "./loaders/loader_minuteList";
 
 export default {
   name: "MinutesList",
-  inject: ["theme"],
   data() {
     return {
       minuteList: [],
@@ -99,6 +92,7 @@ export default {
   methods: {
     clickedMinute: function(todo) {
       this.minuteDetail = todo;
+      this.$emit("clicked_minute", todo);
     },
     reloadPage: function() {
       this.getMinutes();

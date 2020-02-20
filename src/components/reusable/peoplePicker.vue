@@ -4,6 +4,9 @@
       v-model="guestsLocal"
       :items="email_list"
       label="Add someone"
+      :outlined="true"
+      :rounded="true"
+      :single-line="true"
       multiple
       chips
       :disabled="disabledFields==true"
@@ -25,21 +28,13 @@
         </v-chip>
       </template>
     </v-combobox>
-    <v-progress-circular
-      :indeterminate="indeterminate"
-      :rotate="rotate"
-      :size="size"
-      :value="value"
-      :width="width"
-      color="light-blue"
-      v-if="isUpdating == true"
-    ></v-progress-circular>
+    <LoaderPeoplePicker v-if="isUpdating == true" />
   </v-container>
 </template>
 
 <script>
 import axios from "axios";
-
+import LoaderPeoplePicker from "../loaders/loader_peoplePicker";
 export default {
   name: "PeoplePicker",
   props: ["guests", "disabledFields", "initialValue", "loadData"],
@@ -60,6 +55,7 @@ export default {
       showLoader: false
     };
   },
+  components: { LoaderPeoplePicker },
   watch: {
     // isUpdating(val) {
     //   if (val) {
