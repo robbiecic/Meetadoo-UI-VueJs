@@ -6,16 +6,6 @@
         <h1>Actions</h1>
       </v-col>
       <v-col class="text-right">
-        <v-progress-circular
-          :indeterminate="true"
-          :rotate="0"
-          :size="32"
-          :value="0"
-          :width="4"
-          color="light-blue"
-          v-if="showLoader == true"
-        ></v-progress-circular>
-
         <v-btn
           class="ma-2"
           tile
@@ -30,14 +20,16 @@
     </v-row>
     <!-- This row will be where you add a new actions -->
     <v-row>
-      <v-text-field
-        v-model="actionDescription"
-        :label="'Description'"
-        :outlined="true"
-        :rounded="true"
-        :single-line="true"
-        :disabled="showLoader == true"
-      ></v-text-field>
+      <v-container>
+        <v-text-field
+          v-model="actionDescription"
+          :label="'Description'"
+          :outlined="true"
+          :rounded="true"
+          :single-line="true"
+          :disabled="showLoader == true"
+        ></v-text-field>
+      </v-container>
     </v-row>
     <v-row>
       <PeoplePicker ref="assignee" :initialValue="initialValue" />
@@ -45,6 +37,7 @@
     <!-- This row will for existing actions -->
     <v-row>
       <v-col>
+        <LoaderActions v-if="showLoader == true" />
         <v-list two-line subheader>
           <v-list-item-group>
             <v-list-item v-for="item in actions" :key="item.id">
@@ -81,9 +74,10 @@
 <script>
 import axios from "axios";
 import PeoplePicker from "./reusable/peoplePicker";
+import LoaderActions from "./loaders/loader_actions";
 export default {
   name: "Actions",
-  components: { PeoplePicker },
+  components: { PeoplePicker, LoaderActions },
   props: ["meetingID"],
   data() {
     return {

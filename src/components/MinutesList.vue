@@ -1,16 +1,19 @@
 <template>
-  <v-form>
-    <v-sheet
-      :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
-      class="px-3 pt-3 pb-3"
-      v-if="loading == true"
-    >
-      <LoaderMinuteList />
-    </v-sheet>
+  <v-container>
+    <LoaderMinuteList v-if="loading == true" />
     <v-container v-if="failAlert == true && loading == false">
-      <v-alert type="error">You are not authorised to perform this action</v-alert>
+      <v-alert type="error"
+        >You are not authorised to perform this action</v-alert
+      >
     </v-container>
-    <v-container w fluid ma-0 pa-0 fill-height v-if="failAlert == false && loading == false">
+    <v-container
+      w
+      fluid
+      ma-0
+      pa-0
+      fill-height
+      v-if="failAlert == false && loading == false"
+    >
       <v-row>
         <v-col>
           <v-card max-width="600" class="mx-auto">
@@ -31,7 +34,6 @@
               full-width
               hide-details
               label="Search"
-              single-line
             ></v-text-field>
             <v-list>
               <v-list-item
@@ -45,7 +47,9 @@
 
                 <v-list-item-content>
                   <v-list-item-title v-text="item.title"></v-list-item-title>
-                  <v-list-item-subtitle v-text="item.creation_date"></v-list-item-subtitle>
+                  <v-list-item-subtitle
+                    v-text="item.creation_date"
+                  ></v-list-item-subtitle>
                 </v-list-item-content>
 
                 <v-list-item-action>
@@ -59,26 +63,17 @@
             </v-list>
           </v-card>
         </v-col>
-        <v-col justify="center" md="8">
-          <MinuteDetail
-            ref="search"
-            v-bind:minuteDetail="minuteDetail"
-            v-on:MinuteUpdateSuccess="reloadPage"
-          />
-        </v-col>
       </v-row>
     </v-container>
-  </v-form>
+  </v-container>
 </template>
 
 <script>
 import axios from "axios";
 import LoaderMinuteList from "./loaders/loader_minuteList";
-import MinuteDetail from "./MinuteDetail";
 
 export default {
   name: "MinutesList",
-  inject: ["theme"],
   data() {
     return {
       minuteList: [],
@@ -89,7 +84,6 @@ export default {
     };
   },
   components: {
-    MinuteDetail,
     LoaderMinuteList
   },
   computed: {
@@ -108,6 +102,7 @@ export default {
   methods: {
     clickedMinute: function(todo) {
       this.minuteDetail = todo;
+      this.$emit("clicked_minute", todo);
     },
     reloadPage: function() {
       this.getMinutes();

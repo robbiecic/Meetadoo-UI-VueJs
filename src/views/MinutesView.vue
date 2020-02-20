@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import MinutesList from "../components/MinutesList_new";
+import MinutesList from "../components/MinutesList";
 import MinuteDetail from "../components/MinuteDetail";
 export default {
   name: "MintuesView",

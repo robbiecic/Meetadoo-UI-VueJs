@@ -83,7 +83,8 @@ export default {
       size: 32,
       value: 0,
       width: 4,
-      initialValue: {}
+      initialValue: {},
+      showLoader: false
     };
   },
   props: ["meetingID", "creation_date"],
