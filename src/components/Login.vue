@@ -1,7 +1,9 @@
 <template>
   <v-form v-model="valid">
     <v-container>
-      <v-alert type="error" v-if="failAlert == true">Email and/or password is not valid</v-alert>
+      <v-alert type="error" v-if="failAlert == true"
+        >Email and/or password is not valid</v-alert
+      >
       <v-row>
         <v-text-field v-model="email" label="E-mail" required></v-text-field>
       </v-row>
@@ -79,11 +81,13 @@ export default {
         .then(response => {
           this.isLoggedOn = true;
           var responseData = response.data.replace(/'/g, '"');
-          localStorage.jwt = JSON.parse(responseData).token; // Don't think I need this anymore
           this.clear();
           this.showLoader = false;
           this.$store.commit("setUser");
-          this.$router.push({ name: "Dashboard" });
+          this.$router.push({
+            name: "Dashboard",
+            params: { user: responseData }
+          });
         })
         .catch(() => {
           this.failAlert = true;

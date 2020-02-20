@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-content>
-      <Login />
+      <Login v-bind:user="userProps" />
     </v-content>
   </v-app>
 </template>
@@ -10,11 +10,15 @@
 import Login from "../components/Login";
 export default {
   name: "LoginView",
-
+  props: ["user"],
   components: { Login },
-
-  data: () => ({
-    //
-  })
+  created: function() {
+    this.userProps = this.user;
+  },
+  data() {
+    return {
+      userProps: {}
+    };
+  }
 };
 </script>

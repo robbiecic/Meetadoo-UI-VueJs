@@ -11,21 +11,20 @@
       ></v-progress-circular>
     </v-container>
     <v-container v-if="failAlert == true">
-      <v-alert type="error">You are not authorised to perform this action</v-alert>
+      <v-alert type="error"
+        >You are not authorised to perform this action</v-alert
+      >
     </v-container>
     <v-container v-if="failAlert == false && showLoader == false">
       <br />
       <h1>My Profile</h1>
       <br />
       <v-alert type="error" v-if="updateFail == true">
-        Something went wrong updating your data. Please try again
-        later.
+        Something went wrong updating your data. Please try again later.
       </v-alert>
-      <v-alert
-        type="success"
-        v-if="updateSuccess == true"
-        dismissible
-      >You have successfully updated your profile.</v-alert>
+      <v-alert type="success" v-if="updateSuccess == true" dismissible
+        >You have successfully updated your profile.</v-alert
+      >
       <v-text-field
         v-model="email"
         :label="'Email'"
@@ -80,6 +79,7 @@ import axios from "axios";
 
 export default {
   name: "Profile",
+  props: ["user"],
   data() {
     return {
       firstname: "",
@@ -183,8 +183,18 @@ export default {
     }
   },
   created: function() {
+    console.log("this.user", this.user);
+
     //Each time this page is refreshed or component is loaded, get the user's profile using the Cookie the user may have received from server after logging in successfully
-    this.getProfile();
+    if (this.user) {
+      //If pass in by props then load straight in
+      let data_json = JSON.parse(this.user);
+      this.firstname = data_json.firstname;
+      this.surname = data_json.surname;
+      this.email = data_json.email;
+    } else {
+      this.getProfile();
+    }
   }
 };
 </script>
