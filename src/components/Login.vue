@@ -79,7 +79,7 @@ export default {
         .then(response => {
           this.isLoggedOn = true;
           var responseData = response.data.replace(/'/g, '"');
-          localStorage.jwt = JSON.parse(responseData).token;
+          localStorage.jwt = JSON.parse(responseData).token; // Don't think I need this anymore
           this.clear();
           this.showLoader = false;
           this.$store.commit("setUser");

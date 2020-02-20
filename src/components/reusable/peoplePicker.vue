@@ -1,28 +1,40 @@
 <template>
-  <v-combobox
-    v-model="guestsLocal"
-    :items="email_list"
-    label="Add someone"
-    multiple
-    chips
-    :disabled="disabledFields==true"
-  >
-    <template v-slot:selection="data">
-      <v-chip
-        :key="JSON.stringify(data.email)"
-        v-bind="data.attr"
-        :input-value="data.selected"
-        :disabled="data.disabled"
-        @click:close="data.parent.selectItem(data.item)"
-        close
-      >
-        <v-avatar left>
-          <v-icon>mdi-account-circle</v-icon>
-        </v-avatar>
-        {{getAvatar(data)}}
-      </v-chip>
-    </template>
-  </v-combobox>
+  <v-container>
+    <v-combobox
+      v-model="guestsLocal"
+      :items="email_list"
+      label="Add someone"
+      multiple
+      chips
+      :disabled="disabledFields==true"
+      v-if="isUpdating == false"
+    >
+      <template v-slot:selection="data">
+        <v-chip
+          :key="JSON.stringify(data.email)"
+          v-bind="data.attr"
+          :input-value="data.selected"
+          :disabled="data.disabled"
+          @click:close="data.parent.selectItem(data.item)"
+          close
+        >
+          <v-avatar left>
+            <v-icon>mdi-account-circle</v-icon>
+          </v-avatar>
+          {{getAvatar(data)}}
+        </v-chip>
+      </template>
+    </v-combobox>
+    <v-progress-circular
+      :indeterminate="indeterminate"
+      :rotate="rotate"
+      :size="size"
+      :value="value"
+      :width="width"
+      color="light-blue"
+      v-if="isUpdating == true"
+    ></v-progress-circular>
+  </v-container>
 </template>
 
 <script>
@@ -30,7 +42,7 @@ import axios from "axios";
 
 export default {
   name: "PeoplePicker",
-  props: ["guests", "disabledFields", "initialValue"],
+  props: ["guests", "disabledFields", "initialValue", "loadData"],
   data() {
     return {
       isUpdating: false,
@@ -39,15 +51,21 @@ export default {
       name_list: [],
       filled: false,
       disabled: false,
-      guestsLocal: []
+      guestsLocal: [],
+      indeterminate: true,
+      rotate: 0,
+      size: 32,
+      value: 0,
+      width: 4,
+      showLoader: false
     };
   },
   watch: {
-    isUpdating(val) {
-      if (val) {
-        setTimeout(() => (this.isUpdating = false), 3000);
-      }
-    },
+    // isUpdating(val) {
+    //   if (val) {
+    //     setTimeout(() => (this.isUpdating = false), 3000);
+    //   }
+    // },
     guests: function(newVal) {
       this.guestsLocal = newVal;
     },

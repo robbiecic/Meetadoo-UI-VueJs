@@ -1,17 +1,25 @@
 <template>
   <v-app>
-    <v-content>
-      <MinutesList />
-    </v-content>
+    <v-container>
+      <v-row>
+        <v-col>
+          <MinutesList />
+        </v-col>
+        <v-col>
+          <MinuteDetail />
+        </v-col>
+      </v-row>
+    </v-container>
   </v-app>
 </template>
 
 <script>
-import MinutesList from "../components/MinutesList";
+import MinutesList from "../components/MinutesList_new";
+import MinuteDetail from "../components/MinuteDetail";
 export default {
   name: "MintuesView",
 
-  components: { MinutesList },
+  components: { MinutesList, MinuteDetail },
 
   data: () => ({
     //

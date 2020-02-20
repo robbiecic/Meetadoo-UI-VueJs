@@ -166,7 +166,9 @@ export default {
         )
         .then(() => {
           //If update user is successful, get latest data
-          this.getProfile("update_succes");
+          this.showLoader = false;
+          this.cancel();
+          this.updateSuccess = true;
         })
         .catch(() => {
           this.updateFail = true;

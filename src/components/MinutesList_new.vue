@@ -1,5 +1,5 @@
 <template>
-  <v-form>
+  <v-container>
     <v-sheet
       :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
       class="px-3 pt-3 pb-3"
@@ -59,22 +59,14 @@
             </v-list>
           </v-card>
         </v-col>
-        <v-col justify="center" md="8">
-          <MinuteDetail
-            ref="search"
-            v-bind:minuteDetail="minuteDetail"
-            v-on:MinuteUpdateSuccess="reloadPage"
-          />
-        </v-col>
       </v-row>
     </v-container>
-  </v-form>
+  </v-container>
 </template>
 
 <script>
 import axios from "axios";
 import LoaderMinuteList from "./loaders/loader_minuteList";
-import MinuteDetail from "./MinuteDetail";
 
 export default {
   name: "MinutesList",
@@ -89,7 +81,6 @@ export default {
     };
   },
   components: {
-    MinuteDetail,
     LoaderMinuteList
   },
   computed: {
