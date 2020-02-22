@@ -60,7 +60,6 @@ export default {
   methods: {
     submit: function(event) {
       event.preventDefault();
-      console.log("process.env.ROOT_API ", process.env.ROOT_API);
       this.failAlert = false;
       axios.defaults.withCredentials = true;
       let postBody = {
@@ -70,7 +69,7 @@ export default {
       this.showLoader = true;
       axios
         .post(
-          process.env.ROOT_API + "/Development/?action=Login",
+          process.env.VUE_APP_ROOT_API + "/Development/?action=Login",
           { data: postBody },
           {
             headers: {

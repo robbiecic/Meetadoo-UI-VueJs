@@ -105,7 +105,9 @@ export default {
       this.showLoader = true;
       axios
         .get(
-          "/Development/minutes/?action=GetActions&meetingID=" + this.meetingID,
+          process.env.VUE_APP_ROOT_API +
+            "/Development/minutes/?action=GetActions&meetingID=" +
+            this.meetingID,
           {
             withCredentials: true
           }
@@ -128,7 +130,8 @@ export default {
       body.checked = false;
       axios
         .post(
-          "/Development/minutes/?action=CreateAction",
+          process.env.VUE_APP_ROOT_API +
+            "/Development/minutes/?action=CreateAction",
           { data: body },
           {
             headers: {
@@ -166,7 +169,8 @@ export default {
       let body = {};
       axios
         .post(
-          "/Development/minutes/?action=RemoveAction&actionID=" +
+          process.env.VUE_APP_ROOT_API +
+            "/Development/minutes/?action=RemoveAction&actionID=" +
             item.id +
             "&meetingID=" +
             this.meetingID,

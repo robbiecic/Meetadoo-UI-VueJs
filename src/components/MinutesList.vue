@@ -110,7 +110,8 @@ export default {
     getMinutes: function() {
       axios
         .get(
-          process.env.ROOT_API + "/Development/minutes/?action=GetMyMinutes",
+          process.env.VUE_APP_ROOT_API +
+            "/Development/minutes/?action=GetMyMinutes",
           {
             withCredentials: true
           }

@@ -9,7 +9,7 @@
       :single-line="true"
       multiple
       chips
-      :disabled="disabledFields==true"
+      :disabled="disabledFields == true"
       v-if="isUpdating == false"
     >
       <template v-slot:selection="data">
@@ -24,7 +24,7 @@
           <v-avatar left>
             <v-icon>mdi-account-circle</v-icon>
           </v-avatar>
-          {{getAvatar(data)}}
+          {{ getAvatar(data) }}
         </v-chip>
       </template>
     </v-combobox>
@@ -89,7 +89,7 @@ export default {
     this.guestsLocal = this.guests;
     this.isUpdating = true;
     axios
-      .get("/Development/?action=getUserList")
+      .get(process.env.VUE_APP_ROOT_API + "/Development/?action=getUserList")
       .then(response => {
         //Avatar will show the name , hidden field for email address as the key
         //Onclick of the user name we can derive the email address

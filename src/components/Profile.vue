@@ -120,7 +120,7 @@ export default {
       axios.defaults.withCredentials = true;
       this.failAlert = false;
       axios
-        .get("/Development/?action=getUser", {
+        .get(process.env.VUE_APP_ROOT_API + "/Development/?action=getUser", {
           withCredentials: true
         })
         .then(response => {
@@ -155,7 +155,7 @@ export default {
       };
       axios
         .post(
-          "/Development/?action=UpdateUser",
+          process.env.VUE_APP_ROOT_API + "/Development/?action=UpdateUser",
           { data: body },
           {
             headers: {

@@ -11,12 +11,13 @@
           color="light-blue"
         ></v-progress-circular>
       </div>
-      <v-alert
-        v-if="unsuccessful == true"
-        type="error"
-      >Oops... Something went wrong, please try again later.</v-alert>
+      <v-alert v-if="unsuccessful == true" type="error"
+        >Oops... Something went wrong, please try again later.</v-alert
+      >
       <v-container v-if="successful == true">
-        <v-alert type="success" dismissible>You have successfully logged out</v-alert>
+        <v-alert type="success" dismissible
+          >You have successfully logged out</v-alert
+        >
       </v-container>
     </v-content>
   </v-app>
@@ -43,7 +44,7 @@ export default {
     this.showLoader = true;
     axios
       .post(
-        "/Development/?action=Logout",
+        process.env.VUE_APP_ROOT_API + "/Development/?action=Logout",
         {
           data: { email: "Not Required" }
         },

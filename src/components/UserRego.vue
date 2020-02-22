@@ -1,19 +1,35 @@
 <template>
   <v-form v-model="valid">
     <v-container>
-      <v-alert
-        type="success"
-        v-if="successAlert == true"
-      >You are now registered {{ this.firstname }}</v-alert>
-      <v-alert type="fail" v-if="failAlert == true">A user with this email address already exists</v-alert>
+      <v-alert type="success" v-if="successAlert == true"
+        >You are now registered {{ this.firstname }}</v-alert
+      >
+      <v-alert type="fail" v-if="failAlert == true"
+        >A user with this email address already exists</v-alert
+      >
       <v-row>
-        <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
+        <v-text-field
+          v-model="email"
+          :rules="emailRules"
+          label="E-mail"
+          required
+        ></v-text-field>
       </v-row>
       <v-row>
-        <v-text-field v-model="firstname" :rules="nameRules" label="First Name" required></v-text-field>
+        <v-text-field
+          v-model="firstname"
+          :rules="nameRules"
+          label="First Name"
+          required
+        ></v-text-field>
       </v-row>
       <v-row>
-        <v-text-field v-model="surname" :rules="nameRules" label="Surname" required></v-text-field>
+        <v-text-field
+          v-model="surname"
+          :rules="nameRules"
+          label="Surname"
+          required
+        ></v-text-field>
       </v-row>
       <v-row>
         <v-text-field
@@ -96,7 +112,7 @@ export default {
       this.showLoader = true;
       axios
         .post(
-          "/Development/?action=CreateUser",
+          process.env.VUE_APP_ROOT_API + "/Development/?action=CreateUser",
           { data: postBody },
           {
             headers: {

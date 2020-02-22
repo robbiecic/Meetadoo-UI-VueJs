@@ -63,7 +63,9 @@ export default {
       // console.log("here", this.meetingID);
       axios
         .get(
-          "/Development/minutes/?action=GetHistory&meetingID=" + this.meetingID,
+          process.env.VUE_APP_ROOT_API +
+            "/Development/minutes/?action=GetHistory&meetingID=" +
+            this.meetingID,
           {
             withCredentials: true
           }

@@ -295,10 +295,12 @@ export default {
         body.id = this.minuteDetailLocal.id;
         body.creator = this.minuteDetailLocal.creator;
         url =
-          process.env.ROOT_API + "/Development/minutes/?action=UpdateMinute";
+          process.env.VUE_APP_ROOT_API +
+          "/Development/minutes/?action=UpdateMinute";
       } else {
         url =
-          process.env.ROOT_API + "/Development/minutes/?action=CreateMinute";
+          process.env.VUE_APP_ROOT_API +
+          "/Development/minutes/?action=CreateMinute";
       }
 
       console.log("body", body);
