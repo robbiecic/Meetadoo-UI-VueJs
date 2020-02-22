@@ -32,7 +32,7 @@ new Vue({
     //Can only do this by making an API call to the see if a cookie exists with a valid JWT token
     //This a step to how we can remain stateless and not storing a session
     axios
-      .get("https://localhost:8080/Development/?action=isAuthenticated", {
+      .get("/Development/?action=isAuthenticated", {
         withCredentials: true
       })
       .then(() => {

@@ -105,8 +105,7 @@ export default {
       this.showLoader = true;
       axios
         .get(
-          "https://localhost:8080/Development/minutes/?action=GetActions&meetingID=" +
-            this.meetingID,
+          "/Development/minutes/?action=GetActions&meetingID=" + this.meetingID,
           {
             withCredentials: true
           }
@@ -129,7 +128,7 @@ export default {
       body.checked = false;
       axios
         .post(
-          "https://localhost:8080/Development/minutes/?action=CreateAction",
+          "/Development/minutes/?action=CreateAction",
           { data: body },
           {
             headers: {
@@ -167,7 +166,7 @@ export default {
       let body = {};
       axios
         .post(
-          "https://localhost:8080/Development/minutes/?action=RemoveAction&actionID=" +
+          "/Development/minutes/?action=RemoveAction&actionID=" +
             item.id +
             "&meetingID=" +
             this.meetingID,

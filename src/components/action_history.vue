@@ -63,8 +63,7 @@ export default {
       // console.log("here", this.meetingID);
       axios
         .get(
-          "https://localhost:8080/Development/minutes/?action=GetHistory&meetingID=" +
-            this.meetingID,
+          "/Development/minutes/?action=GetHistory&meetingID=" + this.meetingID,
           {
             withCredentials: true
           }

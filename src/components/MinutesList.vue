@@ -110,7 +110,7 @@ export default {
     getMinutes: function() {
       axios
         .get(
-          "https://localhost:8080/Development/minutes/?action=GetMyMinutes",
+          "/Development/minutes/?action=GetMyMinutes",
           {
             withCredentials: true
           }

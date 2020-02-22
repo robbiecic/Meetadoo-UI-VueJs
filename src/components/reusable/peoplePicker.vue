@@ -89,7 +89,7 @@ export default {
     this.guestsLocal = this.guests;
     this.isUpdating = true;
     axios
-      .get("https://localhost:8080/Development/?action=getUserList")
+      .get("/Development/?action=getUserList")
       .then(response => {
         //Avatar will show the name , hidden field for email address as the key
         //Onclick of the user name we can derive the email address

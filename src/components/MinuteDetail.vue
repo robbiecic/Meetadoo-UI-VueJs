@@ -207,7 +207,7 @@
           </v-row>
         </v-tab-item>
         <v-tab>History</v-tab>
-        <v-tab-item v-if="activeTabs==3">
+        <v-tab-item v-if="activeTabs == 3">
           <v-row>
             <ActionHistory v-bind:meetingID="minuteDetailLocal.id" />
           </v-row>
@@ -294,9 +294,9 @@ export default {
       if (add_or_update == "update") {
         body.id = this.minuteDetailLocal.id;
         body.creator = this.minuteDetailLocal.creator;
-        url = "https://localhost:8080/Development/minutes/?action=UpdateMinute";
+        url = "/Development/minutes/?action=UpdateMinute";
       } else {
-        url = "https://localhost:8080/Development/minutes/?action=CreateMinute";
+        url = "/Development/minutes/?action=CreateMinute";
       }
 
       console.log("body", body);

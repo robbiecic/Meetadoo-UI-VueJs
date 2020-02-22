@@ -43,7 +43,7 @@ export default {
     this.showLoader = true;
     axios
       .post(
-        "https://localhost:8080/Development/?action=Logout",
+        "/Development/?action=Logout",
         {
           data: { email: "Not Required" }
         },

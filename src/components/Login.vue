@@ -69,7 +69,7 @@ export default {
       this.showLoader = true;
       axios
         .post(
-          "https://localhost:8080/Development/?action=Login",
+          "/Development/?action=Login",
           { data: postBody },
           {
             headers: {

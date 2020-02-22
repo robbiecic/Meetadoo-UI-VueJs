@@ -96,7 +96,7 @@ export default {
       this.showLoader = true;
       axios
         .post(
-          "https://localhost:8080/Development/?action=CreateUser",
+          "/Development/?action=CreateUser",
           { data: postBody },
           {
             headers: {

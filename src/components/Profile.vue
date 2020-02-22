@@ -120,7 +120,7 @@ export default {
       axios.defaults.withCredentials = true;
       this.failAlert = false;
       axios
-        .get("https://localhost:8080/Development/?action=getUser", {
+        .get("/Development/?action=getUser", {
           withCredentials: true
         })
         .then(response => {
@@ -155,7 +155,7 @@ export default {
       };
       axios
         .post(
-          "https://localhost:8080/Development/?action=UpdateUser",
+          "/Development/?action=UpdateUser",
           { data: body },
           {
             headers: {
