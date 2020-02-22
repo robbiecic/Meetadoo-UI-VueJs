@@ -60,6 +60,7 @@ export default {
   methods: {
     submit: function(event) {
       event.preventDefault();
+      console.log("process.env.ROOT_API ", process.env.ROOT_API);
       this.failAlert = false;
       axios.defaults.withCredentials = true;
       let postBody = {
