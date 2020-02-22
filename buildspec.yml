@@ -10,4 +10,4 @@ phases:
       - npm run build
   post_build:
     commands:
-      - aws s3 sync --delete . "s3://minute-hub-web-app"
+      - aws s3 sync ./dist . s3://minute-hub-web-app
