@@ -69,7 +69,7 @@ export default {
       this.showLoader = true;
       axios
         .post(
-          "/Development/?action=Login",
+          process.env.ROOTAPI + "/Development/?action=Login",
           { data: postBody },
           {
             headers: {

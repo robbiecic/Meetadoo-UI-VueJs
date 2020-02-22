@@ -294,9 +294,11 @@ export default {
       if (add_or_update == "update") {
         body.id = this.minuteDetailLocal.id;
         body.creator = this.minuteDetailLocal.creator;
-        url = "/Development/minutes/?action=UpdateMinute";
+        url =
+          process.env.ROOT_API + "/Development/minutes/?action=UpdateMinute";
       } else {
-        url = "/Development/minutes/?action=CreateMinute";
+        url =
+          process.env.ROOT_API + "/Development/minutes/?action=CreateMinute";
       }
 
       console.log("body", body);
