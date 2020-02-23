@@ -33,16 +33,7 @@ new Vue({
     //This a step to how we can remain stateless and not storing a session
     axios
       .get(
-        process.env.VUE_APP_ROOT_API + "/Development/?action=isAuthenticated",
-        {
-          headers: {
-            "content-type": "application/json",
-            "Access-Control-Allow-Origin": process.env.VUE_APP_DOMAIN
-          }
-        },
-        {
-          withCredentials: true
-        }
+        process.env.VUE_APP_ROOT_API + "/Development/?action=isAuthenticated"
       )
       .then(() => {
         //Set user as logged in
