@@ -36,7 +36,7 @@ new Vue({
         process.env.VUE_APP_ROOT_API + "/Development/?action=isAuthenticated",
         {
           withCredentials: true,
-          "Access-Control-Allow-Origin": "*"
+          "Access-Control-Allow-Origin": process.env.VUE_APP_DOMAIN
         }
       )
       .then(() => {
