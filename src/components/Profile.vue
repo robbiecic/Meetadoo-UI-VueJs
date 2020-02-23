@@ -120,9 +120,18 @@ export default {
       axios.defaults.withCredentials = true;
       this.failAlert = false;
       axios
-        .get(process.env.VUE_APP_ROOT_API + "/Development/?action=getUser", {
-          withCredentials: true
-        })
+        .get(
+          process.env.VUE_APP_ROOT_API + "/Development/?action=getUser",
+          {
+            headers: {
+              "content-type": "application/json",
+              "Access-Control-Allow-Origin": process.env.VUE_APP_DOMAIN
+            }
+          },
+          {
+            withCredentials: true
+          }
+        )
         .then(response => {
           let data = response.data;
           let data_json = JSON.parse(data.replace(/'/g, '"'));
