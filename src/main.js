@@ -39,9 +39,6 @@ new Vue({
             "content-type": "application/json",
             "Access-Control-Allow-Origin": process.env.VUE_APP_DOMAIN
           }
-        },
-        {
-          withCredentials: true
         }
       )
       .then(() => {
