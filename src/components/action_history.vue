@@ -67,6 +67,12 @@ export default {
             "/Development/minutes/?action=GetHistory&meetingID=" +
             this.meetingID,
           {
+            headers: {
+              "content-type": "application/json",
+              "Access-Control-Allow-Origin": process.env.VUE_APP_DOMAIN
+            }
+          },
+          {
             withCredentials: true
           }
         )

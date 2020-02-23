@@ -113,6 +113,12 @@ export default {
           process.env.VUE_APP_ROOT_API +
             "/Development/minutes/?action=GetMyMinutes",
           {
+            headers: {
+              "content-type": "application/json",
+              "Access-Control-Allow-Origin": process.env.VUE_APP_DOMAIN
+            }
+          },
+          {
             withCredentials: true
           }
         )

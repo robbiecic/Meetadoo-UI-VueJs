@@ -169,7 +169,7 @@ export default {
           {
             headers: {
               "content-type": "application/json",
-              "Access-Control-Allow-Origin": "*"
+              "Access-Control-Allow-Origin": process.env.VUE_APP_DOMAIN
             }
           }
         )
