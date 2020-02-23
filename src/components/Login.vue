@@ -74,8 +74,7 @@ export default {
           { data: postBody },
           {
             headers: {
-              "content-type": "application/json",
-              "Access-Control-Allow-Origin": "*"
+              "content-type": "application/json"
             }
           }
         )
