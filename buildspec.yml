@@ -11,3 +11,6 @@ phases:
   post_build:
     commands:
       - aws s3 sync ./dist "s3://minute-hub-web-app"
+artifacts:
+  files:
+    - "dist/**/*"
