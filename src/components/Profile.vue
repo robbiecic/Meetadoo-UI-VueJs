@@ -122,7 +122,7 @@ export default {
       this.failAlert = false;
       axios
         .get(
-          process.env.VUE_APP_ROOT_API + "/?action=getUser",
+          process.env.VUE_APP_ROOT_API + "?action=getUser",
           {
             headers: {
               "content-type": "application/json",
@@ -165,7 +165,7 @@ export default {
       };
       axios
         .post(
-          process.env.VUE_APP_ROOT_API + "/?action=UpdateUser",
+          process.env.VUE_APP_ROOT_API + "?action=UpdateUser",
           { data: body },
           {
             headers: {

@@ -68,7 +68,7 @@ export default {
       this.showLoader = true;
       axios
         .post(
-          process.env.VUE_APP_ROOT_API + "/?action=Login",
+          process.env.VUE_APP_ROOT_API + "?action=Login",
           { data: postBody },
           {
             headers: {
