@@ -11,20 +11,21 @@
       ></v-progress-circular>
     </v-container>
     <v-container v-if="failAlert == true">
-      <v-alert type="error"
-        >You are not authorised to perform this action</v-alert
-      >
+      <v-alert type="error">You are not authorised to perform this action</v-alert>
     </v-container>
     <v-container v-if="failAlert == false && showLoader == false">
       <br />
       <h1>My Profile</h1>
       <br />
-      <v-alert type="error" v-if="updateFail == true">
-        Something went wrong updating your data. Please try again later.
-      </v-alert>
-      <v-alert type="success" v-if="updateSuccess == true" dismissible
-        >You have successfully updated your profile.</v-alert
-      >
+      <v-alert
+        type="error"
+        v-if="updateFail == true"
+      >Something went wrong updating your data. Please try again later.</v-alert>
+      <v-alert
+        type="success"
+        v-if="updateSuccess == true"
+        dismissible
+      >You have successfully updated your profile.</v-alert>
       <v-text-field
         v-model="email"
         :label="'Email'"
@@ -121,7 +122,7 @@ export default {
       this.failAlert = false;
       axios
         .get(
-          process.env.VUE_APP_ROOT_API + "/Development/?action=getUser",
+          process.env.VUE_APP_ROOT_API + "/?action=getUser",
           {
             headers: {
               "content-type": "application/json",
@@ -164,7 +165,7 @@ export default {
       };
       axios
         .post(
-          process.env.VUE_APP_ROOT_API + "/Development/?action=UpdateUser",
+          process.env.VUE_APP_ROOT_API + "/?action=UpdateUser",
           { data: body },
           {
             headers: {

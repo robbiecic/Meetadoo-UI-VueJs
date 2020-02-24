@@ -1,9 +1,7 @@
 <template>
   <v-form v-model="valid">
     <v-container>
-      <v-alert type="error" v-if="failAlert == true"
-        >Email and/or password is not valid</v-alert
-      >
+      <v-alert type="error" v-if="failAlert == true">Email and/or password is not valid</v-alert>
       <v-row>
         <v-text-field v-model="email" label="E-mail" required></v-text-field>
       </v-row>
@@ -70,7 +68,7 @@ export default {
       this.showLoader = true;
       axios
         .post(
-          process.env.VUE_APP_ROOT_API + "/Development/?action=Login",
+          process.env.VUE_APP_ROOT_API + "/?action=Login",
           { data: postBody },
           {
             headers: {
