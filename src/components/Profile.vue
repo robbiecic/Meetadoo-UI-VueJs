@@ -121,18 +121,7 @@ export default {
       axios.defaults.withCredentials = true;
       this.failAlert = false;
       axios
-        .get(
-          process.env.VUE_APP_ROOT_API + "?action=getUser",
-          {
-            headers: {
-              "content-type": "application/json",
-              "Access-Control-Allow-Origin": process.env.VUE_APP_DOMAIN
-            }
-          },
-          {
-            withCredentials: true
-          }
-        )
+        .get(process.env.VUE_APP_ROOT_API + "?action=getUser")
         .then(response => {
           let data = response.data;
           let data_json = JSON.parse(data.replace(/'/g, '"'));
@@ -164,19 +153,9 @@ export default {
         surname: this.surname
       };
       axios
-        .post(
-          process.env.VUE_APP_ROOT_API + "?action=UpdateUser",
-          { data: body },
-          {
-            headers: {
-              "content-type": "application/json",
-              "Access-Control-Allow-Origin": process.env.VUE_APP_DOMAIN
-            }
-          },
-          {
-            withCredentials: true
-          }
-        )
+        .post(process.env.VUE_APP_ROOT_API + "?action=UpdateUser", {
+          data: body
+        })
         .then(() => {
           //If update user is successful, get latest data
           this.showLoader = false;
