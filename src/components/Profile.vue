@@ -118,7 +118,6 @@ export default {
   methods: {
     getProfile: function(updateCheck) {
       this.showLoader = true;
-      axios.defaults.withCredentials = true;
       this.failAlert = false;
       axios
         .get(process.env.VUE_APP_ROOT_API + "?action=getUser")

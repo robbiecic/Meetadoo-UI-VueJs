@@ -60,7 +60,6 @@ export default {
       event.preventDefault();
       console.log("process.env.VUE_APP_ROOT_API", process.env.VUE_APP_ROOT_API);
       this.failAlert = false;
-      axios.defaults.withCredentials = true;
       let postBody = {
         email: this.email,
         password: this.password
