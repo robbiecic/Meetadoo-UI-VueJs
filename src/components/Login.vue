@@ -67,16 +67,9 @@ export default {
       };
       this.showLoader = true;
       axios
-        .post(
-          process.env.VUE_APP_ROOT_API + "?action=Login",
-          { data: postBody },
-          {
-            headers: {
-              "content-type": "application/json",
-              "Access-Control-Allow-Origin": process.env.VUE_APP_DOMAIN
-            }
-          }
-        )
+        .post(process.env.VUE_APP_ROOT_API + "?action=Login", {
+          data: postBody
+        })
         .then(response => {
           this.isLoggedOn = true;
           var responseData = response.data.replace(/'/g, '"');
