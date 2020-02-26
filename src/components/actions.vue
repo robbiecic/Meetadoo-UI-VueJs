@@ -167,12 +167,12 @@ export default {
         )
         .then(response => {
           this.showLoader = false;
-          console.log("completed with response", response);
+          //console.log("completed with response", response);
           this.getActions();
         })
         .catch(err => {
           this.showLoader = false;
-          console.log("Errored with response", err);
+          //console.log("Errored with response", err);
         });
     }
   }

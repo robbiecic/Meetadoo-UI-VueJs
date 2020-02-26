@@ -132,7 +132,7 @@ export default {
           if (updateCheck == "update_succes") this.updateSuccess = true;
         })
         .catch(e => {
-          console.log(e);
+          //console.log(e);
           this.failAlert = true;
           this.showLoader = false;
         });
@@ -174,7 +174,7 @@ export default {
     }
   },
   created: function() {
-    console.log("this.user", this.user);
+    //console.log("this.user", this.user);
 
     //Each time this page is refreshed or component is loaded, get the user's profile using the Cookie the user may have received from server after logging in successfully
     if (this.user) {

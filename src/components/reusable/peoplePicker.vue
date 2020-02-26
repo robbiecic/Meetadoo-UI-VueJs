@@ -72,7 +72,7 @@ export default {
   methods: {
     remove(item) {
       const index = this.guests.indexOf(item.name);
-      console.log("index", index);
+      //console.log("index", index);
       if (index >= 0) this.guests.splice(index, 1);
     },
     getAvatar(data) {
@@ -100,7 +100,7 @@ export default {
         this.isUpdating = false;
       })
       .catch(error => {
-        console.log(error);
+        //console.log(error);
         this.isUpdating = false;
       });
   }

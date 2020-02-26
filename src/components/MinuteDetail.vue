@@ -304,14 +304,14 @@ export default {
         .then(response => {
           this.showLoader = false;
           this.disableFields = false;
-          console.log("completed with response", response);
+          //console.log("completed with response", response);
           //Emit event so parent knows it was successful
           this.$emit("MinuteUpdateSuccess");
         })
         .catch(err => {
           this.showLoader = false;
           this.disableFields = false;
-          console.log("Errored with response", err);
+          //console.log("Errored with response", err);
         });
     },
     clear: function() {
