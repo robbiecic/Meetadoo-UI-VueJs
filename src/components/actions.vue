@@ -165,12 +165,12 @@ export default {
             this.meetingID,
           { data: body }
         )
-        .then(response => {
+        .then(() => {
           this.showLoader = false;
           //console.log("completed with response", response);
           this.getActions();
         })
-        .catch(err => {
+        .catch(() => {
           this.showLoader = false;
           //console.log("Errored with response", err);
         });

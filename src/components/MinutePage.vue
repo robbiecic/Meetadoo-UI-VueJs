@@ -104,7 +104,7 @@ export default {
           apologies: this.$refs.apologies.guestsLocal
         }
       };
-      //console.log(body);
+      console.log(body);
     },
     clear: function() {
       this.discussionPoints = "";

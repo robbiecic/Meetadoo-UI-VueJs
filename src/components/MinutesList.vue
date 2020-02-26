@@ -99,7 +99,7 @@ export default {
           this.loading = false;
           this.failAlert = false;
         })
-        .catch(e => {
+        .catch(() => {
           //console.log(e);
           this.failAlert = true;
           this.loading = false;

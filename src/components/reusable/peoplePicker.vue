@@ -99,7 +99,7 @@ export default {
         this.people = json_data.link_list;
         this.isUpdating = false;
       })
-      .catch(error => {
+      .catch(() => {
         //console.log(error);
         this.isUpdating = false;
       });

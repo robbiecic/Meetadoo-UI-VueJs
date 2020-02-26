@@ -131,7 +131,7 @@ export default {
           this.cancel();
           if (updateCheck == "update_succes") this.updateSuccess = true;
         })
-        .catch(e => {
+        .catch(() => {
           //console.log(e);
           this.failAlert = true;
           this.showLoader = false;
