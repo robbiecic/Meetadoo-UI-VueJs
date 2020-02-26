@@ -130,9 +130,7 @@ export default {
           data: body
         })
         .then(() => {
-          this.showLoader = false;
           this.getActions();
-          //Once action is added, clear the form
           this.clearActions();
         })
         .catch(() => {
