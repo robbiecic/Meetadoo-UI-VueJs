@@ -64,17 +64,8 @@ export default {
       axios
         .get(
           process.env.VUE_APP_ROOT_API +
-            "/Development/minutes/?action=GetHistory&meetingID=" +
-            this.meetingID,
-          {
-            headers: {
-              "content-type": "application/json",
-              "Access-Control-Allow-Origin": process.env.VUE_APP_DOMAIN
-            }
-          },
-          {
-            withCredentials: true
-          }
+            "minutes/?action=GetHistory&meetingID=" +
+            this.meetingID
         )
         .then(response => {
           //this.actions = response.data.actions;

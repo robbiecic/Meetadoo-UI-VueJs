@@ -109,19 +109,7 @@ export default {
     },
     getMinutes: function() {
       axios
-        .get(
-          process.env.VUE_APP_ROOT_API +
-            "/Development/minutes/?action=GetMyMinutes",
-          {
-            headers: {
-              "content-type": "application/json",
-              "Access-Control-Allow-Origin": process.env.VUE_APP_DOMAIN
-            }
-          },
-          {
-            withCredentials: true
-          }
-        )
+        .get(process.env.VUE_APP_ROOT_API + "/minutes/?action=GetMyMinutes")
         .then(response => {
           let data = response.data;
           this.minuteList = data.minutes_created;

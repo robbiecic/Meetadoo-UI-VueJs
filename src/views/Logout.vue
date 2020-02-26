@@ -43,18 +43,9 @@ export default {
     //Need to update cookie so it's expired
     this.showLoader = true;
     axios
-      .post(
-        process.env.VUE_APP_ROOT_API + "/Development/?action=Logout",
-        {
-          data: { email: "Not Required" }
-        },
-        {
-          headers: {
-            "content-type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-          }
-        }
-      )
+      .post(process.env.VUE_APP_ROOT_API + "?action=Logout", {
+        data: { email: "Not Required" }
+      })
       .then(() => {
         this.$store.commit("unSetUser");
         this.successful = true;

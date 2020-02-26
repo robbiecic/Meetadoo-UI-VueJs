@@ -111,16 +111,9 @@ export default {
       };
       this.showLoader = true;
       axios
-        .post(
-          process.env.VUE_APP_ROOT_API + "/Development/?action=CreateUser",
-          { data: postBody },
-          {
-            headers: {
-              "content-type": "application/json",
-              "Access-Control-Allow-Origin": process.env.VUE_APP_DOMAIN
-            }
-          }
-        )
+        .post(process.env.VUE_APP_ROOT_API + "/?action=CreateUser", {
+          data: postBody
+        })
         .then(response => {
           this.successAlert = true;
           this.isLoggedOn = true;

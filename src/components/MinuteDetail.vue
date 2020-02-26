@@ -294,28 +294,13 @@ export default {
       if (add_or_update == "update") {
         body.id = this.minuteDetailLocal.id;
         body.creator = this.minuteDetailLocal.creator;
-        url =
-          process.env.VUE_APP_ROOT_API +
-          "/Development/minutes/?action=UpdateMinute";
+        url = process.env.VUE_APP_ROOT_API + "minutes/?action=UpdateMinute";
       } else {
-        url =
-          process.env.VUE_APP_ROOT_API +
-          "/Development/minutes/?action=CreateMinute";
+        url = process.env.VUE_APP_ROOT_API + "minutes/?action=CreateMinute";
       }
 
-      console.log("body", body);
-
       axios
-        .post(
-          url,
-          { data: body },
-          {
-            headers: {
-              "content-type": "application/json",
-              "Access-Control-Allow-Origin": process.env.VUE_APP_DOMAIN
-            }
-          }
-        )
+        .post(url, { data: body })
         .then(response => {
           this.showLoader = false;
           this.disableFields = false;

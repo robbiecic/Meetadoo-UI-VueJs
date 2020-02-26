@@ -106,17 +106,8 @@ export default {
       axios
         .get(
           process.env.VUE_APP_ROOT_API +
-            "/Development/minutes/?action=GetActions&meetingID=" +
-            this.meetingID,
-          {
-            headers: {
-              "content-type": "application/json",
-              "Access-Control-Allow-Origin": process.env.VUE_APP_DOMAIN
-            }
-          },
-          {
-            withCredentials: true
-          }
+            "minutes/?action=GetActions&meetingID=" +
+            this.meetingID
         )
         .then(response => {
           this.actions = response.data.actions;
@@ -135,17 +126,9 @@ export default {
       body.due_date = "2020-02-20";
       body.checked = false;
       axios
-        .post(
-          process.env.VUE_APP_ROOT_API +
-            "/Development/minutes/?action=CreateAction",
-          { data: body },
-          {
-            headers: {
-              "content-type": "application/json",
-              "Access-Control-Allow-Origin": process.env.VUE_APP_DOMAIN
-            }
-          }
-        )
+        .post(process.env.VUE_APP_ROOT_API + "minutes/?action=CreateAction", {
+          data: body
+        })
         .then(() => {
           this.showLoader = false;
           this.getActions();
@@ -176,17 +159,11 @@ export default {
       axios
         .post(
           process.env.VUE_APP_ROOT_API +
-            "/Development/minutes/?action=RemoveAction&actionID=" +
+            "minutes/?action=RemoveAction&actionID=" +
             item.id +
             "&meetingID=" +
             this.meetingID,
-          { data: body },
-          {
-            headers: {
-              "content-type": "application/json",
-              "Access-Control-Allow-Origin": "*"
-            }
-          }
+          { data: body }
         )
         .then(response => {
           this.showLoader = false;

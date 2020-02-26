@@ -89,12 +89,7 @@ export default {
     this.guestsLocal = this.guests;
     this.isUpdating = true;
     axios
-      .get(process.env.VUE_APP_ROOT_API + "/Development/?action=getUserList", {
-        headers: {
-          "content-type": "application/json",
-          "Access-Control-Allow-Origin": process.env.VUE_APP_DOMAIN
-        }
-      })
+      .get(process.env.VUE_APP_ROOT_API + "?action=getUserList")
       .then(response => {
         //Avatar will show the name , hidden field for email address as the key
         //Onclick of the user name we can derive the email address
