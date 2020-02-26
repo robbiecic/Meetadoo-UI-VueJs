@@ -41,5 +41,6 @@ export default new Router({
       name: "Logout",
       component: Logout
     }
-  ]
+  ],
+  mode: "history"
 });
