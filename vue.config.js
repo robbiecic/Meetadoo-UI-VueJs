@@ -4,7 +4,7 @@ module.exports = {
     https: true,
     proxy: {
       "/": {
-        target: "https://api.meetadoo.com/dev"
+        target: "https://www.meetadoo.com/api/"
       }
     }
   }
