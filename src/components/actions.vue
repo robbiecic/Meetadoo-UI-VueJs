@@ -164,7 +164,6 @@ export default {
           { data: body }
         )
         .then(() => {
-          this.showLoader = false;
           //console.log("completed with response", response);
           this.getActions();
         })

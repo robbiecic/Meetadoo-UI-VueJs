@@ -91,6 +91,7 @@ export default {
       this.getMinutes();
     },
     getMinutes: function() {
+      this.loading = true;
       axios
         .get(process.env.VUE_APP_ROOT_API + "minutes/?action=GetMyMinutes")
         .then(response => {
@@ -109,6 +110,11 @@ export default {
   created: function() {
     //On create want to load my minutes
     this.getMinutes();
+  },
+  watch: {
+    forceRefresh: function(newVal) {
+      if (newVal) this.getMinutes();
+    }
   }
 };
 </script>

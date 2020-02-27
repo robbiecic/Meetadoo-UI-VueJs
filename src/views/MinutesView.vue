@@ -3,10 +3,13 @@
     <v-content>
       <v-row>
         <v-col md="3">
-          <MinutesList @clicked_minute="onClickChild" />
+          <MinutesList @clicked_minute="onClickChild" v-bind:forceRefresh="setRefresh" />
         </v-col>
         <v-col>
-          <MinuteDetail v-bind:minuteDetail="clickedMeeting" />
+          <MinuteDetail
+            v-bind:minuteDetail="clickedMeeting"
+            v-on:MinuteUpdateSuccess="setRefreshEvent"
+          />
         </v-col>
       </v-row>
     </v-content>
@@ -23,12 +26,16 @@ export default {
 
   data() {
     return {
-      clickedMeeting: {}
+      clickedMeeting: {},
+      setRefresh: false
     };
   },
   methods: {
     onClickChild: function(event) {
       this.clickedMeeting = event;
+    },
+    setRefreshEvent: function() {
+      this.setRefresh = true;
     }
   }
 };
