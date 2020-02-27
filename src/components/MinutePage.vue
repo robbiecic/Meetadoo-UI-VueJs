@@ -5,6 +5,15 @@
         <v-col>
           <h1>Minutes</h1>
         </v-col>
+        <v-container>
+          <v-alert type="error" v-if="failAlert == true" dismissible
+            >Whoops... Something went wrong... Please try again later</v-alert
+          >
+          <v-alert type="success" v-if="updateSuccess == true" dismissible
+            >You have successfully added minutes</v-alert
+          >
+        </v-container>
+
         <v-col class="text-right">
           <v-progress-circular
             :indeterminate="indeterminate"
@@ -84,27 +93,66 @@ export default {
       value: 0,
       width: 4,
       initialValue: {},
-      showLoader: false
+      showLoader: false,
+      failAlert: false,
+      updateSuccess: false
     };
   },
-  props: ["meetingID", "creation_date"],
+  props: [
+    "meetingID",
+    "creation_date",
+    "title",
+    "time_start",
+    "time_end",
+    "guests",
+    "description",
+    "creator"
+  ],
   watch: {},
   methods: {
     addMinutes: function() {
+      this.disableFields = true;
+      this.showLoader = true;
       let body = {};
-      body = {
-        meetingDetails: {
-          id: this.meetingID,
-          creation_date: this.creation_date
-        },
-        minutes: {
-          discussionPoints: this.discussionPoints,
-          decisions: this.decisions,
-          attendees: this.$refs.attendees.guestsLocal,
-          apologies: this.$refs.apologies.guestsLocal
-        }
+      let url = "";
+      let minutes = {
+        discussionPoints: this.discussionPoints,
+        decisions: this.decisions,
+        attendees: this.$refs.attendees.guestsLocal,
+        apologies: this.$refs.apologies.guestsLocal
       };
-      console.log(body);
+
+      //This is the entire meeting ID contents from meeting detail
+      body.id = this.meetingID;
+      body.creation_date = this.creation_date;
+      body.creator = this.creator;
+      body.title = this.title;
+      body.time_start = this.time_start;
+      body.time_end = this.time_end;
+      body.guests = this.guests;
+      body.repeat_event = false;
+      body.description = this.description;
+      //Tack on minutes
+      body.minutes = minutes;
+
+      url = process.env.VUE_APP_ROOT_API + "minutes/?action=UpdateMinute";
+
+      axios
+        .post(url, { data: body })
+        .then(() => {
+          this.showLoader = false;
+          this.disableFields = false;
+          this.updateSuccess = true;
+          //console.log("completed with response", response);
+          //Emit event so parent knows it was successful
+          this.$emit("MinuteUpdateSuccess");
+        })
+        .catch(() => {
+          this.showLoader = false;
+          this.disableFields = false;
+          this.failAlert = true;
+          //console.log("Errored with response", err);
+        });
     },
     clear: function() {
       this.discussionPoints = "";

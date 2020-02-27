@@ -197,6 +197,12 @@
             <MinutePage
               v-bind:meetingID="minuteDetailLocal.id"
               v-bind:creation_date="minuteDetailLocal.creation_date"
+              v-bind:title="minuteDetailLocal.title"
+              v-bind:time_start="minuteDetailLocal.time_start"
+              v-bind:time_end="minuteDetailLocal.time_end"
+              v-bind:guests="$refs.child.guestsLocal"
+              v-bind:description="minuteDetailLocal.description"
+              v-bind:creator="minuteDetailLocal.creator"
             />
           </v-row>
         </v-tab-item>
@@ -284,7 +290,6 @@ export default {
       let url = "";
       body.title = this.minuteDetailLocal.title;
       body.creation_date = this.minuteDetailLocal.creation_date;
-      // body.creator = "test5@test.com"; //Will set the creator in the backend by pulling the email address from the jwt
       body.time_start = this.minuteDetailLocal.time_start;
       body.time_end = this.minuteDetailLocal.time_end;
       body.guests = this.$refs.child.guestsLocal;
