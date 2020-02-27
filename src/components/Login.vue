@@ -1,9 +1,7 @@
 <template>
   <v-form v-model="valid">
     <v-container>
-      <v-alert type="error" v-if="failAlert == true"
-        >Email and/or password is not valid</v-alert
-      >
+      <v-alert type="error" v-if="failAlert == true">Email and/or password is not valid</v-alert>
       <v-row>
         <v-text-field v-model="email" label="E-mail" required></v-text-field>
       </v-row>
@@ -16,6 +14,7 @@
           label="Enter password ... "
           counter
           @click:append="show1 = !show1"
+          v-on:keyup.enter="submit"
         ></v-text-field>
       </v-row>
       <div class="text-center">

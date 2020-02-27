@@ -54,6 +54,7 @@
         :dense="dense"
         :disabled="disableFields == 1"
         @click:append="toggleSave('firstname')"
+        v-on:keyup.enter="toggleSave('firstname')"
       ></v-text-field>
       <v-text-field
         v-model="surname"
@@ -70,6 +71,7 @@
         :dense="dense"
         :disabled="disableFields == 1"
         @click:append="toggleSave('surname')"
+        v-on:keyup.enter="toggleSave('surname')"
       ></v-text-field>
     </v-container>
   </v-form>
