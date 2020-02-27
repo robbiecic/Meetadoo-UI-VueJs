@@ -98,16 +98,7 @@ export default {
       updateSuccess: false
     };
   },
-  props: [
-    "meetingID",
-    "creation_date",
-    "title",
-    "time_start",
-    "time_end",
-    "guests",
-    "description",
-    "creator"
-  ],
+  props: ["meetingID", "creation_date"],
   watch: {},
   methods: {
     addMinutes: function() {

@@ -197,12 +197,6 @@
             <MinutePage
               v-bind:meetingID="minuteDetailLocal.id"
               v-bind:creation_date="minuteDetailLocal.creation_date"
-              v-bind:title="minuteDetailLocal.title"
-              v-bind:time_start="minuteDetailLocal.time_start"
-              v-bind:time_end="minuteDetailLocal.time_end"
-              v-bind:guests="$refs.child.guestsLocal"
-              v-bind:description="minuteDetailLocal.description"
-              v-bind:creator="minuteDetailLocal.creator"
             />
           </v-row>
         </v-tab-item>
