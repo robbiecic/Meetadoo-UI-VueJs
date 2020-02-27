@@ -11,21 +11,21 @@
       ></v-progress-circular>
     </v-container>
     <v-container v-if="failAlert == true">
-      <v-alert type="error">You are not authorised to perform this action</v-alert>
+      <v-alert type="error"
+        >You are not authorised to perform this action</v-alert
+      >
     </v-container>
     <v-container v-if="failAlert == false && showLoader == false">
       <br />
       <h1>My Profile</h1>
       <br />
-      <v-alert
-        type="error"
-        v-if="updateFail == true"
-      >Something went wrong updating your data. Please try again later.</v-alert>
-      <v-alert
-        type="success"
-        v-if="updateSuccess == true"
-        dismissible
-      >You have successfully updated your profile.</v-alert>
+      <v-alert type="error" v-if="updateFail == true"
+        >Something went wrong updating your data. Please try again
+        later.</v-alert
+      >
+      <v-alert type="success" v-if="updateSuccess == true" dismissible
+        >You have successfully updated your profile.</v-alert
+      >
       <v-text-field
         v-model="email"
         :label="'Email'"
@@ -147,6 +147,8 @@ export default {
       // Move all fields to disabled
       this.disableFields = 1;
       this.updateFail = false;
+      this.updateSuccess = false;
+      this.showLoader = true;
       // Form body to send in API request
       let body = {
         email: this.email,
@@ -160,10 +162,11 @@ export default {
         .then(() => {
           //If update user is successful, get latest data
           this.showLoader = false;
-          this.cancel();
           this.updateSuccess = true;
+          this.cancel();
         })
         .catch(() => {
+          this.showLoader = false;
           this.updateFail = true;
           this.cancel();
         });
