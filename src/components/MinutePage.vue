@@ -75,7 +75,7 @@
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 import PeoplePicker from "./reusable/peoplePicker";
 
 //Needs to get passed the meeting id and creation date in order to update the meeting record properly
@@ -123,19 +123,10 @@ export default {
       };
 
       //This is the entire meeting ID contents from meeting detail
-      body.id = this.meetingID;
-      body.creation_date = this.creation_date;
-      body.creator = this.creator;
-      body.title = this.title;
-      body.time_start = this.time_start;
-      body.time_end = this.time_end;
-      body.guests = this.guests;
-      body.repeat_event = false;
-      body.description = this.description;
-      //Tack on minutes
+      body.meeting = { id: this.meetingID, creation_date: this.creation_date };
       body.minutes = minutes;
 
-      url = process.env.VUE_APP_ROOT_API + "minutes/?action=UpdateMinute";
+      url = process.env.VUE_APP_ROOT_API + "minutes/?action=SupplementMinute";
 
       axios
         .post(url, { data: body })
