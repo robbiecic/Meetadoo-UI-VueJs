@@ -105,8 +105,11 @@ export default {
   props: ["meetingID", "creation_date", "minutes"],
   watch: {
     minutes: function(newVal) {
-      this.discussionPoints = newVal.discussion_points;
-      this.decisions = newVal.decisions;
+      this.discussionPoints = newVal.discussion_points
+        ? newVal.discussion_points
+        : "";
+
+      this.decisions = newVal.newVal.decisions ? newVal.newVal.decisions : "";
     }
   },
   methods: {
