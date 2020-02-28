@@ -8,11 +8,9 @@ module.exports = {
       .click("a[data-test=button_login]")
       .setValue("input[data-test=text_email]", "test5@test.com")
       .setValue("input[data-test=text_password]", "password")
-      .click("a[data-test=button_submit_login]")
-      //   .setValue("input[type=search]", "nightwatch")
-      //   .assert.visible("button[type=submit]")
-      //   .click("button[type=submit]")
-      //   .assert.containsText(".mainline-results", "Nightwatch.js")
+      .click("button[data-test=button_submit_login]")
+      .assert.containsText("body", "My Profile", "Test passed: Login")
+      //Try and update firstname
       .end();
   }
 };
