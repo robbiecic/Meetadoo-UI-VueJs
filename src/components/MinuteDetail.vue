@@ -197,6 +197,7 @@
             <MinutePage
               v-bind:meetingID="minuteDetailLocal.id"
               v-bind:creation_date="minuteDetailLocal.creation_date"
+              v-bind:minutes="minuteDetailLocal.minutes"
             />
           </v-row>
         </v-tab-item>
