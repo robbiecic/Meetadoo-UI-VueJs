@@ -19,7 +19,7 @@
   
     
     <testcase
-      name="Demo test ecosia.org" classname="main">
+      name="Loading website works" classname="main">
       <skipped />
     </testcase>
     
