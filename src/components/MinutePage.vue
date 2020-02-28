@@ -104,7 +104,7 @@ export default {
   },
   props: ["meetingID", "creation_date", "minutes"],
   watch: {
-    minutes: function(newVal, oldVal) {
+    minutes: function(newVal) {
       this.discussionPoints = newVal.discussion_points;
       this.decisions = newVal.decisions;
     }
