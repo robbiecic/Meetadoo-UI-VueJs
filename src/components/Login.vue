@@ -26,10 +26,10 @@
         ></v-text-field>
       </v-row>
       <div class="text-center">
-        <v-btn class="mr-4" @click="submit" data-test="button_submit"
+        <v-btn class="mr-4" @click="submit" data-test="button_submit_login"
           >submit</v-btn
         >
-        <v-btn @click="clear" data-test="button_clear">clear</v-btn>
+        <v-btn @click="clear" data-test="button_clear_login">clear</v-btn>
         <div class="text-center" v-if="showLoader == true">
           <v-progress-circular
             :indeterminate="indeterminate"
