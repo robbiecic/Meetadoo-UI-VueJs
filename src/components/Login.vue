@@ -1,9 +1,16 @@
 <template>
   <v-form v-model="valid">
     <v-container>
-      <v-alert type="error" v-if="failAlert == true">Email and/or password is not valid</v-alert>
+      <v-alert type="error" v-if="failAlert == true"
+        >Email and/or password is not valid</v-alert
+      >
       <v-row>
-        <v-text-field v-model="email" label="E-mail" required></v-text-field>
+        <v-text-field
+          v-model="email"
+          label="E-mail"
+          required
+          data-test="text_email"
+        ></v-text-field>
       </v-row>
       <v-row>
         <v-text-field
@@ -15,11 +22,14 @@
           counter
           @click:append="show1 = !show1"
           v-on:keyup.enter="submit"
+          data-test="text_password"
         ></v-text-field>
       </v-row>
       <div class="text-center">
-        <v-btn class="mr-4" @click="submit">submit</v-btn>
-        <v-btn @click="clear">clear</v-btn>
+        <v-btn class="mr-4" @click="submit" data-test="button_submit"
+          >submit</v-btn
+        >
+        <v-btn @click="clear" data-test="button_clear">clear</v-btn>
         <div class="text-center" v-if="showLoader == true">
           <v-progress-circular
             :indeterminate="indeterminate"

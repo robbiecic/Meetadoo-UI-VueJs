@@ -13,6 +13,7 @@
           :rules="emailRules"
           label="E-mail"
           required
+          data-test="text_email"
         ></v-text-field>
       </v-row>
       <v-row>
@@ -21,6 +22,7 @@
           :rules="nameRules"
           label="First Name"
           required
+          data-test="text_firstname"
         ></v-text-field>
       </v-row>
       <v-row>
@@ -29,6 +31,7 @@
           :rules="nameRules"
           label="Surname"
           required
+          data-test="text_surname"
         ></v-text-field>
       </v-row>
       <v-row>
@@ -42,10 +45,13 @@
           hint="At least 8 characters"
           counter
           @click:append="show1 = !show1"
+          data-test="text_password"
         ></v-text-field>
       </v-row>
-      <v-btn class="mr-4" @click="submit">submit</v-btn>
-      <v-btn @click="clear">clear</v-btn>
+      <v-btn class="mr-4" @click="submit" data-test="button_submit"
+        >submit</v-btn
+      >
+      <v-btn @click="clear" data-test="button_clear">clear</v-btn>
       <div class="text-center" v-if="showLoader == true">
         <v-progress-circular
           :indeterminate="indeterminate"

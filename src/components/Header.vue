@@ -23,22 +23,46 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn text to="/">
+      <v-btn text to="/" data-test="button_home">
         <span class="mr-2">Home</span>
       </v-btn>
-      <v-btn text v-if="isLoggedOn == false" to="/register">
+      <v-btn
+        text
+        v-if="isLoggedOn == false"
+        to="/register"
+        data-test="button_register"
+      >
         <span class="mr-2">Register</span>
       </v-btn>
-      <v-btn text v-if="isLoggedOn == false" to="/login">
+      <v-btn
+        text
+        v-if="isLoggedOn == false"
+        to="/login"
+        data-test="button_login"
+      >
         <span class="mr-2">Login</span>
       </v-btn>
-      <v-btn text v-if="isLoggedOn == true" to="/dashboard">
+      <v-btn
+        text
+        v-if="isLoggedOn == true"
+        to="/dashboard"
+        data-test="button_dashboard"
+      >
         <span class="mr-2">Dashboard</span>
       </v-btn>
-      <v-btn text v-if="isLoggedOn == true" to="/logout">
+      <v-btn
+        text
+        v-if="isLoggedOn == true"
+        to="/logout"
+        data-test="button_logout"
+      >
         <span class="mr-2">Logout</span>
       </v-btn>
-      <v-btn href="https://github.com/vuetifyjs/vuetify/releases/latest" target="_blank" text>
+      <v-btn
+        href="https://github.com/vuetifyjs/vuetify/releases/latest"
+        target="_blank"
+        text
+      >
         <span class="mr-2">Latest Release</span>
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
@@ -49,7 +73,9 @@
         "
       >
         <v-tabs grow v-model="active_tab" dark background-color="blue darken-2">
-          <v-tab v-for="tab of tabs" :key="tab.id" :to="tab.link">{{ tab.name }}</v-tab>
+          <v-tab v-for="tab of tabs" :key="tab.id" :to="tab.link">{{
+            tab.name
+          }}</v-tab>
         </v-tabs>
       </template>
     </v-app-bar>
