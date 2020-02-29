@@ -1,23 +1,14 @@
 <template>
   <v-card class="overflow-hidden">
-    <v-app-bar app color="blue darken-4" dark>
+    <v-app-bar app color="#01adee">
       <div class="d-flex align-center">
         <v-img
-          alt="Vuetify Logo"
+          alt="Meetadoo Logo"
           class="shrink mr-2"
           contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+          src="/assets/logo_meetadoo.png"
           transition="scale-transition"
           width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
         />
       </div>
 
@@ -72,7 +63,12 @@
           $route.path == '/dashboard' || $route.path == '/dashboard/minutes'
         "
       >
-        <v-tabs grow v-model="active_tab" dark background-color="blue darken-2">
+        <v-tabs
+          grow
+          v-model="active_tab"
+          dark
+          background-color="blue-grey darken-4"
+        >
           <v-tab v-for="tab of tabs" :key="tab.id" :to="tab.link">{{
             tab.name
           }}</v-tab>
