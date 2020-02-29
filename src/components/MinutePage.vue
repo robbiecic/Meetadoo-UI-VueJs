@@ -6,16 +6,12 @@
           <h1>Minutes</h1>
         </v-col>
         <v-container>
-          <v-alert
-            type="error"
-            v-if="failAlert == true"
-            dismissible
-          >Whoops... Something went wrong... Please try again later</v-alert>
-          <v-alert
-            type="success"
-            v-if="updateSuccess == true"
-            dismissible
-          >You have successfully added minutes</v-alert>
+          <v-alert type="error" v-if="failAlert == true" dismissible
+            >Whoops... Something went wrong... Please try again later</v-alert
+          >
+          <v-alert type="success" v-if="updateSuccess == true" dismissible
+            >You have successfully added minutes</v-alert
+          >
         </v-container>
 
         <v-col class="text-right">
@@ -105,11 +101,18 @@ export default {
   props: ["meetingID", "creation_date", "minutes"],
   watch: {
     minutes: function(newVal) {
-      this.discussionPoints = newVal.discussion_points
-        ? newVal.discussion_points
-        : "";
-
-      this.decisions = newVal.newVal.decisions ? newVal.newVal.decisions : "";
+      //If there are no discussion points set to blank
+      if (typeof newVal.discussion_points != "undefined") {
+        this.discussionPoints = newVal.discussion_points;
+      } else {
+        this.discussionPoints = "";
+      }
+      //If there are no decisions set to blank
+      if (typeof newVal.decisions != "undefined") {
+        this.decisions = newVal.decisions;
+      } else {
+        this.decisions = "";
+      }
     }
   },
   methods: {
