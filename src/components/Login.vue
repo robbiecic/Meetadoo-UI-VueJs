@@ -10,6 +10,9 @@
           label="E-mail"
           required
           data-test="text_email"
+          :rounded="true"
+          :outlined="true"
+          :shaped="false"
         ></v-text-field>
       </v-row>
       <v-row>
@@ -17,6 +20,9 @@
           v-model="password"
           :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
           :type="show1 ? 'text' : 'password'"
+          :rounded="true"
+          :outlined="true"
+          :shaped="false"
           name="input-10-1"
           label="Enter password ... "
           counter

@@ -1,30 +1,25 @@
 <template>
   <v-form>
     <v-container class="text-center" v-if="showLoader == true">
-      <v-progress-circular
-        :indeterminate="indeterminate"
-        :rotate="rotate"
-        :size="size"
-        :value="value"
-        :width="width"
-        color="light-blue"
-      ></v-progress-circular>
+      <LoaderProfile />
     </v-container>
-    <v-container v-if="failAlert == true">
-      <v-alert type="error"
+    <!-- Error & Warning message container, show if not loading-->
+    <v-container v-if="showLoader == false">
+      <v-alert type="error" v-if="failAlert == true"
         >You are not authorised to perform this action</v-alert
       >
+      <v-alert type="error" v-if="updateFail == true" dismissible>
+        Oops... Something went wrong updating your data. Please try again later.
+      </v-alert>
+      <v-alert type="success" v-if="updateSuccess == true" dismissible
+        >Yay! You have successfully updated your profile!</v-alert
+      >
     </v-container>
+    <!-- Show main content if authorised and if not loading -->
     <v-container v-if="failAlert == false && showLoader == false">
       <br />
       <h1>My Profile</h1>
       <br />
-      <v-alert type="error" v-if="updateFail == true">
-        Something went wrong updating your data. Please try again later.
-      </v-alert>
-      <v-alert type="success" v-if="updateSuccess == true" dismissible
-        >You have successfully updated your profile.</v-alert
-      >
       <v-text-field
         v-model="email"
         :label="'Email'"
@@ -81,24 +76,19 @@
 
 <script>
 import axios from "axios";
+import LoaderProfile from "./loaders/loader_profile";
 
 export default {
   name: "Profile",
   props: ["user"],
+  components: { LoaderProfile },
   data() {
     return {
       firstname: "",
       surname: "",
       email: "",
       showLoader: false,
-      indeterminate: true,
-      rotate: 0,
-      size: 32,
-      value: 0,
-      width: 4,
       failAlert: false,
-      model: "I'm a text field",
-      label: "Email Address",
       placeholder: "",
       shaped: false,
       outlined: true,
@@ -132,7 +122,7 @@ export default {
           this.surname = data_json.surname;
           this.email = data_json.email;
           this.showLoader = false;
-          this.cancel();
+          this.clear();
           if (updateCheck == "update_succes") this.updateSuccess = true;
         })
         .catch(() => {
@@ -164,18 +154,17 @@ export default {
         .then(() => {
           //If update user is successful, get latest data
           this.updateSuccess = true;
-          this.cancel();
+          this.clear();
         })
         .catch(() => {
           this.updateFail = true;
-          this.cancel();
+          this.clear();
         });
     },
-    cancel: function() {
+    clear: function() {
       this.loadingFirstname = false;
       this.loadingSurname = false;
       this.disableFields = 0;
-      this.updateSuccess = false;
     }
   },
   created: function() {

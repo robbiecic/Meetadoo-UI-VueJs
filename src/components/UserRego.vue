@@ -11,6 +11,9 @@
         <v-text-field
           v-model="email"
           :rules="emailRules"
+          :rounded="true"
+          :outlined="true"
+          :shaped="false"
           label="E-mail"
           required
           data-test="text_email"
@@ -20,6 +23,9 @@
         <v-text-field
           v-model="firstname"
           :rules="nameRules"
+          :rounded="true"
+          :outlined="true"
+          :shaped="false"
           label="First Name"
           required
           data-test="text_firstname"
@@ -29,6 +35,9 @@
         <v-text-field
           v-model="surname"
           :rules="nameRules"
+          :rounded="true"
+          :outlined="true"
+          :shaped="false"
           label="Surname"
           required
           data-test="text_surname"
@@ -40,6 +49,9 @@
           :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
           :rules="[rules.required, rules.min]"
           :type="show1 ? 'text' : 'password'"
+          :rounded="true"
+          :outlined="true"
+          :shaped="false"
           name="input-10-1"
           label="Enter password ... "
           hint="At least 8 characters"
