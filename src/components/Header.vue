@@ -6,7 +6,6 @@
           alt="Meetadoo Logo"
           class="shrink mr-2"
           contain
-          src="/assets/logo_meetadoo.png"
           transition="scale-transition"
           width="40"
         />
