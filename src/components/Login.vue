@@ -113,4 +113,7 @@ export default {
 .v-progress-circular {
   margin: 1rem;
 }
+.container {
+  max-width: 700px;
+}
 </style>
