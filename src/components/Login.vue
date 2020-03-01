@@ -88,7 +88,7 @@ export default {
         .then(response => {
           this.isLoggedOn = true;
           var responseData = response.data.replace(/'/g, '"');
-          responseDataJson = JSON.parse(responseData);
+          var responseDataJson = JSON.parse(responseData);
           var payload = {};
           payload.firstname = responseDataJson.firstname;
           payload.surname = responseDataJson.surname;
