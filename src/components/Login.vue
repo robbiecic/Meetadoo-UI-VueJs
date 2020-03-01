@@ -87,10 +87,14 @@ export default {
         })
         .then(response => {
           this.isLoggedOn = true;
-          var responseData = response.data.replace(/'/g, '"');
+          var responseData = JSON.parse(response.data.replace(/'/g, '"'));
+          console.log("responseData", responseData);
+          var payload = {};
+          payload.firstname = responseData.firstname;
+          payload.surname = responseData.surname;
           this.clear();
           this.showLoader = false;
-          this.$store.commit("setUser");
+          this.$store.commit("setUser", payload);
           this.$router.push({
             name: "Dashboard",
             params: { user: responseData }

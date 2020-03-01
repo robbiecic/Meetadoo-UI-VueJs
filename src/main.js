@@ -11,14 +11,20 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    isLoggedOn: false
+    isLoggedOn: false,
+    firstname: "",
+    surname: ""
   },
   mutations: {
-    setUser(state) {
+    setUser(state, payload) {
       state.isLoggedOn = true;
+      state.firstname = payload.firstname;
+      state.surname = payload.surname;
     },
     unSetUser(state) {
       state.isLoggedOn = false;
+      state.firstname = "";
+      state.surname = "";
     }
   }
 });
