@@ -33,7 +33,8 @@
       to="/dashboard"
       data-test="button_dashboard"
     >
-      <span class="mr-2">Dashboard</span>
+      <v-icon left dark>mdi-account-circle</v-icon>
+      <span class="mr-2">{{ firstname }}</span>
     </v-btn>
     <v-btn
       text
@@ -42,15 +43,6 @@
       data-test="button_logout"
     >
       <span class="mr-2">Logout</span>
-    </v-btn>
-    <v-btn
-      text
-      v-if="isLoggedOn == true"
-      to="/dashboard"
-      data-test="button_dashboard"
-    >
-      <v-icon left>mdi-user-circle</v-icon>
-      <span class="mr-2">{firstname}</span>
     </v-btn>
     <template
       v-slot:extension
