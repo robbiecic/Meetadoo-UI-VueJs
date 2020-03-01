@@ -87,11 +87,11 @@ export default {
         })
         .then(response => {
           this.isLoggedOn = true;
-          var responseData = JSON.parse(response.data.replace(/'/g, '"'));
-          console.log("responseData", responseData);
+          var responseData = response.data.replace(/'/g, '"');
+          responseDataJson = JSON.parse(responseData);
           var payload = {};
-          payload.firstname = responseData.firstname;
-          payload.surname = responseData.surname;
+          payload.firstname = responseDataJson.firstname;
+          payload.surname = responseDataJson.surname;
           this.clear();
           this.showLoader = false;
           this.$store.commit("setUser", payload);
