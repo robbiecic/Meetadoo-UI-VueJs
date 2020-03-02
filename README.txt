@@ -2,7 +2,6 @@ To-do priorities:
 
 Expedite -> Create Localhost API that calls API gateway dev API.
 
-1. When Adding or Updating a meeting, need to show a success or Fail alert
 2. Need to finish minutes page (loading, adding and updating)
 3. Disable minutes page (tab) when a meeting hasn't been clicked on the LHS
 4. Updating a meeting doesn't refresh the meeting list - needs to happen.

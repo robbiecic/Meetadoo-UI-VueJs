@@ -10,6 +10,18 @@
               <h1>Meeting detail</h1>
             </v-col>
             <v-col class="text-right">
+              <v-alert
+                type="error"
+                v-if="updateFail == true"
+                dismissible
+              >Oops... Something went wrong updating your data. Please try again later.</v-alert>
+              <v-alert
+                type="success"
+                v-if="updateSuccess == true"
+                dismissible
+              >Yay! You have successfully submitted your minutes!</v-alert>
+            </v-col>
+            <v-col class="text-right">
               <v-progress-circular
                 :indeterminate="indeterminate"
                 :rotate="rotate"
@@ -264,7 +276,9 @@ export default {
       rotate: 0,
       size: 32,
       value: 0,
-      width: 4
+      width: 4,
+      updateSuccess: false,
+      updateFail: false
     };
   },
   props: ["minuteDetail"],
@@ -280,6 +294,8 @@ export default {
   methods: {
     add: function(add_or_update) {
       this.disableFields = true;
+      this.updateSuccess = false;
+      this.updateFail = false;
       this.showLoader = true;
       let body = {};
       let url = "";
@@ -304,6 +320,8 @@ export default {
         .then(() => {
           this.showLoader = false;
           this.disableFields = false;
+          this.updateSuccess = true;
+          this.updateFail = false;
           //console.log("completed with response", response);
           //Emit event so parent knows it was successful
           this.$emit("MinuteUpdateSuccess");
@@ -311,6 +329,8 @@ export default {
         .catch(() => {
           this.showLoader = false;
           this.disableFields = false;
+          this.updateFail = true;
+          this.updateSuccess = false;
           //console.log("Errored with response", err);
         });
     },
