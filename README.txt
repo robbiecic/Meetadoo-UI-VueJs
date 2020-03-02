@@ -1,6 +1,7 @@
 To-do priorities:
 
-Expedite -> Create Localhost API that calls API gateway dev API.
+Expedite -> Create Localhost API that calls API gateway dev API - Wont work due to Cookies.
+-> Perhaps can change to returning DUMMY values from mocked endpoints.
 
 1. Disable fields on minutes page (tab) when a meeting hasn't been clicked on the LHS / created
 2. Need to finish minutes page (loading, adding and updating)
