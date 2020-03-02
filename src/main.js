@@ -38,10 +38,15 @@ new Vue({
     //Can only do this by making an API call to the see if a cookie exists with a valid JWT token
     //This a step to how we can remain stateless and not storing a session
     axios
-      .get(process.env.VUE_APP_ROOT_API + "?action=isAuthenticated")
-      .then(() => {
-        //Set user as logged in
-        this.$store.commit("setUser");
+      .get(process.env.VUE_APP_ROOT_API + "?action=getUser")
+      .then(response => {
+        let data = response.data;
+        let data_json = JSON.parse(data.replace(/'/g, '"'));
+        var payload = {};
+        payload.firstname = data_json.firstname;
+        payload.surname = data_json.surname;
+        // Set user as logged in and store firstname and surname
+        this.$store.commit("setUser", payload);
       })
       .catch(() => {
         //Set user as logged out

@@ -203,7 +203,7 @@
             />
           </v-row>
         </v-tab-item>
-        <v-tab>Minutes</v-tab>
+        <v-tab v-if="minuteDetailLocal">Minutes</v-tab>
         <v-tab-item>
           <v-row>
             <MinutePage
