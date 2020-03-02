@@ -1,76 +1,79 @@
 <template>
   <v-container>
-    <div>
-      <v-row>
-        <v-col>
-          <h1>Minutes</h1>
-        </v-col>
-        <v-container>
-          <v-alert type="error" v-if="failAlert == true" dismissible
-            >Whoops... Something went wrong... Please try again later</v-alert
-          >
-          <v-alert type="success" v-if="updateSuccess == true" dismissible
-            >You have successfully added minutes</v-alert
-          >
-        </v-container>
+    <v-row>
+      <v-col>
+        <h1>Minutes</h1>
+      </v-col>
+      <v-container v-if="failAlert == true || updateSuccess == true">
+        <v-alert
+          type="error"
+          v-if="failAlert == true"
+          dismissible
+        >Whoops... Something went wrong... Please try again later</v-alert>
+        <v-alert
+          type="success"
+          v-if="updateSuccess == true"
+          dismissible
+        >You have successfully added minutes</v-alert>
+      </v-container>
+      <v-col class="text-right">
+        <v-progress-circular
+          :indeterminate="indeterminate"
+          :rotate="rotate"
+          :size="size"
+          :value="value"
+          :width="width"
+          color="light-blue"
+          v-if="showLoader == true"
+        ></v-progress-circular>
+        <v-btn
+          class="ma-2"
+          tile
+          outlined
+          color="error"
+          @click="clear"
+          :disabled="disableFields == true"
+        >
+          <v-icon left>mdi-pencil</v-icon>Clear
+        </v-btn>
+        <v-btn
+          class="ma-2"
+          tile
+          outlined
+          color="warning"
+          @click="addMinutes()"
+          :disabled="disableFields == true"
+        >
+          <v-icon left>mdi-pencil</v-icon>Update
+        </v-btn>
+      </v-col>
+    </v-row>
+    <v-row>
+      <br />Attendees
+      <PeoplePicker ref="attendees" :initialValue="initialValue" />
+      <br />Apologies
+      <PeoplePicker ref="apologies" :initialValue="initialValue" />
 
-        <v-col class="text-right">
-          <v-progress-circular
-            :indeterminate="indeterminate"
-            :rotate="rotate"
-            :size="size"
-            :value="value"
-            :width="width"
-            color="light-blue"
-            v-if="showLoader == true"
-          ></v-progress-circular>
-          <v-btn
-            class="ma-2"
-            tile
-            outlined
-            color="error"
-            @click="clear"
-            :disabled="disableFields == true"
-          >
-            <v-icon left>mdi-pencil</v-icon>Clear
-          </v-btn>
-          <v-btn
-            class="ma-2"
-            tile
-            outlined
-            color="warning"
-            @click="addMinutes()"
-            :disabled="disableFields == true"
-          >
-            <v-icon left>mdi-pencil</v-icon>Update
-          </v-btn>
-        </v-col>
-      </v-row>
-    </div>
-    <br />Attendees
-    <PeoplePicker ref="attendees" :initialValue="initialValue" />
-    <br />Apologies
-    <PeoplePicker ref="apologies" :initialValue="initialValue" />
+      <v-textarea
+        counter
+        v-model="discussionPoints"
+        label="Discuss points"
+        :shaped="false"
+        :outlined="true"
+        :rounded="true"
+        :disabled="disableFields == true"
+      ></v-textarea>
 
-    <v-textarea
-      counter
-      v-model="discussionPoints"
-      label="Discuss points"
-      :shaped="false"
-      :outlined="true"
-      :rounded="true"
-      :disabled="disableFields == true"
-    ></v-textarea>
-
-    <v-textarea
-      counter
-      v-model="decisions"
-      label="Decisionns"
-      :shaped="false"
-      :outlined="true"
-      :rounded="true"
-      :disabled="disableFields == true"
-    ></v-textarea>
+      <v-textarea
+        counter
+        v-model="decisions"
+        label="Decisionns"
+        :shaped="false"
+        :outlined="true"
+        :rounded="true"
+        :disabled="disableFields == true"
+      ></v-textarea>
+    </v-row>
   </v-container>
 </template>
 
