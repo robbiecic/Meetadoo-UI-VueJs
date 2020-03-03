@@ -48,17 +48,17 @@
         </v-btn>
       </v-col>
     </v-row>
-    <v-row v-if="disableFields == true">
+    <v-row v-if="minutesLoaded == false">
       <v-alert
         type="warning"
         dismissible
       >You must add or select an existing meeting before adding minutes</v-alert>
     </v-row>
-    <v-row v-if="disableFields == false">
+    <v-row v-if="minutesLoaded == true">
       <br />Attendees
-      <PeoplePicker ref="attendees" :initialValue="initialValue" />
+      <PeoplePicker ref="attendees" :initialValue="initialValue" v-bind:guests="attendeesLocal" />
       <br />Apologies
-      <PeoplePicker ref="apologies" :initialValue="initialValue" />
+      <PeoplePicker ref="apologies" :initialValue="initialValue" v-bind:guests="apologiesLocal" />
       <v-textarea
         counter
         v-model="discussionPoints"
@@ -92,9 +92,11 @@ export default {
   components: { PeoplePicker },
   data() {
     return {
-      discussionPoints: "",
-      disableFields: true,
+      disableFields: false,
       decisions: "",
+      discussionPoints: "",
+      attendeesLocal: [],
+      apologiesLocal: [],
       indeterminate: true,
       rotate: 0,
       size: 32,
@@ -103,15 +105,37 @@ export default {
       initialValue: {},
       showLoader: false,
       failAlert: false,
-      updateSuccess: false
+      updateSuccess: false,
+      minutesLoaded: false
     };
+  },
+  created: function() {
+    //Need to add a created method, because after refresh when compount hasn't mounted it needs to check if a meeting has been clicked
+    if (typeof this.meetingID != "undefined") {
+      this.minutesLoaded = true;
+      //Load data
+      this.loadData(this.minutes);
+    }
   },
   props: ["meetingID", "creation_date", "minutes", "meetingTitle"],
   watch: {
     minutes: function(newVal) {
+      this.loadData(newVal);
+    },
+    meetingID: function() {
+      this.minutesLoaded = true;
+    }
+  },
+  methods: {
+    containsKey(obj, key) {
+      return Object.keys(obj).includes(key);
+    },
+    loadData: function(newVal) {
       //If there are no discussion points set to blank
-      if (typeof newVal.discussion_points != "undefined") {
-        this.discussionPoints = newVal.discussion_points;
+      const hasName = this.containsKey(newVal, "discussionPoints");
+
+      if (!hasName) {
+        this.discussionPoints = newVal.discussionPoints;
       } else {
         this.discussionPoints = "";
       }
@@ -121,12 +145,17 @@ export default {
       } else {
         this.decisions = "";
       }
+      if (typeof newVal.attendees != "undefined") {
+        this.attendeesLocal = newVal.attendees;
+      } else {
+        this.attendeesLocal = [];
+      }
+      if (typeof newVal.apologies != "undefined") {
+        this.apologiesLocal = newVal.apologies;
+      } else {
+        this.apologiesLocal = [];
+      }
     },
-    meetingID: function() {
-      this.disableFields = false;
-    }
-  },
-  methods: {
     addMinutes: function() {
       this.disableFields = true;
       this.showLoader = true;
@@ -142,7 +171,7 @@ export default {
       //This is the entire meeting ID contents from meeting detail
       body.meeting = { id: this.meetingID, creation_date: this.creation_date };
       body.minutes = minutes;
-
+      console.log("body", body);
       url = process.env.VUE_APP_ROOT_API + "minutes/?action=SupplementMinute";
 
       axios
