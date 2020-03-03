@@ -1,25 +1,29 @@
 <template>
   <v-container>
-    <!-- Row for header and button -->
-    <v-row>
-      <v-col>
-        <h1>History</h1>
-      </v-col>
-    </v-row>
-    <!-- This row will be where you add a new actions -->
-    <v-row>
-      <v-col md="8">
-        <LoaderTable v-if="showLoader == true" />
-        <v-data-table
-          v-model="selected"
-          :headers="headers"
-          :items="actionHistory"
-          item-key="actionHistory.id"
-          class="elevation-1"
-          v-if="showLoader == false"
-        ></v-data-table>
-      </v-col>
-    </v-row>
+    <v-card>
+      <v-card-title>
+        History
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+        ></v-text-field>
+      </v-card-title>
+      <LoaderTable v-if="showLoader == true" />
+      <v-data-table
+        v-model="selected"
+        :headers="headers"
+        :items="actionHistory"
+        :sortable="true"
+        :search="search"
+        item-key="actionHistory.id"
+        class="elevation-1"
+        v-if="showLoader == false"
+      ></v-data-table>
+    </v-card>
   </v-container>
 </template>
 
@@ -33,6 +37,7 @@ export default {
   data() {
     return {
       disableFields: false,
+      search: "",
       showLoader: false,
       selected: [],
       actionHistory: [],
