@@ -2,7 +2,7 @@
   <v-container>
     <v-card>
       <v-card-title>
-        History
+        {{meetingTitle}}
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
@@ -33,7 +33,7 @@ import LoaderTable from "./loaders/loader_table";
 export default {
   name: "ActionHistory",
   components: { LoaderTable },
-  props: ["meetingID"],
+  props: ["meetingID", "meetingTitle"],
   data() {
     return {
       disableFields: false,

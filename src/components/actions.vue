@@ -3,7 +3,7 @@
     <!-- Row for header and button -->
     <v-row>
       <v-col>
-        <h1>Actions</h1>
+        <h1>{{meetingTitle}}</h1>
       </v-col>
       <v-col class="text-right">
         <v-btn
@@ -78,7 +78,7 @@ import LoaderActions from "./loaders/loader_actions";
 export default {
   name: "Actions",
   components: { PeoplePicker, LoaderActions },
-  props: ["meetingID"],
+  props: ["meetingID", "meetingTitle"],
   data() {
     return {
       disableFields: false,

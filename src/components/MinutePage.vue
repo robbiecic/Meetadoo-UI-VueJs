@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col>
-        <h1>Minutes</h1>
+        <h1>{{meetingTitle}}</h1>
       </v-col>
       <v-container v-if="failAlert == true || updateSuccess == true">
         <v-alert
@@ -88,7 +88,7 @@ export default {
   data() {
     return {
       discussionPoints: "",
-      disableFields: false,
+      disableFields: true,
       decisions: "",
       indeterminate: true,
       rotate: 0,
@@ -101,7 +101,7 @@ export default {
       updateSuccess: false
     };
   },
-  props: ["meetingID", "creation_date", "minutes"],
+  props: ["meetingID", "creation_date", "minutes", "meetingTitle"],
   watch: {
     minutes: function(newVal) {
       //If there are no discussion points set to blank
@@ -116,6 +116,9 @@ export default {
       } else {
         this.decisions = "";
       }
+    },
+    meetingID: function() {
+      this.disableFields = false;
     }
   },
   methods: {

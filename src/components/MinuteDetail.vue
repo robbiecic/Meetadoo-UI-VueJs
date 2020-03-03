@@ -7,7 +7,7 @@
         <v-tab-item>
           <v-row>
             <v-col>
-              <h1>Meeting detail</h1>
+              <h1>{{minuteDetailLocal.title}}</h1>
             </v-col>
             <v-col class="text-right">
               <v-alert
@@ -210,19 +210,26 @@
               v-bind:meetingID="minuteDetailLocal.id"
               v-bind:creation_date="minuteDetailLocal.creation_date"
               v-bind:minutes="minuteDetailLocal.minutes"
+              v-bind:meetingTitle="minuteDetailLocal.title"
             />
           </v-row>
         </v-tab-item>
         <v-tab>Actions</v-tab>
         <v-tab-item>
           <v-row>
-            <Actions v-bind:meetingID="minuteDetailLocal.id" />
+            <Actions
+              v-bind:meetingID="minuteDetailLocal.id"
+              v-bind:meetingTitle="minuteDetailLocal.title"
+            />
           </v-row>
         </v-tab-item>
         <v-tab>History</v-tab>
         <v-tab-item v-if="activeTabs == 3">
           <v-row>
-            <ActionHistory v-bind:meetingID="minuteDetailLocal.id" />
+            <ActionHistory
+              v-bind:meetingID="minuteDetailLocal.id"
+              v-bind:meetingTitle="minuteDetailLocal.title"
+            />
           </v-row>
         </v-tab-item>
       </v-tabs>
