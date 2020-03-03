@@ -57,6 +57,7 @@ import LoaderMinuteList from "./loaders/loader_minuteList";
 
 export default {
   name: "MinutesList",
+  props: ["forceRefresh"],
   data() {
     return {
       minuteList: [],
