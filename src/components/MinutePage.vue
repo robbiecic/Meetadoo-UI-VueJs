@@ -48,12 +48,17 @@
         </v-btn>
       </v-col>
     </v-row>
-    <v-row>
+    <v-row v-if="disableFields == true">
+      <v-alert
+        type="warning"
+        dismissible
+      >You must add or select an existing meeting before adding minutes</v-alert>
+    </v-row>
+    <v-row v-if="disableFields == false">
       <br />Attendees
       <PeoplePicker ref="attendees" :initialValue="initialValue" />
       <br />Apologies
       <PeoplePicker ref="apologies" :initialValue="initialValue" />
-
       <v-textarea
         counter
         v-model="discussionPoints"
