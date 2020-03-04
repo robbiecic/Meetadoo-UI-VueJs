@@ -200,7 +200,10 @@
             />
           </v-row>
           <v-row>
-            <AddLabels v-bind:modelProps="minuteDetailLocal.labels" />
+            <AddLabels
+              v-bind:modelProps="minuteDetailLocal.labels"
+              ref="labelsChild"
+            />
           </v-row>
         </v-tab-item>
         <v-tab v-if="minuteDetailLocal">Minutes</v-tab>
@@ -319,9 +322,9 @@ export default {
       body.time_start = this.minuteDetailLocal.time_start;
       body.time_end = this.minuteDetailLocal.time_end;
       body.guests = this.$refs.child.guestsLocal;
+      body.labels = this.$refs.labelsChild.model;
       body.repeat_event = false;
       body.description = this.minuteDetailLocal.description;
-
       if (add_or_update == "update") {
         body.id = this.minuteDetailLocal.id;
         body.creator = this.minuteDetailLocal.creator;
