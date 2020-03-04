@@ -168,18 +168,16 @@ export default {
       //This is the entire meeting ID contents from meeting detail
       body.meeting = { id: this.meetingID, creation_date: this.creation_date };
       body.minutes = minutes;
-      console.log("body", body);
       url = process.env.VUE_APP_ROOT_API + "minutes/?action=SupplementMinute";
 
       axios
         .post(url, { data: body })
         .then(() => {
+          //Emit event so parent knows it was successful
+          this.$emit("MinutePageUpdateSuccess");
           this.showLoader = false;
           this.disableFields = false;
           this.updateSuccess = true;
-          //console.log("completed with response", response);
-          //Emit event so parent knows it was successful
-          this.$emit("MinuteUpdateSuccess");
         })
         .catch(() => {
           this.showLoader = false;

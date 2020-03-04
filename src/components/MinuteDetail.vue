@@ -211,6 +211,7 @@
               v-bind:creation_date="minuteDetailLocal.creation_date"
               v-bind:minutes="minutes"
               v-bind:meetingTitle="minuteDetailLocal.title"
+              v-on:MinutePageUpdateSuccess="setRefreshEvent"
             />
           </v-row>
         </v-tab-item>
@@ -353,6 +354,11 @@ export default {
       this.update = false;
       this.disableFields = false;
       this.minuteDetailLocal = {};
+    },
+    setRefreshEvent: function() {
+      //Emit event so parent knows it was successful
+      //This will force the reload of the minuteList in parent component
+      this.$emit("MinuteUpdateSuccess");
     }
   }
 };
