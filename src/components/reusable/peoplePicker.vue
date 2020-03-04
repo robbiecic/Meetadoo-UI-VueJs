@@ -37,7 +37,7 @@ import axios from "axios";
 import LoaderPeoplePicker from "../loaders/loader_peoplePicker";
 export default {
   name: "PeoplePicker",
-  props: ["guests", "disabledFields", "initialValue", "loadData"],
+  props: ["guests", "disabledFields", "initialValue", "loadData", "title"],
   data() {
     return {
       isUpdating: false,

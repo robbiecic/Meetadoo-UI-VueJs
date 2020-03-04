@@ -7,19 +7,16 @@
         <v-tab-item>
           <v-row>
             <v-col>
-              <h1>{{minuteDetailLocal.title}}</h1>
+              <h1>{{ minuteDetailLocal.title }}</h1>
             </v-col>
             <v-col class="text-right">
-              <v-alert
-                type="error"
-                v-if="updateFail == true"
-                dismissible
-              >Oops... Something went wrong updating your data. Please try again later.</v-alert>
-              <v-alert
-                type="success"
-                v-if="updateSuccess == true"
-                dismissible
-              >Yay! You have successfully submitted your minutes!</v-alert>
+              <v-alert type="error" v-if="updateFail == true" dismissible
+                >Oops... Something went wrong updating your data. Please try
+                again later.</v-alert
+              >
+              <v-alert type="success" v-if="updateSuccess == true" dismissible
+                >Yay! You have successfully submitted your minutes!</v-alert
+              >
             </v-col>
             <v-col class="text-right">
               <v-progress-circular
@@ -202,6 +199,9 @@
               v-bind:disabledFields="disableFields"
             />
           </v-row>
+          <v-row>
+            <AddLabels v-bind:modelProps="minuteDetailLocal.labels" />
+          </v-row>
         </v-tab-item>
         <v-tab v-if="minuteDetailLocal">Minutes</v-tab>
         <v-tab-item>
@@ -241,18 +241,18 @@
 <script>
 import axios from "axios";
 import PeoplePicker from "./reusable/peoplePicker";
+import AddLabels from "./reusable/addLabels";
 import Actions from "./actions";
 import ActionHistory from "./action_history";
 import MinutePage from "./MinutePage";
 
 export default {
   name: "MinuteDetail",
-  components: { PeoplePicker, Actions, ActionHistory, MinutePage },
+  components: { PeoplePicker, Actions, ActionHistory, MinutePage, AddLabels },
   data() {
     return {
       panel: [0],
       activeTabs: 0,
-      friends: ["Sandra Adams", "Britta Holt"],
       isUpdating: false,
       autoUpdate: true,
       guests: [],
