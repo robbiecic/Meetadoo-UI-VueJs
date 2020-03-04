@@ -209,7 +209,7 @@
             <MinutePage
               v-bind:meetingID="minuteDetailLocal.id"
               v-bind:creation_date="minuteDetailLocal.creation_date"
-              v-bind:minutes="minuteDetailLocal.minutes"
+              v-bind:minutes="minutes"
               v-bind:meetingTitle="minuteDetailLocal.title"
             />
           </v-row>
@@ -285,7 +285,8 @@ export default {
       value: 0,
       width: 4,
       updateSuccess: false,
-      updateFail: false
+      updateFail: false,
+      minutes: {}
     };
   },
   props: ["minuteDetail"],
@@ -296,6 +297,12 @@ export default {
       this.disableFields = false;
       this.showLoader = false;
       this.panel = [0];
+
+      if (typeof newVal.minutes != "undefined") {
+        this.minutes = newVal.minutes;
+      } else {
+        this.minutes = {};
+      }
     }
   },
   methods: {

@@ -131,10 +131,7 @@ export default {
       return Object.keys(obj).includes(key);
     },
     loadData: function(newVal) {
-      //If there are no discussion points set to blank
-      const hasName = this.containsKey(newVal, "discussionPoints");
-
-      if (!hasName) {
+      if (typeof newVal.discussionPoints != "undefined") {
         this.discussionPoints = newVal.discussionPoints;
       } else {
         this.discussionPoints = "";
