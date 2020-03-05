@@ -10,13 +10,15 @@
               <h1>{{ minuteDetailLocal.title }}</h1>
             </v-col>
             <v-col class="text-right">
-              <v-alert type="error" v-if="updateFail == true" dismissible
-                >Oops... Something went wrong updating your data. Please try
-                again later.</v-alert
-              >
-              <v-alert type="success" v-if="updateSuccess == true" dismissible
-                >Yay! You have successfully submitted your minutes!</v-alert
-              >
+              <v-alert type="error" v-if="updateFail == true" dismissible>
+                Oops... Something went wrong updating your data. Please try
+                again later.
+              </v-alert>
+              <v-alert
+                type="success"
+                v-if="updateSuccess == true"
+                dismissible
+              >Yay! You have successfully submitted your minutes!</v-alert>
             </v-col>
             <v-col class="text-right">
               <v-progress-circular
@@ -202,6 +204,7 @@
           <v-row>
             <AddLabels
               v-bind:modelProps="minuteDetailLocal.labels"
+              v-bind:meetingID="minuteDetailLocal.id"
               ref="labelsChild"
             />
           </v-row>

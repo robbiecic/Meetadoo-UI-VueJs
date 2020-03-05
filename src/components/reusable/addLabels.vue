@@ -17,9 +17,11 @@
       <template v-slot:no-data>
         <v-list-item>
           <span class="subheading">Create</span>
-          <v-chip :color="`${colors[nonce - 1]} lighten-3`" label small>{{
+          <v-chip :color="`${colors[nonce - 1]} lighten-3`" label small>
+            {{
             search
-          }}</v-chip>
+            }}
+          </v-chip>
         </v-list-item>
       </template>
       <template v-slot:selection="{ attrs, item, parent, selected }">
@@ -47,9 +49,11 @@
           solo
           @keyup.enter="edit(index, item)"
         ></v-text-field>
-        <v-chip v-else :color="`${item.color} lighten-3`" dark label small>{{
+        <v-chip v-else :color="`${item.color} lighten-3`" dark label small>
+          {{
           item.text
-        }}</v-chip>
+          }}
+        </v-chip>
         <v-spacer></v-spacer>
         <v-list-item-action @click.stop>
           <v-btn icon @click.stop.prevent="edit(index, item)">
@@ -63,7 +67,7 @@
 <script>
 export default {
   name: "AddLabels",
-  props: ["modelProps"],
+  props: ["modelProps", "meetingID"],
   data: () => ({
     activator: null,
     attach: null,
@@ -80,6 +84,11 @@ export default {
   }),
 
   watch: {
+    meetingID() {
+      //When selected meeting ID changes, reset the history
+      this.items = [{ header: "Select an option or create one" }];
+      this.model = [];
+    },
     modelProps(val) {
       this.model = val;
     },
