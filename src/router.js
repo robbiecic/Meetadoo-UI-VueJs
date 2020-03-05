@@ -6,6 +6,7 @@ import Dashboard from "./views/Dashboard.vue";
 import LoginView from "./views/Login.vue";
 import MinutesView from "./views/MinutesView.vue";
 import Logout from "./views/Logout.vue";
+import ActionsView from "./views/Actions.vue";
 
 Vue.use(Router);
 
@@ -41,6 +42,11 @@ export default new Router({
       path: "/logout",
       name: "Logout",
       component: Logout
+    },
+    {
+      path: "/dashboard/actions",
+      name: "ActionsView",
+      component: ActionsView
     }
   ]
 });

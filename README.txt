@@ -2,9 +2,9 @@ To-do priorities:
 
 
 Selected:
-- Review Updated lifecycle hook instead of Created and Watching prop changes
 - Actions page
     - List of all the actions in your meetings. Can filter by assignee or tags. Clicked tag from top banner which applies the filter.
+- Review Updated lifecycle hook instead of Created and Watching prop changes
 - Landing page to show upcoming actions, overdue actions etc. Day at glance, upcoming meetings etc
     - Show number of actions assigned to you after clicking, goes to actions page
     - Banner showing all labels, when clicked filters the page for the meetings with those labels only
