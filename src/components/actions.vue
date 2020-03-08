@@ -3,7 +3,7 @@
     <!-- Row for header and button -->
     <v-row>
       <v-col>
-        <h1>{{meetingTitle}}</h1>
+        <h1>{{ meetingTitle }}</h1>
       </v-col>
       <v-col class="text-right">
         <v-btn
@@ -44,8 +44,9 @@
               <v-list-item-action>
                 <v-checkbox
                   v-model="item.checked"
+                  :value="item.checked"
                   color="primary"
-                  @change="toggle(item)"
+                  @change="toggle(item, $event)"
                   :disabled="showLoader == true"
                 ></v-checkbox>
               </v-list-item-action>
@@ -144,12 +145,31 @@ export default {
       this.initialValue = {};
       //Need to clear the peoplePicker too
     },
-    toggle: function(actionItem) {
-      let foundIndex = this.actions.findIndex(x => x.id === actionItem.id);
-      let newObject = this.actions[foundIndex];
-      if (newObject.checked === true) newObject.checked = false;
-      if (newObject.checked === false) newObject.checked = true;
-      this.actions[foundIndex] = newObject;
+    toggle: function(actionItem, checked_value) {
+      this.showLoader = true;
+      let checkedValue = false;
+      if (!checked_value) {
+        checkedValue = false;
+      } else {
+        checkedValue = true;
+      }
+      let body = {};
+      body.meeting_id = this.meetingID;
+      body.action_id = actionItem.id;
+      body.checked = checkedValue;
+      axios
+        .post(process.env.VUE_APP_ROOT_API + "minutes/?action=CompleteAction", {
+          data: body
+        })
+        .then(() => {
+          // this.actions = response.data.actions;
+          console.log("success");
+          this.showLoader = false;
+        })
+        .catch(() => {
+          console.log("failure");
+          this.showLoader = false;
+        });
     },
     removeAction: function(item) {
       this.showLoader = true;

@@ -2,6 +2,7 @@ To-do priorities:
 
 
 Selected:
+- Ticking on action doesn't do anything (have to update minutes API first)
 - Actions page
     - List of all the actions in your meetings. Can filter by assignee or tags. Clicked tag from top banner which applies the filter.
 - Review Updated lifecycle hook instead of Created and Watching prop changes
@@ -10,7 +11,6 @@ Selected:
     - Banner showing all labels, when clicked filters the page for the meetings with those labels only
     - Can easily jump to add meetings and minutes
 - By clicking a tag in your meetings, you can see all the meetings and actions
-- Ticking on action doesn't do anything
 - Order my meetings API in date descending order
 
 
