@@ -2,7 +2,7 @@
   <v-container>
     <h1>My Actions</h1>
     <v-spacer></v-spacer>
-    <Table v-bind:headers="headers" v-bind:data="myActions" />
+    <Table v-bind:headers="headers" v-bind:data="myActions" v-bind:showLoader="showLoader" />
   </v-container>
 </template>
 
@@ -21,13 +21,15 @@ export default {
       myActions: [],
       headers: [
         {
-          text: "Time Stamp",
+          text: "Due Date",
           align: "left",
           sortable: false,
           value: "due_date"
         },
-        { text: "Assignee", value: "assignee" },
-        { text: "Description", value: "description" }
+        { text: "Assignee(s)", value: "assignee" },
+        { text: "Description", value: "description" },
+        { text: "Complete", value: "checked" },
+        { text: "Actions", value: "actions" }
       ]
     };
   },

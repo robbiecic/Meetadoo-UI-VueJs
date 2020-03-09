@@ -2,7 +2,6 @@ To-do priorities:
 
 
 Selected:
-- Actions table doesn't have a loader whilst waiting on data
 - When assigning people to actions it saves weird in the dynamo - like {'S': 'robert.cicero@test.com'}
 - Actions page
     - List of all the actions in your meetings. Can filter by assignee or tags. Clicked tag from top banner which applies the filter.
