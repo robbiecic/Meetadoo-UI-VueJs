@@ -14,7 +14,7 @@
       <v-data-table
         v-model="selected"
         :headers="headers"
-        :items="dataLocal"
+        :items="data"
         :sortable="true"
         :search="search"
         item-key="dataLocal.id"
@@ -35,19 +35,8 @@ export default {
     return {
       search: "",
       showLoader: false,
-      selected: [],
-      dataLocal: []
+      selected: []
     };
-  },
-  mounted: function() {
-    console.log("headers", this.headers);
-    console.log("data", this.data);
-    this.dataLocal = this.data;
-  },
-  updated: function() {
-    console.log("headers", this.headers);
-    console.log("data", this.data);
-    this.dataLocal = this.data;
   },
   methods: {}
 };

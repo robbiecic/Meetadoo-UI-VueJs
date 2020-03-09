@@ -2,7 +2,7 @@ To-do priorities:
 
 
 Selected:
-- Ticking on action doesn't do anything (have to update minutes API first)
+- When assigning people to actions it saves weird in the dynamo - like {'S': 'robert.cicero@test.com'}
 - Actions page
     - List of all the actions in your meetings. Can filter by assignee or tags. Clicked tag from top banner which applies the filter.
 - Review Updated lifecycle hook instead of Created and Watching prop changes
