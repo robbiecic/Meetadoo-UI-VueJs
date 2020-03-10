@@ -4,50 +4,49 @@
     <v-container v-if="failAlert == true && loading == false">
       <v-alert type="error">You are not authorised to perform this action</v-alert>
     </v-container>
-    <v-container w fluid ma-0 pa-0 fill-height v-if="failAlert == false && loading == false">
-      <v-row>
-        <v-col>
-          <v-card max-width="600" class="mx-auto">
-            <v-toolbar flat color="transparent">
-              <v-app-bar-nav-icon></v-app-bar-nav-icon>
+    <v-card
+      max-width="600"
+      class="mx-auto"
+      w
+      fluid
+      ma-0
+      pa-0
+      fill-height
+      v-if="failAlert == false && loading == false"
+    >
+      <v-toolbar flat color="transparent">
+        <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-              <v-toolbar-title>My Meetings</v-toolbar-title>
+        <v-toolbar-title>My Meetings</v-toolbar-title>
 
-              <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
 
-              <v-btn icon @click="$refs.search.focus()">
-                <v-icon>mdi-magnify</v-icon>
-              </v-btn>
-            </v-toolbar>
-            <v-text-field ref="search" v-model="search" full-width hide-details label="Search"></v-text-field>
-            <v-list>
-              <v-list-item
-                v-for="item in filteredMinutes"
-                :key="item.id"
-                @click="clickedMinute(item)"
-              >
-                <v-list-item-avatar>
-                  <v-icon :class="[item.iconClass]" v-text="item.icon"></v-icon>
-                </v-list-item-avatar>
+        <v-btn icon @click="$refs.search.focus()">
+          <v-icon>mdi-magnify</v-icon>
+        </v-btn>
+      </v-toolbar>
+      <v-text-field ref="search" v-model="search" full-width hide-details label="Search"></v-text-field>
+      <v-list>
+        <v-list-item v-for="item in filteredMinutes" :key="item.id" @click="clickedMinute(item)">
+          <v-list-item-avatar>
+            <v-icon :class="[item.iconClass]" v-text="item.icon"></v-icon>
+          </v-list-item-avatar>
 
-                <v-list-item-content>
-                  <v-list-item-title v-text="item.title"></v-list-item-title>
-                  <v-list-item-subtitle v-text="item.creation_date"></v-list-item-subtitle>
-                </v-list-item-content>
+          <v-list-item-content>
+            <v-list-item-title v-text="item.title"></v-list-item-title>
+            <v-list-item-subtitle v-text="item.creation_date"></v-list-item-subtitle>
+          </v-list-item-content>
 
-                <v-list-item-action>
-                  <v-btn icon>
-                    <v-icon color="grey lighten-1">mdi-information</v-icon>
-                  </v-btn>
-                </v-list-item-action>
-              </v-list-item>
+          <v-list-item-action>
+            <v-btn icon>
+              <v-icon color="grey lighten-1">mdi-information</v-icon>
+            </v-btn>
+          </v-list-item-action>
+        </v-list-item>
 
-              <v-divider inset></v-divider>
-            </v-list>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
+        <v-divider inset></v-divider>
+      </v-list>
+    </v-card>
   </v-container>
 </template>
 
