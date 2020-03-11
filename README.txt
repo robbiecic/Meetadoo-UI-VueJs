@@ -2,7 +2,11 @@ To-do priorities:
 
 
 Selected:
-- When assigning people to actions it saves weird in the dynamo - like {'S': 'robert.cicero@test.com'}
+- Add search to header
+    - On click it takes you to the minute page
+    - Minute page show 'Related minutes' associated by tags
+    - 
+
 - Actions page
     - List of all the actions in your meetings. Can filter by assignee or tags. Clicked tag from top banner which applies the filter.
 - Review Updated lifecycle hook instead of Created and Watching prop changes
