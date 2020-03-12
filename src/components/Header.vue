@@ -12,7 +12,7 @@
     </div>
 
     <v-spacer></v-spacer>
-
+    <Search />
     <v-btn text to="/" data-test="button_home">
       <span class="mr-2">Home</span>
     </v-btn>
@@ -46,9 +46,11 @@
 
 <script>
 import { mapState } from "vuex";
+import Search from "./search";
 
 export default {
   name: "Header",
+  components: { Search },
   data() {
     return {
       showPaths: false,

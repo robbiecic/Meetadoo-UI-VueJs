@@ -36,7 +36,8 @@ export default new Router({
     {
       path: "/dashboard/minutes",
       name: "MinutesView",
-      component: MinutesView
+      component: MinutesView,
+      props: true
     },
     {
       path: "/logout",
